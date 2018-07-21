@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweetMoive", "SweetMoive\SweetMoive.csproj", "{8AA62B34-B4E4-4C72-95AB-228C8E26AF2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweetMoive.DataLibrary", "SweetMoive.DataLibrary\SweetMoive.DataLibrary.csproj", "{27F2A754-CFF9-4FFD-9C9F-2A4C28EA8A02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweetMoive.DAL", "SweetMoive.DAL\SweetMoive.DAL.csproj", "{9C1BA0C9-0076-4305-8BF6-9704E5AC14EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8AA62B34-B4E4-4C72-95AB-228C8E26AF2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AA62B34-B4E4-4C72-95AB-228C8E26AF2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AA62B34-B4E4-4C72-95AB-228C8E26AF2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AA62B34-B4E4-4C72-95AB-228C8E26AF2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27F2A754-CFF9-4FFD-9C9F-2A4C28EA8A02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27F2A754-CFF9-4FFD-9C9F-2A4C28EA8A02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27F2A754-CFF9-4FFD-9C9F-2A4C28EA8A02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27F2A754-CFF9-4FFD-9C9F-2A4C28EA8A02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C1BA0C9-0076-4305-8BF6-9704E5AC14EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C1BA0C9-0076-4305-8BF6-9704E5AC14EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C1BA0C9-0076-4305-8BF6-9704E5AC14EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C1BA0C9-0076-4305-8BF6-9704E5AC14EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
