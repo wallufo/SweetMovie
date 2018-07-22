@@ -1,0 +1,48 @@
+﻿@model SweetMoive.Areas.AdminPerson.Models.AddAdminViewModel
+
+@{
+    ViewBag.Title = "添加管理员";
+}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">添加管理员</h1>
+        </div>
+    </div>
+@using (Html.BeginForm("Add", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-lg-5 col-md-offset-3">
+            <div class="form-group">
+                @Html.LabelFor(model=>model.Accounts,new { @class= "col-sm-2 control-label" })
+                <div class="col-sm-7">
+                    @Html.EditorFor(model=>model.Accounts, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入帐号" } })
+                    @Html.ValidationMessageFor(model => model.Accounts, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-7">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入密码" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConfirmPassword, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-7">
+                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "请再次输入密码" } })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-5 col-sm-4">
+                    <input type="submit" class="btn btn-large btn-block btn-primary" value="添加" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@Scripts.Render("~/bundles/jqueryval")
+

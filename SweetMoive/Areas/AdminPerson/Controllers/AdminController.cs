@@ -1,6 +1,8 @@
 ﻿using SweetMoive.Areas.AdminPerson.Models;
+using SweetMoive.DAL;
 using SweetMoive.DAL.General;
 using SweetMoive.DAL.ModelManage;
+using SweetMoive.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +51,61 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
                 else ModelState.AddModelError("", _res.Message);
             }
             return View(loginViewModel);
+        }
+        public ActionResult LoginOut()
+        {
+            Session.Clear();
+            return RedirectToAction("Login");
+        }
+        [HttpPost]
+        public JsonResult PageListJson(int? pageIndex,int? pageSize,int? order)
+        {
+            Paging<Administrator> _pageingAdmin = new Paging<Administrator>();
+            if (pageIndex != null && pageIndex > 0) _pageingAdmin.PageIndex = (int)pageIndex;
+            if (pageSize != null && pageSize > 0) _pageingAdmin.PageSize = (int)pageSize;
+            var _paging = adminManage.FindPageList(_pageingAdmin, 0);
+            return Json(new { total = _paging.TotalNumber, rows = _paging.Items });
+        }
+        [HttpGet]
+        public ActionResult Add()
+        {
+            return View();
+        }
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Add(AddAdminViewModel addAdminVieModel)
+        {
+            if (adminManage.HasAccounts(addAdminVieModel.Accounts)) ModelState.AddModelError("Accounts", "账号已存在");
+            if (ModelState.IsValid)
+            {
+                if(Convert.ToInt32(addAdminVieModel.Password)== Convert.ToInt32(addAdminVieModel.ConfirmPassword))
+                {
+                    Administrator _admin = new Administrator();
+                    _admin.Accounts = addAdminVieModel.Accounts;
+                    _admin.Password = Security.Sha256(addAdminVieModel.Password);
+                    _admin.CreateTime = DateTime.Now;
+                    var _resp = adminManage.Add(_admin);
+                    if (_resp.Code == 1) return View("Prompt", new Prompt()
+                    {
+                        Title = "添加管理员成功",
+                        Message = "您已添加了管理员【" + _resp.Data.Accounts + "】",
+                        Buttons = new List<string>(){"<a href=\""+Url.Action("Index","Admin")+"\" class=\"btn btn-default\">管理员管理</a>",
+                        "<a href=\"" + Url.Action("Add", "Admin") + "\" class=\"btn btn-default\">继续添加</a>"}
+                    });
+                    else ModelState.AddModelError("", _resp.Message);
+                }
+                else
+                {
+                    return View(addAdminVieModel);
+                }
+                
+            }
+            return View(addAdminVieModel);
+        }
+        [HttpPost]
+        public JsonResult CanAccounts(string Accounts)
+        {
+            return Json(!adminManage.HasAccounts(Accounts));
         }
     }
 }

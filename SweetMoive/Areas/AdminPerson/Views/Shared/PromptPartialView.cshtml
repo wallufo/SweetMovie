@@ -1,0 +1,18 @@
+﻿@model SweetMoive.DAL.General.Prompt
+
+<div class="panel panel-default">
+    <div class="panel-heading"><div class="panel-title">@Model.Title</div></div>
+    <div class="panel-body">
+        <p>@Html.Raw(Model.Message)</p>
+        @if (Model.Buttons != null && Model.Buttons.Count > 0)
+        {
+            <p>
+                @foreach (var item in Model.Buttons)
+                {
+                    @Html.Raw(item + "&nbsp;&nbsp;")
+
+                }
+            </p>
+        }
+    </div>
+</div>

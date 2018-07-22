@@ -138,7 +138,7 @@ namespace SweetMoive.DataLibrary
             return Update(entity, true);
         }
         public int Update(T entity,bool isSave)
-        {
+        {          
             DbContext.Set<T>().Attach(entity);
             DbContext.Entry<T>(entity).State = EntityState.Modified;
             return isSave ? DbContext.SaveChanges() : 0;
@@ -209,7 +209,7 @@ namespace SweetMoive.DataLibrary
                     var _property = typeof(T).GetProperty(order[i].PropertyName);
                     var _propertAccess = Expression.MakeMemberAccess(_order, _property);
                     var _orderByExp = Expression.Lambda(_propertAccess, _order);
-                    string _orderName = order[i].Method == OrderParamcs.OrderMethod.ASC ? "Order" : "OrderByDescending";
+                    string _orderName = order[i].Method == OrderParamcs.OrderMethod.ASC ? "OrderBy" : "OrderByDescending";
                     MethodCallExpression resultExp = Expression.Call(typeof(Queryable), _orderName, new Type[] { typeof(T), _property.PropertyType }, _list.Expression, Expression.Quote(_orderByExp));
                     _list = _list.Provider.CreateQuery<T>(resultExp);
                 }

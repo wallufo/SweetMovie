@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -159,6 +160,8 @@
     <Compile Include="Areas\AdminPerson\AdminAuthorizeAttribute.cs" />
     <Compile Include="Areas\AdminPerson\AdminPersonAreaRegistration.cs" />
     <Compile Include="Areas\AdminPerson\Controllers\AdminController.cs" />
+    <Compile Include="Areas\AdminPerson\Controllers\HomeController.cs" />
+    <Compile Include="Areas\AdminPerson\Models\AddAdminViewModel.cs" />
     <Compile Include="Areas\AdminPerson\Models\LoginViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -226,6 +229,13 @@
     <Content Include="fonts\lato\lato-regular.eot" />
     <Content Include="fonts\lato\lato-regular.ttf" />
     <Content Include="fonts\lato\lato-regular.woff" />
+    <Content Include="Areas\AdminPerson\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\AdminPerson\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\AdminPerson\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\AdminPerson\Views\Home\Index.cshtml" />
+    <Content Include="Areas\AdminPerson\Views\Admin\Add.cshtml" />
+    <Content Include="Areas\AdminPerson\Views\Shared\PromptPartialView.cshtml" />
+    <Content Include="Areas\AdminPerson\Views\Admin\Prompt.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\flat-ui.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -253,10 +263,11 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\PromptPartialView.cshtml" />
+    <Content Include="Views\Shared\Prompt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\AdminPerson\Views\Shared\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>

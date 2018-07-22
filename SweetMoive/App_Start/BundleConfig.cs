@@ -35,6 +35,17 @@ namespace SweetMoive
                     "~/Scripts/bootstrap.js",
                     "~/Scripts/flat-ui.js"
                 ));
+            bundles.Add(new ScriptBundle("~/bundles/B-Admin").Include(
+                    "~/Scripts/bootstrap.js",
+                    "~/Scripts/metisMenu.js",
+                    "~/Scripts/sb-admin-2.js"
+                ));
+            bundles.Add(new StyleBundle("~/Content/B-Admin").Include(
+                   "~/Content/bootstrap.css",
+                   "~/Content/sb-admin-2.css",
+                   "~/Content/metisMenu.css",
+                   "~/Content/font-awesome.css"
+               ));
             bundles.Add(new StyleBundle("~/Content/Flat-UI").Include(
                     "~/Content/bootstrap.css",
                     "~/Content/flat-ui.css"

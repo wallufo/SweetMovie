@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -52,6 +53,7 @@
     <Compile Include="BaseMannage.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ContextFactory.cs" />
+    <Compile Include="General\Prompt.cs" />
     <Compile Include="General\Security.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelManage\AdministratorManage.cs" />
@@ -60,9 +62,11 @@
     <Compile Include="ModelManage\HistoryManage.cs" />
     <Compile Include="ModelManage\UserManage.cs" />
     <Compile Include="Models\Administrator.cs" />
+    <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="ModelManage\MoiveManage.cs" />
     <Compile Include="Models\Favorite.cs" />
+    <Compile Include="Models\Follower.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\User.cs" />

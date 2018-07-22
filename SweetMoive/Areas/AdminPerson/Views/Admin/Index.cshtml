@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">管理员列表</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <table id="admingrid"></table>
+    </div>
+</div>
+@section style{
+    @Styles.Render("~/Content/bootstrapplugincss")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrapplugin")
+<script>
+    $(document).ready(function () {
+
+        //表格
+        var $table = $('#admingrid');
+        $table.bootstrapTable({
+            toolbar: "#toolbar",
+            showRefresh: true,
+            showColumns: true,
+            pagination: true,
+            sidePagination: "server",
+            pageSize: 5,
+            pageList:"[5,10]",
+            method: "post",
+            url: "@Url.Action("PageListJson")",
+            queryParams: queryParams,
+            columns: [
+                { title: "state", checkbox: true },
+                { title: "ID", field: "AdministratorID" },
+                { title: "帐号", field: "Accounts" },
+                { title: "登录时间", field: "LoginTime", formatter: function (value) { return moment(value).format("YYYY-MM-DD HH:mm:ss") } },
+                { title: "登录IP", field: "LoginIP" },
+                { title: "创建时间", field: "CreateTime", formatter: function (value) { return moment(value).format("YYYY-MM-DD HH:mm:ss") } },
+                { title: "操作", field: "AdministratorID", formatter: function (value, row, index) { return "<a href=\"javascript:void(0)\" onclick=\"ResetPassword(" + value + ",'" + row.Accounts + "')\">重置密码</a>" } }
+            ]
+        });
+        function queryParams(params) {
+            return {
+                pageSize: params.limit, //每一页的数据行数，默认是上面设置的5(pageSize)
+                pageIndex: params.offset / params.limit + 1, //当前页面,默认是上面设置的1(pageNumber)
+                //param: "Your Param" //这里是其他的参数，根据自己的需求定义，可以是多个
+            }
+        }
+    })
+    </script>
+}
