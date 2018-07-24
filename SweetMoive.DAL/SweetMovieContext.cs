@@ -18,11 +18,13 @@ namespace SweetMoive.DAL
             Database.SetInitializer<SweetMovieContext>(new SweetMovieDbInitializer<SweetMovieContext>());
         }
         public DbSet<User> Users { get; set; }
-        public DbSet<Comment> Comments { get; set; }
+        public DbSet<MovieComment> MovieComments { get; set; }
         public DbSet<History> Histories { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Administrator> Admministrators { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<Follower> Followers { get; set; }
         private class SweetMovieDbInitializer<T> : DropCreateDatabaseIfModelChanges<SweetMovieContext>
         {
             protected override void Seed(SweetMovieContext context)

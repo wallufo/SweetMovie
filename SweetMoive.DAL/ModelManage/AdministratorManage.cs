@@ -136,5 +136,23 @@ namespace SweetMoive.DAL.ModelManage
             return _res;
         }
         #endregion
+        #region 修改密码
+        public Response ChangePassword(int administratorID,string password)
+        {
+            Response _res = new Response();
+            var _admin = Find(administratorID);
+            if (_admin == null)
+            {
+                _res.Code = 0;
+                _res.Message = "当前管理员不存在";
+            }
+            else
+            {
+                _admin.Password = password;
+                _res = Update(_admin);
+            }
+            return _res;
+        }
+        #endregion
     }
 }

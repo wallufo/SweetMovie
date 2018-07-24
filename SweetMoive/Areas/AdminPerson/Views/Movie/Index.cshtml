@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "电影管理";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">电影列表</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <table id="moviegrid"></table>
+    </div>
+</div>
+@section style{
+    @Styles.Render("~/Content/bootstrapplugincss")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrapplugin")
+    <script>
+        $(document).ready(function () {
+
+            //表格
+            var $table = $('#moviegrid');
+            $table.bootstrapTable({
+                toolbar: "#toolbar",
+                showRefresh: true,
+                showColumns: true,
+                pagination: true,
+                sidePagination: "server",
+                pageSize: 5,
+                pageList: "[5,10]",
+                method: "post",
+                url: "@Url.Action("PageListJson")",
+                queryParams: queryParams,
+                columns: [
+                { title: "ID", field: "ID" },
+                { title: "电影名称", field: "MovieName" },
+                { title: "上映日期", field: "ReleaseDate" ,formatter: function (value) { return moment(value).format("YYYY-MM-DD") }},
+                { title: "演员", field: "Actors" },
+                { title: "剧情简介", field: "Synopsis",visible:false},
+                { title: "导演", field: "Director" },
+                { title: "类型", field: "Type", formatter: function (value) { var Types = ["剧情", "喜剧", "动作", "爱情", "科幻", "悬疑", "惊悚", "恐怖", "犯罪", "同性", "音乐", "歌舞", "传记", "历史", "战争", "西部", "奇幻", "冒险", "灾难", "武侠", "情色", "其他"]; return Types[value]; } },
+                { title: "时长", field: "Duration", formatter: function (value) { return value + "分钟";} },
+                { title: "国家", field: "Contry" },
+                { title: "评分", field: "Score" },
+                { title: "海报图片数量", field: "PostersNum" },
+                { title: "封面图片", field: "DefaultImgUrl", formatter: function (value, row, index) { var s = '<a class = "view"  href="javascript:void(0)"><img style="width:40px;height:60px;"  src="' + "/Images/" +row.ID+ "-1-1" +".jpg"+ '" /></a>'; return s; }, events: 'operateEvents' },
+                { title: "是否隐藏", field: "Hidden" },
+                { title: "操作", field: "ID", formatter: function (value) {  return "<a class='btn btn-primary' href='@Url.Action("Modify")/"+value+"'>编辑</a>" } },
+                ]
+            });
+            //表格结束
+            //表格传值
+            function queryParams(params) {
+                return {
+                    pageSize: params.limit, //每一页的数据行数，默认是上面设置的5(pageSize)
+                    pageIndex: params.offset / params.limit + 1, //当前页面,默认是上面设置的1(pageNumber)
+                }
+            }
+            //传值结束
+            //点击放大图片
+            window.operateEvents = {
+                'click .view': function (e, value, row, index) {
+                    BootstrapDialog.show({
+                        title: '【' + row.MovieName + '】' + '电影封面图片',
+                        message: '<div class="row"><div class="col-lg-offset-1 col-lg-11"><img class="img-responsive center-block" src="' + "/Images/" + row.ID + "-1-1" + ".jpg" + '"></img></div></div>'
+                    });
+                },
+            };
+            //结束放大图片
+        });
+    </script>
+}

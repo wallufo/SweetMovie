@@ -8,6 +8,9 @@
     </div>
 </div>
 <div class="row">
+    <div id="toolbar" class="btn-group" role="group">
+        <button id="btn_del" class="btn btn-default"><span class="fa  fa-times"></span> 删除</button>
+    </div>
     <div class="col-lg-12">
         <table id="admingrid"></table>
     </div>
@@ -19,6 +22,17 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrapplugin")
 <script>
+    //重置密码
+    function ResetPassword(id, accounts) {
+        BootstrapDialog.confirm("确定重置" + accounts + "的密码", function (result) {
+            if (result) {
+                $.post("@Url.Action("ResetPassword", "Admin")", { id: id }, function (data) {
+                    BootstrapDialog.alert(data.Message);
+                }, "json");
+            }
+        });
+    };
+    //重置密码结束
     $(document).ready(function () {
 
         //表格
@@ -44,6 +58,40 @@
                 { title: "操作", field: "AdministratorID", formatter: function (value, row, index) { return "<a href=\"javascript:void(0)\" onclick=\"ResetPassword(" + value + ",'" + row.Accounts + "')\">重置密码</a>" } }
             ]
         });
+            //删除按钮
+            $("#btn_del").click(function () {
+                var selected = $table.bootstrapTable('getSelections');
+                if ($(selected).length > 0) {
+                    BootstrapDialog.confirm("确定删除选中的" + $(selected).length + "位管理员", function (result) {
+                        if (result) {
+                            var ids = new Array($(selected).length);
+                            $.each(selected, function (index, value) {
+                                ids[index] = value.AdministratorID;
+                            });
+                            $.post("@Url.Action("DeleteJson","Admin")", { ids: ids }, function (data) {
+                                if (data.Code != 0) {
+                                    BootstrapDialog.show({
+                                        message: data.Message,
+                                        buttons: [{
+                                            icon: "glyphicon glyphicon-ok",
+                                            label: "确定",
+                                            action: function (dialogItself) {
+                                                $table.bootstrapTable("refresh");
+                                                dialogItself.close();
+                                            }
+                                        }]
+
+                                    });
+                                }
+                                else BootstrapDialog.alert(data.Message);
+
+                            }, "json");
+                        }
+                    });
+                }
+                else BootstrapDialog.warning("请选择要删除的行");
+            });
+            //删除按钮结束
         function queryParams(params) {
             return {
                 pageSize: params.limit, //每一页的数据行数，默认是上面设置的5(pageSize)

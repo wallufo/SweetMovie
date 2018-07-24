@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -138,10 +139,32 @@ namespace SweetMoive.DataLibrary
             return Update(entity, true);
         }
         public int Update(T entity,bool isSave)
-        {          
+        {
+            if (DbContext.Entry(entity).State == EntityState.Detached)
+            {
+                HandleDetached(entity);
+            }
             DbContext.Set<T>().Attach(entity);
             DbContext.Entry<T>(entity).State = EntityState.Modified;
             return isSave ? DbContext.SaveChanges() : 0;
+        }
+        /// <summary>
+        /// 将当前线程中的上下文移除
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        private bool HandleDetached(T entity)
+        {
+            var objectContext = ((IObjectContextAdapter)DbContext).ObjectContext;
+            var entitySet = objectContext.CreateObjectSet<T>();
+            var entityKey = objectContext.CreateEntityKey(entitySet.EntitySet.Name, entity);
+            object foundSet;
+            bool exists = objectContext.TryGetObjectByKey(entityKey, out foundSet);
+            if (exists)
+            {
+                objectContext.Detach(foundSet); //从上下文中移除
+            }
+            return exists;
         }
         #endregion
         #region 删除实体
@@ -151,7 +174,8 @@ namespace SweetMoive.DataLibrary
         }
         public int Delete(T entity,bool isSave)
         {
-            DbContext.Set<T>().Remove(entity);
+            DbContext.Set<T>().Attach(entity);
+            DbContext.Entry<T>(entity).State = EntityState.Deleted;
             return isSave ? DbContext.SaveChanges() : 0;
         }
         #endregion

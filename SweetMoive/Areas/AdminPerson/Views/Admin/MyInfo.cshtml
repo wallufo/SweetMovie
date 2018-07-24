@@ -1,0 +1,39 @@
+﻿@model SweetMoive.DAL.Models.Administrator
+
+@{
+    ViewBag.Title = "管理员个人信息";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">管理员个人信息</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                个人信息
+            </div>
+            <div class="panel-body">
+                <div class="alert alert-info">
+                    @Html.LabelFor(model => model.Accounts, htmlAttributes: new { @class = "control-label" }):
+                    <pre>@Html.DisplayTextFor(model=>model.Accounts)</pre>
+                </div>
+                <div class="alert alert-info">
+                    @Html.LabelFor(model => model.LoginIP, htmlAttributes: new { @class = "control-label" }):
+                    <pre>@Html.DisplayTextFor(model=>model.LoginIP)</pre>
+                </div>
+                <div class="alert alert-info">
+                    @Html.LabelFor(model => model.CreateTime, htmlAttributes: new { @class = "control-label" }):
+                    <pre>@Html.DisplayTextFor(model=>model.CreateTime)</pre>
+                </div>
+                <div class="alert alert-info">
+                    @Html.LabelFor(model => model.LoginTime, htmlAttributes: new { @class = "control-label" }):
+                    <pre>@Html.DisplayTextFor(model=>model.LoginTime)</pre>
+                </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+</div>

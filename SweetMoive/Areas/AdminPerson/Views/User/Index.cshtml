@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewBag.Title = "用户管理";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">用户列表</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <table id="usergrid"></table>
+    </div>
+</div>
+
+@section style{
+    @Styles.Render("~/Content/bootstrapplugincss")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrapplugin")
+    <script>
+        $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN']);
+        $(document).ready(function () {
+
+            //表格
+            var $table = $('#usergrid');
+            $table.bootstrapTable({
+                toolbar: "#toolbar",
+                showRefresh: true,
+                showColumns: true,
+                pagination: true,
+                sidePagination: "server",
+                pageSize: 5,
+                pageList:"[5,10]",
+                method: "post",
+                url: "@Url.Action("PageListJson")",
+                queryParams: queryParams,
+                columns: [
+                { title: "ID", field: "ID" },
+                { title: "用户名", field: "Username" },
+                { title: "邮箱", field: "EmailAdress" },
+                { title: "头像", field: "DefaultImgUrl", formatter: function (value, row, index) { var s = '<a class = "view"  href="javascript:void(0)"><img style="width:70;height:30px;"  src="' + value + '" /></a>'; return s; }, events: 'operateEvents' },
+                { title: "昵称", field: "Name" },
+                { title: "角色", field: "Role", formatter: function (value) { if (value == 0) return value = "评论专家"; else if (value == 1) return value = "普通用户"; } },
+                { title: "性别", field: "Sex", formatter: function (value) { if (value == 0) return value = "男"; else if (value == 1) return value = "女"; } },
+                { title: "座右铭", field: "MyMotto" },
+                { title: "甜值", field: "SweetScore" },
+                { title: "用户状态", field: "Userstatus", formatter: function (value) { if (value == 0) return value = "未启用"; else if (value == 1) return value = "启用"; } },
+                { title: "操作", field: "ID", formatter: function (value) { return "<a href='#' data-method='Modify' data-value=" + value + " class='btn btn-primary'>编辑</a>" } }
+                ],
+                onLoadSuccess: function () {
+                    //修改
+                    $("a[data-method='Modify']").click(function () {
+                        var id = $(this).attr("data-value");
+                        var modifyDialog = new BootstrapDialog({
+                            title: "<span class='glyphicon glyphicon-user'></span>修改用户",
+                            message: function (dialog) {
+                                var $message = $('<div></div>');
+                                var pageToLoad = dialog.getData('pageToLoad');
+                                $message.load(pageToLoad);
+                                return $message;
+                            },
+                            data: {
+                                'pageToLoad': '@Url.Action("Modify")/' + id
+                            },
+                            buttons: [{
+                                icon: "glyphicon glyphicon-plus",
+                                label: "保存",
+                                action: function (dialogItself) {
+                                    $.post($("form").attr("action"), $("form").serializeArray(), function (data) {
+                                        if (data.Code == 1) {
+                                            BootstrapDialog.show({
+                                                message: data.Message,
+                                                buttons: [{
+                                                    icon: "glyphicon glyphicon-ok",
+                                                    label: "确定",
+                                                    action: function (dialogItself) {
+                                                        $table.bootstrapTable("refresh");
+                                                        dialogItself.close();
+                                                        modifyDialog.close();
+                                                    }
+                                                }]
+
+                                            });
+                                        }
+                                        else BootstrapDialog.alert(data.Message);
+                                    }, "json");
+                                    $("form").validate();
+                                }
+                            }, {
+                                icon: "glyphicon glyphicon-remove",
+                                label: "关闭",
+                                action: function (dialogItself) {
+                                    dialogItself.close();
+                                }
+                            }]
+                        });
+                        modifyDialog.open();
+                    });
+                    //修改结束
+                }
+            });
+            //表格结束
+            //表格传值
+            function queryParams(params) {
+                return {
+                    pageSize: params.limit, //每一页的数据行数，默认是上面设置的5(pageSize)
+                    pageIndex: params.offset / params.limit + 1, //当前页面,默认是上面设置的1(pageNumber)
+                }
+            }
+            //传值结束
+            //点击放大图片
+            window.operateEvents = {
+                'click .view': function (e, value, row, index) {
+                    BootstrapDialog.show({
+                        title: '【'+row.Username+'】'+'用户的头像',
+                        message: '<img src="' + value + '"></img>'
+                    });
+                },
+            };
+            //结束放大图片
+        })
+    </script>
+}

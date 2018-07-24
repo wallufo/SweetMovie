@@ -10,30 +10,46 @@ namespace SweetMoive.DAL.Models
     public class User
     {
         [Key]
-        public int UserID { get; set; }
+        public int ID { get; set; }
+        [Required(ErrorMessage ="必须输入{0}")]
         [StringLength(30, MinimumLength = 6, ErrorMessage = "{0}长度{2}-{1}个字符")]
         [Display(Name = "用户名")]
         public string Username { get; set; }
         [DataType(DataType.Password)]
+        [Required(ErrorMessage = "必须输入{0}")]
         [StringLength(256, MinimumLength = 6, ErrorMessage ="{0}长度{2}-{1}个字符")]
         [Display(Name ="密码")]
         public string Password { get; set; }
         [DataType(DataType.EmailAddress)]
         [Display(Name ="电子邮箱")]
+        [Required(ErrorMessage = "必须输入{0}")]
         public string EmailAdress { get; set; }
         [Display(Name="昵称")]
-        [StringLength(15,MinimumLength =6,ErrorMessage ="{0}长度{2}-{1}个字符")]
         public string Name { get; set; }
         public enum Roles
         {
             评论专家,普通用户
         }
         [Display(Name ="用户角色")]
-        public Roles Role { get; set; }
+        public Roles? Role { get; set; }
+        [Display(Name="座右铭")]
+        public string MyMotto { get; set; }
         [Display(Name ="头像")]
         public string DefaultImgUrl { get; set; }
+        [Display(Name ="甜值")]
+        public int SweetScore { get; set; }
+        public enum Sexs
+        {
+            男,女
+        }
         [Display(Name ="性别")]
-        [Range(0,1,ErrorMessage ="{0}范围{1}-{2}")]
-        public int Sex { get; set; }
+        public Sexs? Sex { get; set; }
+        public enum UserStatus
+        {
+            未启用,启用
+        }
+        [Display(Name ="账号状态")]
+        [Required(ErrorMessage = "必须选择{0}")]
+        public UserStatus Userstatus { get; set; }
     }
 }

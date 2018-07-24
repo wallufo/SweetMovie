@@ -10,9 +10,11 @@ namespace SweetMoive.DAL.Models
     public class Movie
     {
         [Key]
-        public int MovieID { get; set; }
+        public int ID { get; set; }
         [Display(Name ="电影名称")]
-        public string MoiveName { get; set; }
+        public string MovieName { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString ="{0:yyyy-MM-dd hh:mm:ss}",ApplyFormatInEditMode =true)]
         [Display(Name ="上映日期")]
         public DateTime ReleaseDate { get; set; }
         [Display(Name ="演员")]
@@ -38,9 +40,15 @@ namespace SweetMoive.DAL.Models
         public string Contry { get; set; }
         [Display(Name ="评分")]
         public float Score { get; set; }
-        [Display(Name ="海报图片数量")]
-        public string PostersNum { get; set; }
+        [Display(Name ="海报图片")]
+        public int PostersNum { get; set; }
         [Display(Name ="封面图片")]
         public string DefaultImgUrl { get; set; }
+        public enum Hiddens
+        {
+            隐藏,显示
+        }
+        [Display(Name ="是否隐藏")]
+        public Hiddens Hidden { get; set; }
     }
 }

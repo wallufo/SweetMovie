@@ -12,6 +12,13 @@
     @RenderSection("style", required: false)
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("scripts", required: false)
+    <style>
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle!important;
+            }
+
+    </style>
 </head>
 <body>
     <div id="wrapper">
@@ -71,6 +78,9 @@
                                 <li>
                                     <a href="@Url.Action("Add","User")">添加用户</a>
                                 </li>
+                                @*<li>
+                                    <a href="@Url.Action("Audit","User")">用户审核</a>
+                                </li>*@
                                 <li>
                                     <a href="@Url.Action("Index","User")">查看用户</a>
                                 </li>
@@ -102,18 +112,6 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a><i class="fa fa-history fa-fw"></i>浏览历史<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="@Url.Action("Add","History")">添加浏览历史</a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("Index","History")">查看浏览历史</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
                             <a><i class="fa fa-heart-o fa-fw"></i>收藏电影<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -121,6 +119,18 @@
                                 </li>
                                 <li>
                                     <a href="@Url.Action("Index","Favorite")">查看收藏电影</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a><i class="fa fa-book fa-fw"></i>影评文章<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="@Url.Action("Audit","Article")">待审核影评文章</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index","Article")">查看影评文章</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

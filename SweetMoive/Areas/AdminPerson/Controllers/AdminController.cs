@@ -78,7 +78,7 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
             if (adminManage.HasAccounts(addAdminVieModel.Accounts)) ModelState.AddModelError("Accounts", "账号已存在");
             if (ModelState.IsValid)
             {
-                if(Convert.ToInt32(addAdminVieModel.Password)== Convert.ToInt32(addAdminVieModel.ConfirmPassword))
+                if(Security.Sha256(addAdminVieModel.Password)== Security.Sha256(addAdminVieModel.ConfirmPassword))
                 {
                     Administrator _admin = new Administrator();
                     _admin.Accounts = addAdminVieModel.Accounts;
@@ -106,6 +106,41 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
         public JsonResult CanAccounts(string Accounts)
         {
             return Json(!adminManage.HasAccounts(Accounts));
+        }
+        [HttpPost]
+        public JsonResult ResetPassword(int ID)
+        {
+            string _password = "SweetMovie";
+            Response _res = adminManage.ChangePassword(ID, DAL.General.Security.Sha256(_password));
+            if (_res.Code == 1) _res.Message = "密码重置为:" + _password;
+            return Json(_res);
+        }
+        [HttpPost]
+        public JsonResult DeleteJson(List<int> ids)
+        {
+            int _total = ids.Count();
+            Response _resp = new DAL.Response();
+            int _currentAdminID = int.Parse(Session["AdminID"].ToString());
+            if (ids.Contains(_currentAdminID))
+            {
+                ids.Remove(_currentAdminID);
+            }
+            _resp = adminManage.Delete(ids);
+            if (_resp.Code == 1 && _resp.Data < _total)
+            {
+                _resp.Code = 2;
+                _resp.Message = "共提交删除" + _total + "名管理员，实际删除" + _resp.Data + "名管理员。/n原因不能删除当前管理员!";
+            }
+            else if (_resp.Code == 2)
+            {
+                _resp.Message = "共提交删除" + _total + "名管理员，实际删除" + _resp.Data + "名管理员。";
+            }
+            return Json(_resp);
+        }
+        [HttpGet]
+        public ActionResult MyInfo()
+        {
+            return View(adminManage.Find(Session["Accounts"].ToString()));
         }
     }
 }
