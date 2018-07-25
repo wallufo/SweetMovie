@@ -14,7 +14,7 @@ namespace SweetMoive.DAL.Models
         [Display(Name ="电影名称")]
         public string MovieName { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString ="{0:yyyy-MM-dd hh:mm:ss}",ApplyFormatInEditMode =true)]
+        [DisplayFormat(DataFormatString ="{0:yyyy-MM-dd}",ApplyFormatInEditMode =true)]
         [Display(Name ="上映日期")]
         public DateTime ReleaseDate { get; set; }
         [Display(Name ="演员")]
@@ -39,11 +39,15 @@ namespace SweetMoive.DAL.Models
         [Display(Name ="国家")]
         public string Contry { get; set; }
         [Display(Name ="评分")]
+        [Range(1,10)]
         public float Score { get; set; }
         [Display(Name ="海报图片")]
         public int PostersNum { get; set; }
         [Display(Name ="封面图片")]
         public string DefaultImgUrl { get; set; }
+        [Display(Name ="电影预告片")]
+        [DataType(DataType.Url)]
+        public string PreviewUrl { get; set; }
         public enum Hiddens
         {
             隐藏,显示

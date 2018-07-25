@@ -36,6 +36,7 @@ namespace SweetMoive.DAL.Models
         public string MyMotto { get; set; }
         [Display(Name ="头像")]
         public string DefaultImgUrl { get; set; }
+        [Range(0,100)]
         [Display(Name ="甜值")]
         public int SweetScore { get; set; }
         public enum Sexs

@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "评论管理";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">电影列表</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <table id="commentgrid"></table>
+    </div>
+</div>
+@section style{
+    @Styles.Render("~/Content/bootstrapplugincss")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrapplugin")
+    <script>
+        $(document).ready(function () {
+
+            //表格
+            var $table = $('#commentgrid');
+            $table.bootstrapTable({
+                toolbar: "#toolbar",
+                showRefresh: true,
+                showColumns: true,
+                pagination: true,
+                sidePagination: "server",
+                pageSize: 5,
+                pageList: "[5,10]",
+                method: "post",
+                url: "@Url.Action("PageListJson")",
+                queryParams: queryParams,
+                columns: [
+                { title: "ID", field: "ID" },
+                { title: "用户名", field: "User.Username" },
+                { title: "评论日期", field: "CommentTime" ,formatter: function (value) { return moment(value).format("YYYY-MM-DD hh:mm:ss") }},
+                { title: "电影名称", field: "Movie.MovieName" },
+                { title: "评论内容", field: "Content"},
+                { title: "用户评分", field: "Score" },
+                { title: "点赞数", field: "Like" },
+                { title: "操作", field: "ID", formatter: function (value) {  return "<a class='btn btn-primary' href='@Url.Action("Modify")/"+value+"'>编辑</a>" } },
+                ]
+            });
+            //表格结束
+            //表格传值
+            function queryParams(params) {
+                return {
+                    pageSize: params.limit, //每一页的数据行数，默认是上面设置的5(pageSize)
+                    pageIndex: params.offset / params.limit + 1, //当前页面,默认是上面设置的1(pageNumber)
+                }
+            }
+        });
+    </script>
+}
+

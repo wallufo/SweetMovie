@@ -9,7 +9,7 @@ namespace SweetMoive.DAL.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(SweetMoive.DAL.SweetMovieContext context)

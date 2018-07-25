@@ -8,10 +8,12 @@
         <h1 class="page-header">修改电影</h1>
     </div>
 </div>
-@using (Html.BeginForm("Modify", "Movie", FormMethod.Post, new { enctype = "mutipart/form-data" }))
+@using (Html.BeginForm("Modify", "Movie", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(Model=>Model.ID)
+    @Html.HiddenFor(model=>model.DefaultImgUrl)
+    @Html.HiddenFor(model=>model.PostersNum)
     <div class="form-horizontal">
         <div class="row">
             <div class="col-lg-7 col-md-offset-2">
@@ -80,15 +82,22 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    @Html.LabelFor(model => model.PreviewUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PreviewUrl, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PreviewUrl, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
                     @Html.LabelFor(model => model.DefaultImgUrl, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input type="file" name="mPost" value="" class="form-control" data-value="true" />
+                        <input type="file" id="mPost" name="mPost" value="" class="form-control" data-value="true" />
                     </div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.PostersNum, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input type="file" name="PostImg" value="" class="form-control" data-value="true" multiple="multiple" />
+                        <input type="file" name="PostImg"  id="PostImg" value="" class="form-control" data-value="true" multiple="multiple"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -106,6 +115,39 @@
             </div>
             </div>
         </div>
+}
+@section scripts{
+    <script>
+        $(document).on('ready', function () {
+            $("#PostImg").fileinput({
+                theme: 'explorer-fa',
+                maxFileCount: 5,
+                showUpload: false,
+                browseClass: "btn btn-success btn-sm btn-file",
+                browseLabel: "选择图片",
+                browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                removeClass: "btn btn-danger btn-sm",
+                removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                removeLabel: "删除",
+                fileType: "image",
+                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+            });
+            $("#mPost").fileinput({
+                theme: 'explorer-fa',
+                maxFileCount: 1,
+                showUpload: false,
+                browseClass: "btn btn-success btn-sm btn-file",
+                browseLabel: "选择图片",
+                browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                removeClass: "btn btn-danger btn-sm",
+                removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                removeLabel: "删除",
+                fileType: "image",
+                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+            });
+        });
+        
+    </script>
 }
 @Scripts.Render("~/bundles/jqueryval")
 

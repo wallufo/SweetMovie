@@ -33,13 +33,29 @@ namespace SweetMoive
                "~/Scripts/jquery.twbsPagination.js"));
             bundles.Add(new ScriptBundle("~/bundles/Flat-UI").Include(
                     "~/Scripts/bootstrap.js",
-                    "~/Scripts/flat-ui.js"
+                    "~/Scripts/flat-ui.js",
+                    "~/Scripts/video.js"
                 ));
             bundles.Add(new ScriptBundle("~/bundles/B-Admin").Include(
                     "~/Scripts/bootstrap.js",
                     "~/Scripts/metisMenu.js",
                     "~/Scripts/sb-admin-2.js"
                 ));
+            bundles.Add(new ScriptBundle("~/bundles/fileinput").Include(
+                    "~/Scripts/fileinput*",
+                    "~/Scripts/plugins/piexif*",
+                    "~/Scripts/plugins/purify*",
+                    "~/Scripts/plugins/sortable*",
+                    "~/Scripts/locales/zh.js",
+                    "~/Scripts/themes/fa/theme*",
+                    "~/Scripts/themes/explorer-fa/theme*"
+
+                ));
+            bundles.Add(new StyleBundle("~/Content/fileinput").Include(
+                    "~/Content/fileinput*",
+                    "~/Content/themes/explorer-fa/theme*"
+                ));
+            
             bundles.Add(new StyleBundle("~/Content/B-Admin").Include(
                    "~/Content/bootstrap.css",
                    "~/Content/sb-admin-2.css",

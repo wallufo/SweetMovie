@@ -1,9 +1,11 @@
-﻿using SweetMoive.DAL.Models;
+﻿using LinqKit;
+using SweetMoive.DAL.Models;
 using SweetMoive.DataLibrary;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -32,6 +34,17 @@ namespace SweetMoive.DAL.ModelManage
             return pagingUser;
         }
         #endregion
-      
+        #region 是否存在当前电影
+        public bool HasMovieName(string moviename)
+        {
+            return base.Repository.isContains(u => u.MovieName == moviename);
+        }
+        #endregion
+        #region 查找当前的最大的电影ID
+        public int MovieId(Expression<Func<Movie,int>> where)
+        {
+            return base.Repository.FindMaxId(where);
+        }
+        #endregion
     }
 }

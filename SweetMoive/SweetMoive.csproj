@@ -160,10 +160,12 @@
     <Compile Include="Areas\AdminPerson\AdminAuthorizeAttribute.cs" />
     <Compile Include="Areas\AdminPerson\AdminPersonAreaRegistration.cs" />
     <Compile Include="Areas\AdminPerson\Controllers\AdminController.cs" />
+    <Compile Include="Areas\AdminPerson\Controllers\CommentController.cs" />
     <Compile Include="Areas\AdminPerson\Controllers\HomeController.cs" />
     <Compile Include="Areas\AdminPerson\Controllers\MovieController.cs" />
     <Compile Include="Areas\AdminPerson\Controllers\UserController.cs" />
     <Compile Include="Areas\AdminPerson\Models\AddAdminViewModel.cs" />
+    <Compile Include="Areas\AdminPerson\Models\AddMovieViewModel.cs" />
     <Compile Include="Areas\AdminPerson\Models\AddUserViewModel.cs" />
     <Compile Include="Areas\AdminPerson\Models\LoginViewModel.cs" />
     <Compile Include="General.cs" />
@@ -259,6 +261,8 @@
     <Content Include="Areas\AdminPerson\Views\Movie\Index.cshtml" />
     <Content Include="Areas\AdminPerson\Views\Movie\Modify.cshtml" />
     <Content Include="Areas\AdminPerson\Views\Movie\Prompt.cshtml" />
+    <Content Include="Areas\AdminPerson\Views\Movie\Add.cshtml" />
+    <Content Include="Areas\AdminPerson\Views\Comment\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\flat-ui.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

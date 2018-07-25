@@ -20,6 +20,7 @@ namespace SweetMoive.DAL.Models
         [Display(Name ="评论时间")]
         public DateTime? CommentTime { get; set; }
         [Display(Name ="用户评分")]
+        [Range(1,10)]
         public float Score { get; set; }
         [Display(Name ="点赞数")]
         public int Like { get; set; }

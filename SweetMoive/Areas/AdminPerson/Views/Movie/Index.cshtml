@@ -46,9 +46,10 @@
                 { title: "时长", field: "Duration", formatter: function (value) { return value + "分钟";} },
                 { title: "国家", field: "Contry" },
                 { title: "评分", field: "Score" },
+                { title: "电影预告", field: "PreviewUrl", formatter: function (value, row, index) { var s = '<a class = "video"  href="javascript:void(0)"><span class="fa fa-play"></span>'; return s; }, events: 'operateEventsVideo' },
                 { title: "海报图片数量", field: "PostersNum" },
                 { title: "封面图片", field: "DefaultImgUrl", formatter: function (value, row, index) { var s = '<a class = "view"  href="javascript:void(0)"><img style="width:40px;height:60px;"  src="' + "/Images/" +row.ID+ "-1-1" +".jpg"+ '" /></a>'; return s; }, events: 'operateEvents' },
-                { title: "是否隐藏", field: "Hidden" },
+                { title: "是否隐藏", field: "Hidden", formatter: function (value) { if (value == 0) value = "隐藏"; else value = "显示"; return value;} },
                 { title: "操作", field: "ID", formatter: function (value) {  return "<a class='btn btn-primary' href='@Url.Action("Modify")/"+value+"'>编辑</a>" } },
                 ]
             });
@@ -71,6 +72,17 @@
                 },
             };
             //结束放大图片
+            //播放视频
+            window.operateEventsVideo = {
+                'click .video': function (e, value, row, index) {
+                    BootstrapDialog.show({
+                        title: '【' + row.MovieName + '】' + '电影预告片',
+                        size:BootstrapDialog.SIZE_WIDE,
+                        message: '<div class="row"><video style="width:560px;height:280px;" id="my-player" class="video-js" controls preload="auto" data-setup="{}"><source src="' + value + '" type="video/mp4"></source><p>播放此视频需要允许脚本运行点击查看<a href="http://videojs.com/html5-video-support/" target="_blank">Support HTML5 Video</a></p></video></div>'
+                    });
+                },
+            };
+            //视频结束
         });
     </script>
 }

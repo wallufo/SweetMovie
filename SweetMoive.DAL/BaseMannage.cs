@@ -126,6 +126,8 @@ namespace SweetMoive.DAL
             return Repository.Count();
         }
         #endregion
+        #region 寻找最大ID
+        #endregion
         #region 数据分页
         public Paging<T> FindPageList(Paging<T> paging)
         {

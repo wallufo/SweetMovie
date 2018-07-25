@@ -121,6 +121,11 @@ namespace SweetMoive.DataLibrary
             return _list;
         }
 
+        public int FindMaxId(Expression<Func<T, int>> where)
+        {
+            return DbContext.Set<T>().Any() ? DbContext.Set<T>().Max(where):1;
+        }
+
         #endregion
         #region 增加实体
         public int Add(T entity)

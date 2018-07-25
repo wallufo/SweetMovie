@@ -1,0 +1,151 @@
+﻿@model SweetMoive.Areas.AdminPerson.Models.AddMovieViewModel
+
+@{
+    ViewBag.Title = "添加电影";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">添加电影</h1>
+    </div>
+</div>
+@using (Html.BeginForm("Add", "Movie", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-lg-7 col-md-offset-2">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MovieName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MovieName, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入电影名称" } })
+                        @Html.ValidationMessageFor(model => model.MovieName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Type, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => model.Type, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ReleaseDate, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ReleaseDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ReleaseDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Actors, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Actors, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入演员" } })
+                        @Html.ValidationMessageFor(model => model.Actors, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Synopsis, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Synopsis, new { @class = "form-control", @rows = 5, placeholder = "请输入剧情简介" })
+                        @Html.ValidationMessageFor(model => model.Synopsis, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Director, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Director, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入导演" } })
+                        @Html.ValidationMessageFor(model => model.Director, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Duration, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入时长" } })
+                        @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Contry, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Contry, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入国家" } })
+                        @Html.ValidationMessageFor(model => model.Contry, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Score, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Score, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入评分" } })
+                        @Html.ValidationMessageFor(model => model.Score, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PreviewUrl, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PreviewUrl, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入预告片URL" } })
+                        @Html.ValidationMessageFor(model => model.PreviewUrl, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DefaultImgUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="file" id="mPost" name="mPost" value="" class="form-control" data-value="true" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PostersNum, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="file" name="PostImg" id="PostImg" value="" class="form-control" data-value="true" multiple="multiple" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Hidden, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => model.Hidden, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Hidden, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-8 col-sm-4">
+                        <input type="submit" class="btn btn-large btn-block btn-primary" value="添加" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        }
+        @section scripts{
+            <script>
+                $(document).on('ready', function () {
+                    $("#PostImg").fileinput({
+                        theme: 'explorer-fa',
+                        maxFileCount: 5,
+                        showUpload: false,
+                        browseClass: "btn btn-success btn-sm btn-file",
+                        browseLabel: "选择图片",
+                        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                        removeClass: "btn btn-danger btn-sm",
+                        removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                        removeLabel: "删除",
+                        fileType: "image",
+                        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+                    });
+                    $("#mPost").fileinput({
+                        theme: 'explorer-fa',
+                        maxFileCount: 1,
+                        showUpload: false,
+                        browseClass: "btn btn-success btn-sm btn-file",
+                        browseLabel: "选择图片",
+                        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                        removeClass: "btn btn-danger btn-sm",
+                        removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                        removeLabel: "删除",
+                        fileType: "image",
+                        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+                    });
+                });
+
+            </script>
+        }
+        @Scripts.Render("~/bundles/jqueryval")
+
