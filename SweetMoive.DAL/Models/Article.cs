@@ -23,8 +23,6 @@ namespace SweetMoive.DAL.Models
         public string Title { get; set; }
         [Display(Name ="内容")]
         public string Content { get; set; }
-        [Display(Name ="喜欢")]
-        public int Like { get; set; }
         public enum Status
         {
             未通过,通过,进行中

@@ -40,7 +40,6 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
         public ActionResult Modify(int ID,[Bind(Include = "ID,DefaultImgUrl,Role,Sex,Username,Password,Name,MyMotto,SweetScore,EmailAdress,Userstatus")] User user)
         {
             Response _resp = new DAL.Response();
-            User _user1 = new User();
             var _user = userManage.Find(ID);
             if (ModelState.IsValid)
             {

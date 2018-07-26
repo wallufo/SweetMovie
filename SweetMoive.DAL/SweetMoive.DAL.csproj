@@ -62,12 +62,15 @@
     <Compile Include="General\Security.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelManage\AdministratorManage.cs" />
+    <Compile Include="ModelManage\ArticleManage.cs" />
     <Compile Include="ModelManage\CommentManage.cs" />
     <Compile Include="ModelManage\FavoriteManage.cs" />
     <Compile Include="ModelManage\HistoryManage.cs" />
+    <Compile Include="ModelManage\LikeManage.cs" />
     <Compile Include="ModelManage\UserManage.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\Like.cs" />
     <Compile Include="Models\MovieComment.cs" />
     <Compile Include="ModelManage\MovieManage.cs" />
     <Compile Include="Models\Favorite.cs" />

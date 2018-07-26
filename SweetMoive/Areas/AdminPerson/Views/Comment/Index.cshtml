@@ -5,11 +5,14 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">电影列表</h1>
+        <h1 class="page-header">评论管理</h1>
     </div>
 </div>
 <div class="row">
     <div class="col-lg-12">
+        <div id="toolbar" class="btn-group" role="group">
+            <button id="btn_del" class="btn btn-default"><span class="fa  fa-times"></span> 删除</button>
+        </div>
         <table id="commentgrid"></table>
     </div>
 </div>
@@ -36,17 +39,104 @@
                 url: "@Url.Action("PageListJson")",
                 queryParams: queryParams,
                 columns: [
+                { title: "state", checkbox:true},
                 { title: "ID", field: "ID" },
                 { title: "用户名", field: "User.Username" },
                 { title: "评论日期", field: "CommentTime" ,formatter: function (value) { return moment(value).format("YYYY-MM-DD hh:mm:ss") }},
-                { title: "电影名称", field: "Movie.MovieName" },
-                { title: "评论内容", field: "Content"},
+                { title: "电影名称", field: "Movie.MovieName"},
+                { title: "评论内容", field: "Content" },
                 { title: "用户评分", field: "Score" },
-                { title: "点赞数", field: "Like" },
-                { title: "操作", field: "ID", formatter: function (value) {  return "<a class='btn btn-primary' href='@Url.Action("Modify")/"+value+"'>编辑</a>" } },
-                ]
+                { title:"点赞总数", field: "Likes"},
+                { title: "操作", field: "ID", formatter: function (value) { return "<a class='btn btn-primary' data-method='Modify' data-value=" + value + " >编辑</a>" } },
+                ],
+                onLoadSuccess: function () {
+                    //修改
+                    $("a[data-method='Modify']").click(function () {
+                        var id = $(this).attr("data-value");
+                        var modifyDialog = new BootstrapDialog({
+                            title: "<span class='glyphicon glyphicon-user'></span>修改评论",
+                            message: function (dialog) {
+                                var $message = $('<div></div>');
+                                var pageToLoad = dialog.getData('pageToLoad');
+                                $message.load(pageToLoad);
+                                return $message;
+                            },
+                            data: {
+                                'pageToLoad': '@Url.Action("Modify")/' + id
+                            },
+                            buttons: [{
+                                icon: "glyphicon glyphicon-plus",
+                                label: "保存",
+                                action: function (dialogItself) {
+                                    $.post($("form").attr("action"), $("form").serializeArray(), function (data) {
+                                        if (data.Code == 1) {
+                                            BootstrapDialog.show({
+                                                message: data.Message,
+                                                buttons: [{
+                                                    icon: "glyphicon glyphicon-ok",
+                                                    label: "确定",
+                                                    action: function (dialogItself) {
+                                                        $table.bootstrapTable("refresh");
+                                                        dialogItself.close();
+                                                        modifyDialog.close();
+                                                    }
+                                                }]
+
+                                            });
+                                        }
+                                        else BootstrapDialog.alert(data.Message);
+                                    }, "json");
+                                    $("form").validate();
+                                }
+                            }, {
+                                icon: "glyphicon glyphicon-remove",
+                                label: "关闭",
+                                action: function (dialogItself) {
+                                    dialogItself.close();
+                                }
+                            }]
+                        });
+                        modifyDialog.open();
+                    });
+                }
+            //修改结束
+
             });
             //表格结束
+            //删除按钮
+            $("#btn_del").click(function () {
+                var selected = $table.bootstrapTable('getSelections');
+                if ($(selected).length > 0) {
+                    BootstrapDialog.confirm("确定删除选中的" + $(selected).length + "条评论", function (result) {
+                        if (result) {
+                            var ids = new Array($(selected).length);
+                            $.each(selected, function (index, value) {
+                                ids[index] = value.ID;
+                            });
+                            $.post("@Url.Action("DeleteJson","Comment")", { ids: ids }, function (data) {
+                                if (data.Code != 0) {
+                                    BootstrapDialog.show({
+                                        message: data.Message,
+                                        buttons: [{
+                                            icon: "glyphicon glyphicon-ok",
+                                            label: "确定",
+                                            action: function (dialogItself) {
+                                                $table.bootstrapTable("refresh");
+                                                dialogItself.close();
+                                            }
+                                        }]
+
+                                    });
+                                }
+                                else BootstrapDialog.alert(data.Message);
+
+                            }, "json");
+                        }
+                    });
+                }
+                else BootstrapDialog.warning("请选择要删除的行");
+            });
+            //删除按钮结束
             //表格传值
             function queryParams(params) {
                 return {

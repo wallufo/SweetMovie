@@ -25,12 +25,13 @@ namespace SweetMoive.DAL
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<Follower> Followers { get; set; }
+        public DbSet<Like> Likes { get; set; }
         private class SweetMovieDbInitializer<T> : DropCreateDatabaseIfModelChanges<SweetMovieContext>
         {
             protected override void Seed(SweetMovieContext context)
             {
                 var Administrators = new List<Administrator> {
-                new Administrator { Accounts="Admin",Password= "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=",CreateTime=DateTime.Now }
+                new Administrator { Accounts="Adminer",Password= "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=",CreateTime=DateTime.Now }
                 };
                 Administrators.ForEach(s => context.Admministrators.Add(s));
                 context.SaveChanges();

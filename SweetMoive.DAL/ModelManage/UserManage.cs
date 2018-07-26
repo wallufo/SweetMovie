@@ -26,11 +26,7 @@ namespace SweetMoive.DAL.ModelManage
                     _order = new OrderParamcs() { PropertyName = "ID", Method = OrderParamcs.OrderMethod.ASC };
                     break;
             }
-            pagingUser.Items = Repository.FindPageList(pagingUser.PageSize, pagingUser.PageIndex, out pagingUser.TotalNumber, _order).ToList();
-            //foreach(var item in pagingUser.Items)
-            //{
-            //    item.Role = Models.User.Roles.普通用户;
-            //}
+            pagingUser.Items = Repository.FindPageList(pagingUser.PageSize, pagingUser.PageIndex, out pagingUser.TotalNumber, _order).ToList();  
             return pagingUser;
         }
         #endregion

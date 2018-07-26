@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">文章管理</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div id="toolbar" class="btn-group" role="group">
+            <button id="btn_del" class="btn btn-default"><span class="fa  fa-times"></span>删除</button>
+        </div>
+        <table id="articlegrid"></table>
+    </div>
+</div>
+@section style{
+    @Styles.Render("~/Content/bootstrapplugincss")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrapplugin")
+    <script>
+        $(document).ready(function () {
+
+            //表格
+            var $table = $('#articlegrid');
+            $table.bootstrapTable({
+                toolbar: "#toolbar",
+                showRefresh: true,
+                showColumns: true,
+                pagination: true,
+                sidePagination: "server",
+                pageSize: 5,
+                pageList: "[5,10]",
+                method: "post",
+                url: "@Url.Action("PageListJson")",
+                queryParams: queryParams,
+                columns: [
+                    { title: "state", checkbox: true },
+                    { title: "ID", field: "ID" },
+                    { title: "用户名", field: "User.Username" },
+                    { title: "电影名称", field: "Movie.MovieName" },
+                    { title: "发布时间", field: "Releasetime", formatter: function (value) { return moment(value).format("YYYY-MM-DD HH:mm:ss") } },
+                    { title: "文章标题", field: "Title" },
+                    { title: "文章内容", field: "Content",visible:false },
+                    { title: "审核状态", field: "Auditstatus", formatter: function (value) { var audit = ["未通过", "通过", "进行中"]; return audit[value]; } },
+                    { title: "操作", field: "ID", formatter: function (value, row, index) { return "<a href='#' data-method='Modify' data-value=" + value + " class='btn btn-primary'>编辑</a>" } }
+                ]
+            });
+            //表格结束
+            //表格传值
+            function queryParams(params) {
+                return {
+                    pageSize: params.limit, //每一页的数据行数，默认是上面设置的5(pageSize)
+                    pageIndex: params.offset / params.limit + 1, //当前页面,默认是上面设置的1(pageNumber)
+                }
+            }
+            //传值结束
+        });
+        </script>
+ }

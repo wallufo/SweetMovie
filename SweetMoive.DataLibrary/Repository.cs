@@ -213,6 +213,7 @@ namespace SweetMoive.DataLibrary
             return DbContext.SaveChanges();
         }
         #endregion
+
         #region 实体列表分页
         public IQueryable<T> FindPageList(int pageSize,int pageIndex,out int totalNumber)
         {
