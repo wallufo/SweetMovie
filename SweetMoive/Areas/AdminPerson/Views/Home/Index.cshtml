@@ -112,9 +112,6 @@
         var labelAry=new Array();
         var dataAry=new Array();
         var data2=@Html.Raw(Json.Encode(ViewBag.data));
-        //for(var i=0;i<data.length;i++){
-        //    labelAry[i]=data[i].formatter("yyyy年MM月dd日");
-        //}
         var myDate = new Date(); //获取今天日期
         myDate.setDate(myDate.getDate() - 7);
         var dateArray = []; 
