@@ -166,6 +166,7 @@
     <Compile Include="Areas\AdminPerson\Controllers\MovieController.cs" />
     <Compile Include="Areas\AdminPerson\Controllers\UserController.cs" />
     <Compile Include="Areas\AdminPerson\Models\AddAdminViewModel.cs" />
+    <Compile Include="Areas\AdminPerson\Models\AddArticelViewModel.cs" />
     <Compile Include="Areas\AdminPerson\Models\AddCommentViewModel.cs" />
     <Compile Include="Areas\AdminPerson\Models\AddMovieViewModel.cs" />
     <Compile Include="Areas\AdminPerson\Models\AddUserViewModel.cs" />
@@ -279,7 +280,13 @@
     <Content Include="Areas\AdminPerson\Views\Comment\Add.cshtml" />
     <Content Include="Areas\AdminPerson\Views\Comment\Prompt.cshtml" />
     <Content Include="Areas\AdminPerson\Views\Article\Index.cshtml" />
+    <Content Include="Areas\AdminPerson\Views\Article\Audit.cshtml" />
+    <Content Include="Areas\AdminPerson\Views\Article\Modify.cshtml" />
+    <Content Include="Areas\AdminPerson\Views\Article\Prompt.cshtml" />
+    <Content Include="Areas\AdminPerson\Views\Article\Add.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\fileinput.js" />
     <Content Include="Scripts\fileinput.min.js" />
     <Content Include="Scripts\flat-ui.js" />

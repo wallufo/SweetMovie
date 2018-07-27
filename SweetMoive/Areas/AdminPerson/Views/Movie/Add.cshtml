@@ -99,6 +99,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="banner" class="control-label col-md-2">电影轮播图</label>
+                    <div class="col-md-10">
+                        <input type="file" name="banner" id="banner" value="" class="form-control" data-value="true" />
+                    </div>
+                </div>
+                <div class="form-group">
                     @Html.LabelFor(model => model.Hidden, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
                         @Html.EnumDropDownListFor(model => model.Hidden, new { @class = "form-control" })
@@ -131,6 +137,19 @@
                         previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
                     });
                     $("#mPost").fileinput({
+                        theme: 'explorer-fa',
+                        maxFileCount: 1,
+                        showUpload: false,
+                        browseClass: "btn btn-success btn-sm btn-file",
+                        browseLabel: "选择图片",
+                        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                        removeClass: "btn btn-danger btn-sm",
+                        removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                        removeLabel: "删除",
+                        fileType: "image",
+                        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+                    });
+                    $("#banner").fileinput({
                         theme: 'explorer-fa',
                         maxFileCount: 1,
                         showUpload: false,

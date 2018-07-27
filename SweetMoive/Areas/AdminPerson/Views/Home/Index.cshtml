@@ -16,7 +16,7 @@
                         <i class="fa fa-comments fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">26</div>
+                        <div class="huge">@ViewBag.CommentNum</div>
                         <div>总评论数量</div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                         <i class="fa fa-users fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">12</div>
+                        <div class="huge">@ViewBag.UserNum</div>
                         <div>总用户数量</div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                         <i class="fa fa-youtube-play fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">124</div>
+                        <div class="huge">@ViewBag.MovieNum</div>
                         <div>总电影数量</div>
                     </div>
                 </div>
@@ -79,15 +79,15 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-eye fa-5x"></i>
+                        <i class="fa fa-book fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">13</div>
-                        <div>总浏览量</div>
+                        <div class="huge">@ViewBag.ArticleNum</div>
+                        <div>总文章数量</div>
                     </div>
                 </div>
             </div>
-            <a href="@Url.Action("Index","History")">
+            <a href="@Url.Action("Index","Article")">
                 <div class="panel-footer">
                     <span class="pull-left">查看详情</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -97,3 +97,80 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-offset-1 col-lg-10">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+@Scripts.Render("~/bundles/chart")
+@section scripts{
+    <script>
+        window.onload = function () {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            window.myLine = new Chart(ctx, config);
+        };
+        var labelAry=new Array();
+        var dataAry=new Array();
+        var data2=@Html.Raw(Json.Encode(ViewBag.data));
+        //for(var i=0;i<data.length;i++){
+        //    labelAry[i]=data[i].formatter("yyyy年MM月dd日");
+        //}
+        var myDate = new Date(); //获取今天日期
+        myDate.setDate(myDate.getDate() - 7);
+        var dateArray = []; 
+        var dateTemp; 
+        var flag = 1; 
+        for (var i = 0; i < 7; i++) {
+            dateTemp = (myDate.getMonth()+1)+"-"+(myDate.getDate()+1);
+            dateArray.push(dateTemp);
+            myDate.setDate(myDate.getDate() + flag);
+        }
+        for(var i=0;i<data2.length;i++){
+            dataAry[i]=data2[i];
+        }
+        var config = {
+            type: 'line',
+            data: {
+                labels:dateArray,
+                datasets:[{
+                    label:'文章提交量',
+                    backgroundColor: 'rgb(240,248,255)',
+                    borderColor: 'rgb(65,105,225)',
+                    data:dataAry,
+                    fill:false,
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: '每日文章提交量统计'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: '日期'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: '总数'
+                        }
+                    }]
+                }
+            }
+        }
+        </script>
+}

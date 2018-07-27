@@ -41,6 +41,9 @@ namespace SweetMoive
                     "~/Scripts/metisMenu.js",
                     "~/Scripts/sb-admin-2.js"
                 ));
+            bundles.Add(new ScriptBundle("~/bundles/chart").Include(
+                    "~/Scripts/Chart*"
+                ));
             bundles.Add(new ScriptBundle("~/bundles/fileinput").Include(
                     "~/Scripts/fileinput*",
                     "~/Scripts/plugins/piexif*",
@@ -50,6 +53,10 @@ namespace SweetMoive
                     "~/Scripts/themes/fa/theme*",
                     "~/Scripts/themes/explorer-fa/theme*"
 
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/ckeditor").Include(
+                    "~/Scripts/ckeditor*",
+                    "~/Scripts/zh-cn.js"
                 ));
             bundles.Add(new StyleBundle("~/Content/fileinput").Include(
                     "~/Content/fileinput*",

@@ -73,7 +73,7 @@ namespace SweetMoive.DAL.ModelManage
             if (!string.IsNullOrEmpty(movieComment.UserID.ToString()) && !string.IsNullOrEmpty(movieComment.MovieID.ToString()))
             {
                 _resp.Code = 2;
-                _resp.Message = "此用户已评论过该电影";
+                _resp.Message = "当前用户已评论过该电影";
             }
             if (_resp.Code == 0) _resp = base.Add(movieComment);
             return _resp;

@@ -53,6 +53,31 @@
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    @if (Convert.ToInt32(Session["NoAuditNum"]) > 0)
+                    {
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="@Url.Action("Audit","Article")">
+                                <div>
+                                    <i class="fa fa-book fa-fw"></i> 新的待审核的文章
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="@Url.Action("Audit","Article")">
+                                <strong>查看详情</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    }      
+                    <!-- /.dropdown-alerts -->
+                </li>
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->

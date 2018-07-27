@@ -31,6 +31,7 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel loginViewModel)
         {
+            var _articleNum = new ArticleManage().NoAuditNum();
             if (ModelState.IsValid)
             {
                 //加密密码
@@ -41,6 +42,7 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
                     var _admin = adminManage.Find(loginViewModel.Accounts);
                     Session.Add("AdminID", _admin.AdministratorID);
                     Session.Add("Accounts", _admin.Accounts);
+                    Session.Add("NoAuditNum", _articleNum);
                     _admin.LoginIP = Request.UserHostAddress;
                     _admin.LoginTime = DateTime.Now;
                     adminManage.Update(_admin);

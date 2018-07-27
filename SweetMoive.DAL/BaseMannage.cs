@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -124,6 +125,10 @@ namespace SweetMoive.DAL
         public int Count()
         {
             return Repository.Count();
+        }
+        public int Count(Expression<Func<T,bool>> where)
+        {
+            return Repository.Count(where);
         }
         #endregion
         #region 寻找最大ID

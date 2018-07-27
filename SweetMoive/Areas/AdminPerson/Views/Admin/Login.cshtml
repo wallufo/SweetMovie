@@ -24,18 +24,18 @@
             <h4 class="text-center">SweetMovie后台登录</h4>
             @Html.ValidationSummary(true,"",new { @class="text-danger"})
             <div class="form-group">
-                @Html.EditorFor(model=>model.Accounts,new { htmlAttributes=new { @class="form-control login-field",placeholder="账号"} })
+                @Html.EditorFor(model=>model.Accounts,new { htmlAttributes=new { @class="form-control login-field",placeholder="请输入账号"} })
                 @Html.ValidationMessageFor(model=>model.Accounts,"",new { @class="text-danger"})
                 <label class="login-field-icon fui-user" for="Accounts"></label>
             </div>
             <div class="form-group">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control login-field", placeholder = "账号" } })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control login-field", placeholder = "请输入密码" } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                 <label class="login-field-icon fui-lock" for="Password"></label>
             </div>
             <input type="submit" class="btn btn-primary btn-lg btn-block" value="登录" />
         </div>
-        <footer class="text-center">@DateTime.Now.Year &copy;蓝胖子出品</footer>
+        <footer class="text-center">@DateTime.Now.Date.AddDays(-1) &copy;蓝胖子出品</footer>
 
     }
 </body>

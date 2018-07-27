@@ -38,7 +38,7 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
         }
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Modify(int ID, [Bind(Include = "ID,DefaultImgUrl,PostersNum,MovieName,ReleaseDate,Actors,Synopsis,Director,Type,Duration,Contry,Score,PreviewUrl,Hidden")] Movie movie, HttpPostedFileBase mPost, IEnumerable<HttpPostedFileBase> PostImg)
+        public ActionResult Modify(int ID, [Bind(Include = "ID,DefaultImgUrl,PostersNum,MovieName,ReleaseDate,Actors,Synopsis,Director,Type,Duration,Contry,Score,PreviewUrl,Hidden")] Movie movie, HttpPostedFileBase mPost, IEnumerable<HttpPostedFileBase> PostImg,HttpPostedFileBase banner)
         {
             var MaxId = movie.ID;
             if (mPost != null)
@@ -69,6 +69,16 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
                 }
                 movie.PostersNum = i-1;
             }
+            if (banner != null)
+            {
+                var bannerUrl = MaxId.ToString() + "-2-1";
+                var bannerName = Path.Combine(Request.MapPath("/Images"), bannerUrl + ".jpg");
+                if (System.IO.File.Exists(bannerName))
+                {
+                    System.IO.File.Delete(bannerName);
+                }
+                banner.SaveAs(bannerName);
+            }
             if (ModelState.IsValid)
             {
                 var _resp = movieManage.Update(movie);
@@ -91,7 +101,7 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
         }
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Add(AddMovieViewModel movieViewModel,HttpPostedFileBase mPost,IEnumerable<HttpPostedFileBase> PostImg)
+        public ActionResult Add(AddMovieViewModel movieViewModel,HttpPostedFileBase mPost,IEnumerable<HttpPostedFileBase> PostImg,HttpPostedFileBase banner)
         {
             if (movieManage.HasMovieName(movieViewModel.MovieName)) ModelState.AddModelError("MovieName", "当前输入的电影已存在");
             Movie _movie = new Movie();
@@ -113,13 +123,15 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
                     i++;
                     var filename = MaxId.ToString() + "-1-" + i.ToString();
                     var resultname = Path.Combine(Request.MapPath("~/Images"), filename + ".jpg");
-                    //if (System.IO.File.Exists(resultname))
-                    //{
-                    //    System.IO.File.Delete(resultname);
-                    //}
                     item.SaveAs(resultname);
                 }
                 _movie.PostersNum = i - 1;
+            }
+            if (banner != null)
+            {
+                var bannerUrl = MaxId.ToString() + "-2-1";
+                var bannerName = Path.Combine(Request.MapPath("/Images"), bannerUrl + ".jpg");
+                banner.SaveAs(bannerName);
             }
             if (ModelState.IsValid)
             {
