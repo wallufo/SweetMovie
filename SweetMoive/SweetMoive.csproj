@@ -171,6 +171,11 @@
     <Compile Include="Areas\AdminPerson\Models\AddMovieViewModel.cs" />
     <Compile Include="Areas\AdminPerson\Models\AddUserViewModel.cs" />
     <Compile Include="Areas\AdminPerson\Models\LoginViewModel.cs" />
+    <Compile Include="Areas\MovieUser\Controllers\HomeController.cs" />
+    <Compile Include="Areas\MovieUser\Models\LoginViewModel.cs" />
+    <Compile Include="Areas\MovieUser\Models\RegisterViewModel.cs" />
+    <Compile Include="Areas\MovieUser\MovieUserAreaRegistration.cs" />
+    <Compile Include="Areas\MovieUser\UserAuthorizeAttribute.cs" />
     <Compile Include="General.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -187,6 +192,7 @@
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.4.0.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\fileinput-rtl.css" />
     <Content Include="Content\fileinput-rtl.min.css" />
@@ -195,8 +201,10 @@
     <Content Include="Content\flat-ui.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Login-register-style.css" />
     <Content Include="Content\metisMenu.css" />
     <Content Include="Content\metisMenu.min.css" />
+    <Content Include="Content\normalize.min.css" />
     <Content Include="Content\sb-admin-2.css" />
     <Content Include="Content\sb-admin-2.min.css" />
     <Content Include="Content\themes\explorer-fas\theme.css" />
@@ -207,6 +215,7 @@
     <Content Include="Content\themes\explorer\theme.min.css" />
     <Content Include="DefaultImg\Default.jpg" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons\flat-ui-pro-icons-regular.svg" />
     <Content Include="fonts\lato\lato-black.svg" />
@@ -284,6 +293,14 @@
     <Content Include="Areas\AdminPerson\Views\Article\Modify.cshtml" />
     <Content Include="Areas\AdminPerson\Views\Article\Prompt.cshtml" />
     <Content Include="Areas\AdminPerson\Views\Article\Add.cshtml" />
+    <Content Include="Areas\MovieUser\Views\web.config" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Areas\MovieUser\Views\Home\Register.cshtml" />
+    <Content Include="Areas\MovieUser\Views\Home\Login.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
@@ -379,11 +396,10 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\PromptPartialView.cshtml" />
-    <Content Include="Views\Shared\Prompt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\MovieUser\Views\Shared\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>

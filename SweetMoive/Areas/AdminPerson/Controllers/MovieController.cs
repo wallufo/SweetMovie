@@ -23,12 +23,12 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult PageListJson(int? pageIndex, int? pageSize, int? order)
+        public JsonResult PageListJson(int? pageIndex, int? pageSize, int? order,string keyword,int selectval)
         {
-            Paging<Movie> _pageingUser = new Paging<Movie>();
-            if (pageIndex != null && pageIndex > 0) _pageingUser.PageIndex = (int)pageIndex;
-            if (pageSize != null && pageSize > 0) _pageingUser.PageSize = (int)pageSize;
-            var _paging = movieManage.FindPageList(_pageingUser, 0);
+            Paging<Movie> _pageingMovie = new Paging<Movie>();
+            if (pageIndex != null && pageIndex > 0) _pageingMovie.PageIndex = (int)pageIndex;
+            if (pageSize != null && pageSize > 0) _pageingMovie.PageSize = (int)pageSize;
+            var _paging = movieManage.FindKeywordPageList(_pageingMovie, 0,keyword,selectval);
             return Json(new { total = _paging.TotalNumber, rows = _paging.Items });
         }
         [HttpGet]
@@ -162,6 +162,19 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
         public JsonResult HasMovieName(string MovieName)
         {
             return Json(!movieManage.HasMovieName(MovieName));
+        }
+        [HttpPost]
+        public JsonResult DeleteJson(List<int> ids)
+        {
+            int _total = ids.Count();
+            Response _resp = new DAL.Response();
+            _resp = movieManage.Delete(ids);
+            if (_resp.Code == 1)
+            {
+                _resp.Code = 2;
+                _resp.Message = "共提交删除" + _total + "条电影，实际删除" + _resp.Data + "条电影。";
+            }
+            return Json(_resp);
         }
     }
 }

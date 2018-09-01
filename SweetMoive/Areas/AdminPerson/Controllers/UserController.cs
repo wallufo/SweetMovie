@@ -22,12 +22,12 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult PageListJson(int? pageIndex, int? pageSize, int? order)
+        public JsonResult PageListJson(int? pageIndex, int? pageSize, int? order,string keyword,int selectval)
         {
             Paging<User> _pageingUser = new Paging<User>();
             if (pageIndex != null && pageIndex > 0) _pageingUser.PageIndex = (int)pageIndex;
             if (pageSize != null && pageSize > 0) _pageingUser.PageSize = (int)pageSize;
-            var _paging = userManage.FindPageList(_pageingUser, 0);
+            var _paging = userManage.FindKeywordPageList(_pageingUser,0,keyword,selectval);
             return Json(new { total = _paging.TotalNumber, rows = _paging.Items });
         }
         [HttpGet]
@@ -112,6 +112,19 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
         public JsonResult HasEmailAdress(string EmailAdress)
         {
             return Json(!userManage.HasUserEmail(EmailAdress));
+        }
+        [HttpPost]
+        public JsonResult DeleteJson(List<int> ids)
+        {
+            int _total = ids.Count();
+            Response _resp = new DAL.Response();
+            _resp = userManage.Delete(ids);
+            if (_resp.Code == 1)
+            {
+                _resp.Code = 2;
+                _resp.Message = "共提交删除" + _total + "位用户，实际删除" + _resp.Data + "位用户。";
+            }
+            return Json(_resp);
         }
     }
 }

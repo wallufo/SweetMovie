@@ -15,7 +15,7 @@ namespace SweetMoive.DAL.ModelManage
     public class MovieManage:BaseMannage<Movie>
     {
         #region 分页数据
-        public Paging<Movie> FindPageList(Paging<Movie> pagingUser, int? order)
+        public Paging<Movie> FindPageList(Paging<Movie> pagingMovie, int? order)
         {
             OrderParamcs _order;
             switch (order)
@@ -30,8 +30,31 @@ namespace SweetMoive.DAL.ModelManage
                     _order = new OrderParamcs() { PropertyName = "ID", Method = OrderParamcs.OrderMethod.ASC };
                     break;
             }
-            pagingUser.Items = Repository.FindPageList(pagingUser.PageSize, pagingUser.PageIndex, out pagingUser.TotalNumber, _order).ToList();
-            return pagingUser;
+            pagingMovie.Items = Repository.FindPageList(pagingMovie.PageSize, pagingMovie.PageIndex, out pagingMovie.TotalNumber, _order).ToList();
+            return pagingMovie;
+        }
+        #endregion
+        #region 动态查询分页数据
+        public Paging<Movie> FindKeywordPageList(Paging<Movie> pagingMovie, int? order, string keyword, int selectval)
+        {
+            var _where = PredicateBuilder.True<Movie>();
+            if (keyword != null) _where = _where.And(m => m.MovieName.Contains(keyword));
+            if (selectval != 2) _where = _where.And(m => m.Hidden == (Movie.Hiddens)selectval);
+            OrderParamcs _order;
+            switch (order)
+            {
+                case 0:
+                    _order = new OrderParamcs() { PropertyName = "ID", Method = OrderParamcs.OrderMethod.ASC };
+                    break;
+                case 1:
+                    _order = new OrderParamcs() { PropertyName = "ID", Method = OrderParamcs.OrderMethod.DESC };
+                    break;
+                default:
+                    _order = new OrderParamcs() { PropertyName = "ID", Method = OrderParamcs.OrderMethod.ASC };
+                    break;
+            }
+            pagingMovie.Items = Repository.FindWherePageList(pagingMovie.PageSize, pagingMovie.PageIndex, out pagingMovie.TotalNumber, _where.Expand(), _order).ToList();
+            return pagingMovie;
         }
         #endregion
         #region 是否存在当前电影
@@ -44,6 +67,29 @@ namespace SweetMoive.DAL.ModelManage
         public int MovieId(Expression<Func<Movie,int>> where)
         {
             return base.Repository.FindMaxId(where);
+        }
+        #endregion
+        #region 批量删除
+        public Response Delete(List<int> ID)
+        {
+            Response _resp = new Response();
+            int _totalDel = ID.Count;
+            foreach (var i in ID)
+            {
+                base.Repository.Delete(new Movie() { ID = i }, false);
+            }
+            _resp.Data = base.Repository.Save();
+            if (_resp.Data == _totalDel)
+            {
+                _resp.Code = 1;
+                _resp.Message = "成功删除" + _resp.Data + "条电影";
+            }
+            else
+            {
+                _resp.Code = 0;
+                _resp.Message = "删除失败";
+            }
+            return _resp;
         }
         #endregion
     }

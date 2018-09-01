@@ -100,7 +100,7 @@ namespace SweetMoive.DAL.ModelManage
             if (_resp.Data == _totalDel)
             {
                 _resp.Code = 1;
-                _resp.Message = "成功删除" + _resp.Data + "文章s";
+                _resp.Message = "成功删除" + _resp.Data + "文章";
             }
             else
             {

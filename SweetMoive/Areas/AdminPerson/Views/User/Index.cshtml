@@ -10,9 +10,27 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
+        <div id="toobar">
+            <div class="col-lg-1">
+                <button id="btn_del" class="btn btn-default"><span class="fa  fa-times"></span>删除</button>
+            </div>
+            <div class="col-lg-2">
+                <select class="form-control" id="select">
+                    <option value="2">全部</option>
+                    <option value="1">启用</option>
+                    <option value="0">不启用</option>
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <input type="text" id="search" placeholder="输入查询的用户名" class="form-control" />
+            </div>
+            <div class="col-lg-1">
+                <button type="button" class="btn btn-default" id="onsearch">提交</button>
+            </div>
+        </div>
         <table id="usergrid"></table>
-    </div>
-</div>
+            </div>
+        </div>
 
 @section style{
     @Styles.Render("~/Content/bootstrapplugincss")
@@ -38,6 +56,7 @@
                 url: "@Url.Action("PageListJson")",
                 queryParams: queryParams,
                 columns: [
+                { title: "state", checkbox: true },
                 { title: "ID", field: "ID" },
                 { title: "用户名", field: "Username" },
                 { title: "邮箱", field: "EmailAdress" },
@@ -104,11 +123,52 @@
 
             });
             //表格结束
+            //删除按钮
+            $("#btn_del").click(function () {
+                var selected = $table.bootstrapTable('getSelections');
+                if ($(selected).length > 0) {
+                    BootstrapDialog.confirm("确定删除选中的" + $(selected).length + "位用户,删除当前用户会让当前用户的所有资料全部删除，请最终确定是否删除(建议冻结先当前用户)", function (result) {
+                        if (result) {
+                            var ids = new Array($(selected).length);
+                            $.each(selected, function (index, value) {
+                                ids[index] = value.ID;
+                            });
+                            $.post("@Url.Action("DeleteJson","User")", { ids: ids }, function (data) {
+                                if (data.Code != 0) {
+                                    BootstrapDialog.show({
+                                        message: data.Message,
+                                        buttons: [{
+                                            icon: "glyphicon glyphicon-ok",
+                                            label: "确定",
+                                            action: function (dialogItself) {
+                                                $table.bootstrapTable("refresh");
+                                                dialogItself.close();
+                                            }
+                                        }]
+
+                                    });
+                                }
+                                else BootstrapDialog.alert(data.Message);
+
+                            }, "json");
+                        }
+                    });
+                }
+                else BootstrapDialog.warning("请选择要删除的行");
+            });
+            //删除按钮结束
+            //搜索点击事件
+            $('#onsearch').click(function () {
+                $('#usergrid').bootstrapTable('refresh');
+            });
+            //搜索点击事件结束
             //表格传值
             function queryParams(params) {
                 return {
                     pageSize: params.limit, //每一页的数据行数，默认是上面设置的5(pageSize)
                     pageIndex: params.offset / params.limit + 1, //当前页面,默认是上面设置的1(pageNumber)
+                    keyword: $("#search").val(),  //搜索框的值
+                    selectval: $("#select option:selected").val()  //选择框值
                 }
             }
             //传值结束

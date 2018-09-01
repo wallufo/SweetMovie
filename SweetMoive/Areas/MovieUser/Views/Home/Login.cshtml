@@ -1,0 +1,116 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+</head>
+<body>
+    <div class="signup__container">
+
+        <div class="container__child signup__form">
+            @using (Ajax.BeginForm("Login", "Home", new AjaxOptions { HttpMethod = "Post" }))
+            {
+                <h2 class="title">登陆</h2>
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input class="form-control" type="text" name="Username" id="Username" placeholder="james.bond" required />
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input class="form-control" type="password" name="Password" id="Password" placeholder="********" required />
+                </div>
+                <div class="form-group">
+                    <label for="password">验证码</label>
+                    <input class="form-control validecode" type="text" name="ValidCode" id="ValidCode" placeholder="请输入验证码" required />
+                    <img src='@Url.Action("GetValidateCode")' alt="点击更换" class="code-valide" id="CodeValide" onclick='RefreshValiCode()' />  
+                </div>
+                <div class="m-t-lg">
+                    <ul class="list-inline">
+                        <li>
+                            <button class="btn btn--form" type="button" id="Loginbtn" >登录</button>
+                        </li>
+                        <li>
+                            <a class="signup__link" href='@Url.Action("Register")'>未拥有账号？</a>
+                        </li>
+                    </ul>
+                    <div class="alert alert-success text-center" style="display:none;" id="login-success">
+                        
+                    </div>
+                    <div class="alert alert-danger text-center" style="display:none;" id="login-danger">
+                        
+                    </div>
+                </div>
+            }             
+        </div>
+        <div class="container__child signup__thumbnail">
+            <div class="thumbnail__content text-center">
+                <h1 class="heading--primary">欢迎来到SweetMovie!</h1>
+                <h2 class="heading--secondary">是否准备加入我们?</h2>
+            </div>
+            <div class="signup__overlay"></div>
+        </div>
+    </div>
+    <script>
+        function RefreshValiCode() {
+            $("#CodeValide").attr('src', '@Url.Action("GetValidateCode")?time=' + (new Date()).getTime());
+        }
+        $(function () {            
+            $("#Loginbtn").on('click', function () {
+                $("#login-success").hide();
+                $("#login-danger").hide();
+                var Username = $("#Username").val();
+                var Password = $("#Password").val();
+                var Code = $("#ValidCode").val();
+                $.ajax({
+                    url: '@Url.Action("Login")',
+                    type: 'post',
+                    async:true,
+                    data: { Username: Username, Password: Password, Code: Code },
+                    success: function (data) {
+                        if (data.success == 4) {
+                            $("#login-success").text("登陆成功");
+                            $("#login-success").show();
+                        }
+                        else if (data.success == 0) {
+                            $("#login-danger").text("用户名或密码不为空");
+                            $("#login-danger").show();
+                            RefreshValiCode();//刷新验证码
+                            $("#ValidCode").val("");
+                        }
+                        else if (data.success == 1) {
+                            $("#login-danger").text("验证码不为空");
+                            $("#login-danger").show();
+                            RefreshValiCode();//刷新验证码
+                            $("#ValidCode").val("");
+                        }
+                        else if (data.success == 3) {
+                            $("#login-danger").text("验证码错误");
+                            $("#login-danger").show();
+                            RefreshValiCode();//刷新验证码
+                            $("#ValidCode").val("");
+                        }
+                        else {
+                            $("#login-danger").text("用户名或密码错误");
+                            $("#login-danger").show();
+                            RefreshValiCode();//刷新验证码
+                            $("#ValidCode").val("");
+                        }
+                    },
+                    error: function () {
+                        alert("请求失败，请重新尝试");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

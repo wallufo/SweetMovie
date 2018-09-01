@@ -46,6 +46,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -60,6 +61,7 @@
     <Compile Include="ContextFactory.cs" />
     <Compile Include="General\Prompt.cs" />
     <Compile Include="General\Security.cs" />
+    <Compile Include="General\ValidateCode.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelManage\AdministratorManage.cs" />
     <Compile Include="ModelManage\ArticleManage.cs" />
