@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace SweetMoive.Areas.MovieUser
 {
-    public class UserAuthorizeAttribute:AuthorizeAttribute
+    public class UserAuthorize:AuthorizeAttribute
     {
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {

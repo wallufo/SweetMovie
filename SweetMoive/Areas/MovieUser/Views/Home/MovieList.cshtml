@@ -1,0 +1,92 @@
+﻿@model IEnumerable<SweetMoive.DAL.Models.Movie>
+
+@{
+    ViewBag.Title = "MovieList";
+}
+@section style{
+    @Styles.Render("~/Content/star")
+    @Styles.Render("~/Content/sortable")
+<style>
+   nav.navbar.navbar-inverse.no-background.dark .attr-nav > ul > li > a, nav.navbar.navbar-inverse.no-background.dark .attr-nav > ul > li > a, nav.navbar.navbar-inverse.no-background.dark ul.nav > li > a, nav.navbar.navbar-inverse.no-background.dark ul.nav > li > a{
+        color:#fff;
+    }
+    .tag-gird li{
+        margin:5px;
+    }
+    </style>
+}
+@section scripts{
+    @Scripts.Render("~/bundles/star")
+    @Scripts.Render("~/bundles/sortable")
+    <script>
+        $(function () {
+            document.querySelector('#sortable').sortablejs();
+            $(".star-rating").starRating({
+                totalStars: 5,
+                starShape: 'rounded',
+                starSize: 15,
+                emptyColor: 'lightgray',
+                hoverColor: 'salmon',
+                activeColor: 'crimson',
+                useGradient: false,
+                readOnly:true,
+                forceRoundUp:true
+            });
+        });
+    </script>
+}
+<div class="row" style="padding:120px 150px;background-color:#3c3935;">
+    <div class="col-lg-2">
+        <ul class="tag-gird">
+            <li class="btn btn-default"><a data-sjslink="all">全部</a></li>
+            <li class="btn btn-default"><a data-sjslink="剧情">剧情</a></li>
+            <li class="btn btn-default"><a data-sjslink="喜剧">喜剧</a></li>
+            <li class="btn btn-default"><a data-sjslink="动作">动作</a></li>
+            <li class="btn btn-default"><a data-sjslink="爱情">爱情</a></li>
+            <li class="btn btn-default"><a data-sjslink="科幻">科幻</a></li>
+            <li class="btn btn-default"><a data-sjslink="悬疑">悬疑</a></li>
+            <li class="btn btn-default"><a data-sjslink="惊悚">惊悚</a></li>
+            <li class="btn btn-default"><a data-sjslink="恐怖">恐怖</a></li>
+            <li class="btn btn-default"><a data-sjslink="犯罪">犯罪</a></li>
+            <li class="btn btn-default"><a data-sjslink="音乐">音乐</a></li>
+            <li class="btn btn-default"><a data-sjslink="歌舞">歌舞</a></li>
+            <li class="btn btn-default"><a data-sjslink="传记">传记</a></li>
+            <li class="btn btn-default"><a data-sjslink="历史">历史</a></li>
+            <li class="btn btn-default"><a data-sjslink="战争">战争</a></li>
+            <li class="btn btn-default"><a data-sjslink="西部">西部</a></li>
+            <li class="btn btn-default"><a data-sjslink="奇幻">奇幻</a></li>
+            <li class="btn btn-default"><a data-sjslink="冒险">冒险</a></li>
+            <li class="btn btn-default"><a data-sjslink="灾难">灾难</a></li>
+            <li class="btn btn-default"><a data-sjslink="武侠">武侠</a></li>
+            <li class="btn btn-default"><a data-sjslink="情色">情色</a></li>
+            <li class="btn btn-default"><a data-sjslink="同性">同性</a></li>
+            <li class="btn btn-default"><a data-sjslink="其他">其他</a></li>
+        </ul>
+    </div>
+    <div class="col-lg-10">
+                <div id="sortable" class="row sjs-default">
+                        @foreach (var item in Model)
+                        {
+                            var imgUrl = "/Images/" + item.ID + "-1-1.jpg";
+                            if (item.Hidden.ToString() == "显示")
+                            {
+                                var rating = item.Score / 2;
+                                <div data-sjsel="@item.Type">
+                                    <a href='@Url.Action("MovieDetail")/@item.ID'>
+                                        <div class="thumbnail">
+                                            <img src="@imgUrl" alt="@item.MovieName" />
+                                            <div class="caption">
+                                                <h4 class="text-center">@item.MovieName</h4>
+                                                <div class="row">
+                                                    <div class="col-lg-4 star-rating" data-rating="@rating"></div>
+                                                    <div class="col-lg-4 col-lg-offset-4">评分:@item.Score 分</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+                        }
+                    </div>
+            </div>
+        </div>

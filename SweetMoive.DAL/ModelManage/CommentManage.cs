@@ -70,11 +70,6 @@ namespace SweetMoive.DAL.ModelManage
         public override Response Add(MovieComment movieComment)
         {
             Response _resp = new Response();
-            if (!string.IsNullOrEmpty(movieComment.UserID.ToString()) && !string.IsNullOrEmpty(movieComment.MovieID.ToString()))
-            {
-                _resp.Code = 2;
-                _resp.Message = "当前用户已评论过该电影";
-            }
             if (_resp.Code == 0) _resp = base.Add(movieComment);
             return _resp;
         }

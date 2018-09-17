@@ -1,0 +1,144 @@
+﻿@model SweetMoive.Areas.MovieUser.Models.UserViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Styles.Render("~/Content/boot-dialog")
+    @Styles.Render("~/Content/userinfo")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/userinfo")
+    @Scripts.Render("~/bundles/boot-dialog")
+</head>
+<body>
+    <div class="wrap">
+        <div class="contain">
+            <div class="user">
+                <div class="user-img">
+                    <span class="img-position">
+                    @{
+                        var imgurl = "/DefaultImg/" + Model.ID + ".jpg";
+                     }
+                    @if (File.Exists(Path.Combine(Request.MapPath("~/DefaultImg"),Model.ID+".jpg")))
+                    {
+                        <img src="@imgurl">
+                    }
+                    else
+                    {
+                        <img src="~/DefaultImg/Default.jpg">
+                    }
+                    </span>
+                </div>
+                <div class="user-name">
+               @if (Model.Name == null)
+               {
+                   <h4>@Model.UserName &nbsp; <em>@Model.Sex</em></h4>
+               }
+               else
+               {
+                   <h4>@Model.Name &nbsp; <em>@Model.Sex</em></h4>
+               }
+                </div>
+                <div class="user-mottoy">
+                    @if (Model.Mymottoy == null)
+                    {
+                        <h6>填写个性签名..</h6>
+                    }
+                    else
+                    {
+                        <h6>@Model.Mymottoy</h6>
+                    }
+                </div>
+                <div class="user-button">
+                    <button type="button" data-method="Edit" data-value="@Model.ID">编辑资料</button>
+                </div>
+            </div>
+        </div>
+        <!-- Start Navigation -->
+        <nav>
+            <div class="nav-header">
+                <button class="toggle-bar"><span class="fa fa-bars"></span></button>
+            </div>
+            <ul class="menu">
+                <li><a href="#">我的关注</a></li>
+                <li><a href="#">我的收藏</a></li>
+                <li><a href="#">浏览历史</a></li>
+                @if (Model.Role == "评论专家")
+                {
+                    <li><a href="#">我的文章</a></li>
+                }
+            </ul>
+        </nav>
+        <!-- End Navigation -->
+    </div>
+    <script>
+		$('nav').coreNavigation({
+			menuPosition: "center",
+			container: true,
+			mode: 'sticky',
+		    onStartSticky: function(){
+		        console.log('Start Sticky');
+		    },
+		    onEndSticky: function(){
+		        console.log('End Sticky');
+		    }
+		});
+	
+		$(function () {
+		    $("button[data-method='Edit']").click(function () {
+		        var id = $(this).attr("data-value");
+		        var modifyDialog = new BootstrapDialog({
+		            title: "<span class='glyphicon glyphicon-user'></span>填写个人信息",
+		            message: function (dialog) {
+		                var $message = $('<div></div>');
+		                var pageToLoad = dialog.getData('pageToLoad');
+		                $message.load(pageToLoad);
+		                return $message;
+		            },
+		            data: {
+		                'pageToLoad': '@Url.Action("EditUserInfo")/' + id
+		            },
+		            buttons: [{
+		                icon: "glyphicon glyphicon-plus",
+		                label: "保存",
+		                action: function (dialogItself) {
+		                    $.post($("form").attr("action"), $("form").serializeArray(), function (data) {
+		                        if (data.Code == 1) {
+		                            BootstrapDialog.show({
+		                                message: data.Message,
+		                                buttons: [{
+		                                    icon: "glyphicon glyphicon-ok",
+		                                    label: "确定",
+		                                    action: function (dialogItself) {
+		                                        location.reload();
+		                                        dialogItself.close();
+		                                        modifyDialog.close();
+		                                    }
+		                                }]
+
+		                            });
+		                        }
+		                        else BootstrapDialog.alert(data.Message);
+		                    }, "json");
+		                    $("form").validate();
+		                }
+		            }, {
+		                icon: "glyphicon glyphicon-remove",
+		                label: "关闭",
+		                action: function (dialogItself) {
+		                    dialogItself.close();
+		                }
+		            }]
+		        });
+		        modifyDialog.open();
+		    });
+		   
+		});
+    </script>
+</body>
+</html>

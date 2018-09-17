@@ -10,65 +10,113 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Register</title>
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Logincss")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/LoginJs")
 
 </head>
 <body>
-    <div class="signup__container">
-        <div class="container__child signup__thumbnail">
-            <div class="thumbnail__content text-center">
-                <h1 class="heading--primary">欢迎来到SweetMovie!</h1>
-                <h2 class="heading--secondary">是否准备加入我们?</h2>
+    <div class="htmleaf-container">
+        <div class="signup__container">
+            <div class="container__child signup__thumbnail">
+                <div class="thumbnail__content text-center">
+                    <h1 class="heading--primary">欢迎来到SweetMovie!</h1>
+                    <h2 class="heading--secondary">是否准备加入我们?</h2>
+                </div>
+                <div class="signup__overlay"></div>
             </div>
-            <div class="signup__overlay"></div>
+            <div class="container__child signup__form">
+                @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { @class = "form-sign" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Username)
+                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入账号" } })
+                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmailAdress)
+                        @Html.EditorFor(model => model.EmailAdress, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入电子邮箱" } })
+                        @Html.ValidationMessageFor(model => model.EmailAdress, "", new { @class = "text-danger" })
+                        <button type="button" class="send-code" id="send-code">发送验证码</button>
+                        <span class="message-code" id="show-time"></span>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Code)
+                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入四位验证码" } })
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password)
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入密码" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ConfirmPassword)
+                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "请再次输入密码" } })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="m-t-lg">
+                        <ul class="list-inline">
+                            <li>
+                                <input class="btn btn--form" type="submit" value="注册" />
+                            </li>
+                            <li>
+                                <a class="signup__link" href='@Url.Action("Login")'>已经拥有账号！</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+            </div>
         </div>
-        <div class="container__child signup__form">
-            @using (Html.BeginForm("Register","Home",FormMethod.Post,new { @class="form-sign" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model=>model.Username)
-                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入账号" } })
-                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EmailAdress)
-                    @Html.EditorFor(model => model.EmailAdress, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入电子邮箱" } })
-                    @Html.ValidationMessageFor(model => model.EmailAdress, "", new { @class = "text-danger" })
-                    <button type="button" class="send-code" id="send-code">发送验证码</button>
-                    <span class="message-code" id="show-time"></span>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Code)
-                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入四位验证码" } })
-                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Password)
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入密码" } })
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ConfirmPassword)
-                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "请再次输入密码" } })
-                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-                </div>
-                <div class="m-t-lg">
-                    <ul class="list-inline">
-                        <li>
-                            <input class="btn btn--form" type="submit" value="注册" />
-                        </li>
-                        <li>
-                            <a class="signup__link" href='@Url.Action("Login")'>已经拥有账号！</a>
-                        </li>
-                    </ul>
-                </div>
-            }
-        </div>
+        <ul id="scene">
+            <li class="layer" id="specks" data-depth="0.1"></li>
+            <li class="layer" id="layer-1" data-depth="0.15">
+                <div class="img" id="img-1"></div>
+            </li>
+            <li class="layer" id="layer-2" data-depth="0.25">
+                <div class="img" id="img-2"></div>
+            </li>
+            <li class="layer" id="layer-3" data-depth="0.45">
+                <div class="img" id="img-3"></div>
+            </li>
+        </ul>
     </div>
+    <script>
+	var scene = document.getElementById('scene');
+	var parallax = new Parallax(scene);
+	var speed = 400;
+	function twinkleLoop(i) {
+	    var duration = Math.random() * 5 + 3;
+	    duration = duration - (495 - speed) / 100;
+	    twinkle(i, duration);
+	    setTimeout(function () {
+	        twinkleLoop(i);
+	    }, duration * 1000);
+	}
+	for (var i = 1; i < 6; i++) {
+	    if (window.CP.shouldStopExecution(1)) {
+	        break;
+	    }
+	  
+	    twinkleLoop(i);
+	}
+	window.CP.exitedLoop(1);
+	function twinkle(id, duration) {
+	    var top = Math.floor(Math.random() * 85) + 0 + '%';
+	    var left = Math.floor(Math.random() * 85) + 0 + '%';
+	    $('#speck' + id).remove();
+	    $('#specks').append('<div class=\'speck\' id=\'speck' + id + '\'></div>');
+	    $('#speck' + id).css({
+	        'top': top,
+	        'left': left,
+	        'animation-duration': duration + 's',
+	        'animation-timing-function': 'cubic-bezier(0.250, 0.250, 0.750, 0.750)',
+	        'animation-name': 'twinkle'
+	    });
+	}
+    </script>
     <script>
         $(function () {
             var timer = null;

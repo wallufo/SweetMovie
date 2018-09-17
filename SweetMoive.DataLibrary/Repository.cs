@@ -32,7 +32,7 @@ namespace SweetMoive.DataLibrary
         /// </summary>
         /// <param name="ID">实体主键</param>
         /// <returns></returns>
-        public T Find(int ID)
+        public T Find(int? ID)
         {
             return DbContext.Set<T>().Find(ID);
         }

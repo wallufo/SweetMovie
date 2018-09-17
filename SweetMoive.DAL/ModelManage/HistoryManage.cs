@@ -3,6 +3,7 @@ using SweetMoive.DataLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -46,6 +47,19 @@ namespace SweetMoive.DAL.ModelManage
             }
             pagingHistory.Items = Repository.FindPageList(pagingHistory.PageSize, pagingHistory.PageIndex, out pagingHistory.TotalNumber, _order).ToList();
             return pagingHistory;
+        }
+
+        public History Find(int? movieid,int userid)
+        {
+            return base.Repository.Find(p=>p.MovieID==movieid&&p.UserID==userid);
+        }
+        #endregion
+        #region 添加记录
+        public override Response Add(History history)
+        {
+            Response _resp = new Response();
+            if (_resp.Code == 0) _resp = base.Add(history);
+            return _resp;
         }
         #endregion
     }

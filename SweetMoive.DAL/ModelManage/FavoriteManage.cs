@@ -36,5 +36,11 @@ namespace SweetMoive.DAL.ModelManage
             return pagingFavor;
         }
         #endregion
+        #region 查找实体
+        public Favorite Find(int? movieid,int userid)
+        {
+            return base.Repository.Find(p => p.MovieID == movieid && p.UserID == userid);
+        }
+        #endregion
     }
 }

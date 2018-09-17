@@ -14,6 +14,7 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
     [AdminAuthorize]
     public class CommentController : Controller
     {
+        UserManage userManage = new UserManage();
         CommentManage commentManage = new CommentManage();
         [HttpGet]
         // GET: AdminPerson/Comment
@@ -127,7 +128,7 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
                     Title = "添加失败",
                     Message = "当前用户已对当前电影评论\n注意！每个用户对每个电影只能评论一次！",
                     Buttons = new List<string>(){"<a href=\""+Url.Action("Index","Comment")+"\" class=\"btn btn-default\">评论管理</a>",
-                        "<a href=\"" + Url.Action("Add", "Comment") + "\" class=\"btn btn-default\">返回添加</a>"}
+                        "<a href=\"" + Url.Action("Add", "Comment") + "\" class=\"btn btn-default\">重新添加</a>"}
                 }
                 );
             }
@@ -139,6 +140,18 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
                 _comment.CommentTime = commentViewModel.CommentTime;
                 _comment.Content = commentViewModel.Content;
                 _comment.Score = commentViewModel.Score;
+                var _user = userManage.Find(commentViewModel.UserID);
+                if (_user.Userstatus == DAL.Models.User.UserStatus.未启用)
+                {
+                    return View("Prompt", new Prompt()
+                    {
+                        Title = "添加评论失败",
+                        Message = "当前用户已被冻结，无法评论！请先启用当前用户",
+                        Buttons = new List<string>(){"<a href=\""+Url.Action("Index","Comment")+"\" class=\"btn btn-default\">评论管理</a>",
+                        "<a href=\"" + Url.Action("Add", "Comment") + "\" class=\"btn btn-default\">重新添加</a>"}
+                    }
+                );
+                }
                 var _resp = commentManage.Add(_comment);
                 if (_resp.Code == 1) return View("Prompt", new Prompt()
                 {

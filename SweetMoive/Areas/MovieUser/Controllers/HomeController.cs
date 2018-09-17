@@ -5,6 +5,7 @@ using SweetMoive.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Web;
@@ -15,11 +16,13 @@ namespace SweetMoive.Areas.MovieUser.Controllers
     public class HomeController : Controller
     {
         UserManage userManage = new UserManage();
+        MovieManage movieManage = new MovieManage();
+        FavoriteManage favoriteManage = new FavoriteManage();
+        HistoryManage historyManage = new HistoryManage();
         [HttpGet]
-        // GET: MovieUser/Home
         public ActionResult Index()
         {
-            return View();
+            return View(movieManage.FindList().ToList());
         }
         [HttpGet]
         public ActionResult Login()
@@ -29,7 +32,7 @@ namespace SweetMoive.Areas.MovieUser.Controllers
         [HttpPost]
         public ActionResult Login(string Username,string Password,string Code)
         {
-            //success【0:用户名或密码不为空;1:验证码不为空;2:用户名或密码错误;3:验证码错误;4:登陆成功】
+            //success【0:用户名或密码不为空;1:验证码不为空;2:用户名或密码错误;3:验证码错误;4:登陆成功;5:当前用户被冻结】
             if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password)) return Json(new { success = 0 });
             if(string.IsNullOrWhiteSpace(Code)) return Json(new { success = 1 });
             if(Session["Validatecode"].ToString()!=Code) return Json(new { success = 3 });
@@ -40,9 +43,17 @@ namespace SweetMoive.Areas.MovieUser.Controllers
                 if (_resp.Code == 2)
                 {
                     var _user = userManage.Find(Username);
-                    Session.Add("UserID", _user.ID);
-                    Session.Add("Username", _user.Username);
-                    return Json(new { success = 4 });
+                    if (_user.Userstatus == DAL.Models.User.UserStatus.未启用)
+                    {
+                        return Json(new { success=5 });
+                    }
+                    else
+                    {
+                        Session.Add("UserID", _user.ID);
+                        Session.Add("AuthUser", _user.Role);
+                        Session.Add("Username", _user.Username);
+                        return Json(new { success = 4 });
+                    }
                 }
                 else
                 {
@@ -54,6 +65,11 @@ namespace SweetMoive.Areas.MovieUser.Controllers
         public ActionResult Register()
         {
             return View();
+        }
+        [HttpGet]
+        public ActionResult MovieList()
+        {
+            return View(movieManage.FindList().ToList());
         }
         [HttpPost]
         public ActionResult Register(RegisterViewModel registerViewModel)
@@ -144,6 +160,40 @@ namespace SweetMoive.Areas.MovieUser.Controllers
                 result.Append(r.Next(0, 10));
             }
             return result.ToString();
+        }
+        [HttpGet]
+        public ActionResult MovieDetail(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var _movie = movieManage.Find(id);
+            if (_movie == null && _movie.Hidden == Movie.Hiddens.隐藏)
+            {
+                return View("404NotFound");
+            }
+            if (Session["UserID"] != null)
+            {
+                var _userid = Convert.ToInt32(Session["UserID"]);
+                var favCount = favoriteManage.Count(p => p.UserID == _userid && p.MovieID == id);
+                ViewBag.AlreadyFavorite = (favCount == 0) ? false : true;
+                var _history = historyManage.Find(id,_userid);
+                if (_history == null)
+                {
+                    History his = new History();
+                    his.ViewTime = DateTime.Now;
+                    his.MovieID = id;
+                    his.UserID = _userid;
+                    var _resp = historyManage.Add(his);
+                }
+                else
+                {
+                    _history.ViewTime = DateTime.Now;
+                    var _resp = historyManage.Update(_history);
+                }
+            }
+            return View(_movie);
         }
     }
 }

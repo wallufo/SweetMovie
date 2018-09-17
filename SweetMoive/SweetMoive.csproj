@@ -172,8 +172,11 @@
     <Compile Include="Areas\AdminPerson\Models\AddUserViewModel.cs" />
     <Compile Include="Areas\AdminPerson\Models\LoginViewModel.cs" />
     <Compile Include="Areas\MovieUser\Controllers\HomeController.cs" />
+    <Compile Include="Areas\MovieUser\Controllers\UserController.cs" />
+    <Compile Include="Areas\MovieUser\Models\EditUserViewModel.cs" />
     <Compile Include="Areas\MovieUser\Models\LoginViewModel.cs" />
     <Compile Include="Areas\MovieUser\Models\RegisterViewModel.cs" />
+    <Compile Include="Areas\MovieUser\Models\UserViewModel.cs" />
     <Compile Include="Areas\MovieUser\MovieUserAreaRegistration.cs" />
     <Compile Include="Areas\MovieUser\UserAuthorizeAttribute.cs" />
     <Compile Include="General.cs" />
@@ -183,6 +186,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animate.css" />
+    <Content Include="Content\bootsnav.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-dialog.css" />
@@ -194,6 +199,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.4.0.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\coreNavigation.css" />
+    <Content Include="Content\custom.css" />
+    <Content Include="Content\elusive-webfont.css" />
     <Content Include="Content\fileinput-rtl.css" />
     <Content Include="Content\fileinput-rtl.min.css" />
     <Content Include="Content\fileinput.css" />
@@ -201,6 +209,23 @@
     <Content Include="Content\flat-ui.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\immersive-slider.css" />
+    <Content Include="Content\indexstyle.css" />
+    <Content Include="Content\Login-register-background-css\css\default.css" />
+    <Content Include="Content\Login-register-background-css\css\styles.css" />
+    <Content Include="Content\main.css" />
+    <Content Include="Content\moviedetail.css" />
+    <Content Include="Content\overwrite.css" />
+    <Content Include="Content\sortable.css" />
+    <Content Include="Content\star-rating-svg.css" />
+    <Content Include="Content\typography.css" />
+    <Content Include="fonts\icomoon.svg" />
+    <Content Include="Content\Login-register-background-css\Images\dust1_zpst8inukke.jpg" />
+    <Content Include="Content\Login-register-background-css\Images\dust2_zps9on59cjb.jpg" />
+    <Content Include="Content\Login-register-background-css\Images\dust3_zps9hjmkyei.jpg" />
+    <Content Include="Content\Login-register-background-css\Images\speck_zpsu9xym9zl.png" />
+    <Content Include="Scripts\parallax.js" />
+    <Content Include="Scripts\stopExecutionOnTimeout.js" />
     <Content Include="Content\Login-register-style.css" />
     <Content Include="Content\metisMenu.css" />
     <Content Include="Content\metisMenu.min.css" />
@@ -301,6 +326,16 @@
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Areas\MovieUser\Views\Home\Register.cshtml" />
     <Content Include="Areas\MovieUser\Views\Home\Login.cshtml" />
+    <Content Include="Areas\MovieUser\Views\Shared\_Layout.cshtml" />
+    <Content Include="fonts\icomoon.eot" />
+    <Content Include="fonts\icomoon.ttf" />
+    <Content Include="fonts\icomoon.woff" />
+    <Content Include="Areas\MovieUser\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MovieUser\Views\Home\Index.cshtml" />
+    <Content Include="Areas\MovieUser\Views\User\Index.cshtml" />
+    <Content Include="Areas\MovieUser\Views\User\EditUserInfo.cshtml" />
+    <Content Include="Areas\MovieUser\Views\Home\MovieList.cshtml" />
+    <Content Include="Areas\MovieUser\Views\Home\MovieDetail.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
@@ -386,6 +421,7 @@
     <Content Include="Scripts\themes\gly\theme.min.js" />
     <Content Include="Scripts\video.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="UserImg\7.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -399,7 +435,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\MovieUser\Views\Shared\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>

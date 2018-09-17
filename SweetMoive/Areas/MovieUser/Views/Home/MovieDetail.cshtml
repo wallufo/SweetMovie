@@ -1,0 +1,151 @@
+﻿@model SweetMoive.DAL.Models.Movie
+
+@{
+    ViewBag.Title = "MovieDetail";
+}
+@section style{
+    @Styles.Render("~/Content/moviedetail")
+    @Styles.Render("~/Content/star")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/moviedetail")   
+    @Scripts.Render("~/bundles/star") 
+}
+@{ var rating = Model.Score / 2;
+    var imgusrl= "/Images/" + Model.ID + "-1-1.jpg";
+    }
+<div class="movie">
+    <div class="title">
+        <h1>@Model.MovieName<span>(@Model.ReleaseDate.Year)</span></h1>
+        <div class="rating"><div class="star-rating" data-rating="@rating"></div>         
+        </div>
+    </div>
+    <div class="details">
+        <div class="poster text-center">
+            <a href="">
+                <img src="@imgusrl" alt="@Model.MovieName">
+            </a>
+            @if (Session["UserID"] != null)
+            {
+                if (ViewBag.AlreadyFavorite)
+                {
+                    <button class="btn btn-warning" id="Favorite"><i class="glyphicon glyphicon-heart" id="heart">已收藏</i></button>
+                }
+                else
+                {
+                    <button class="btn btn-warning" id="Favorite"><i class="glyphicon glyphicon-heart" id="heart">收藏</i></button>
+                }
+            }
+            else
+            {
+                <a class="btn btn-warning" id="Favorite" href='@Url.Action("Login","Home")'><i class="glyphicon glyphicon-heart" id="heart">收藏</i></a>
+            }
+
+        </div>
+        <div class="info">
+            <div class="line">
+                <span>导演：</span>
+                <a href="#">@Model.Director</a>
+            </div>
+            <div class="line">
+                <span>国家：</span>
+                <a href="#">@Model.Contry</a>
+            </div>
+            <div class="line">
+                <span>时长：</span>
+                <a href="#">@Model.Duration 分钟</a>
+            </div>
+            <div class="line">
+                <span>上映时间：</span>
+                <a href="#">@Model.ReleaseDate.ToLongDateString()</a>
+            </div>
+            <div class="line">
+                <span>类型：</span>
+                <a href="#">@Model.Type</a>
+
+            </div>
+            <div class="line">
+                <span>主演：</span>
+                <a href="#">@Model.Actors</a>
+            </div>
+            <div class="line">
+                <a href="#" class="player">
+                    <font style="vertical-align:inherit;">
+                        <font style="vertical-align:inherit">►播放预告片</font>
+                    </font>
+                </a>
+            </div>
+            <div class="line">
+                <span>剧情简介：</span>
+                @if (Model.Synopsis.Length > 250)
+                {
+                    <a href="#">@Model.Synopsis.Substring(0, 250)....</a>
+                }
+                else
+                {
+                    <a href="#">@Model.Synopsis</a>
+
+                }
+            </div>
+            <div class="line">
+                <span>电影海报：</span>
+                <ul id="lightgallery" class="list-unstyled row">
+                    @for (int index = 1; index <= Model.PostersNum; index++)
+                    {
+                        var url = "/Images/" + Model.ID.ToString() + "-1-" + index + ".jpg";
+                        <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="" data-src="@url" data-sub-html="<h4>@Model.MovieName</h4>">
+                            <a href="">
+                                <img class="img-responsive" src="@url">
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+           
+        </div>
+    </div>
+</div>
+<script>
+            bubbly({
+                blur:10,
+                colorStart: "#111",
+                colorStop: "#422",
+                bubbleFunc: () => `hsla(0, 60%, 50%, ${Math.random() * 0.15})`
+            });
+            $(function () {
+                $('#lightgallery').lightGallery();
+                $(".star-rating").starRating({
+                    totalStars: 5,
+                    starShape: 'rounded',
+                    starSize: 30,
+                    emptyColor: 'lightgray',
+                    hoverColor: 'salmon',
+                    activeColor: 'crimson',
+                    useGradient: false,
+                    readOnly: true,
+                    forceRoundUp: true
+                });
+                $("#Favorite").on('click', function () {
+                    $.ajax({
+                        type: "POST",
+                        url:'@Url.Action("Favorite","User")/'+@Model.ID,
+                        data:"json",
+                        success:function(data){
+                            if(data.StatusCode==0){
+                                $("#heart").text("已收藏");
+                            }else{
+                                $("#heart").text("收藏");
+                            }
+                        }
+                    });
+                })
+                $('.player').on('click', function () {
+                    BootstrapDialog.show({
+                        title: '【@Model.MovieName】' + '电影预告片',
+                        size: BootstrapDialog.SIZE_WIDE,
+                        message: '<div class="row"><video style="width:560px;height:280px;" id="my-player" class="video-js" controls preload="auto" data-setup="{}"><source src=" @Model.PreviewUrl " type="video/mp4"></source><p>播放此视频需要允许脚本运行点击查看<a href="http://videojs.com/html5-video-support/" target="_blank">Support HTML5 Video</a></p></video></div>'
+                    });
+                })
+            });
+</script>
+

@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="referrer" content="no-referrer" />
+    @Styles.Render("~/Content/Layout")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/Layout")
+    @RenderSection("style", required: false)
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed dark no-background bootsnav">
+
+        <!-- Start Top Search -->
+        <div class="top-search">
+            <div class="container">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    <input type="text" class="form-control" placeholder="Search">
+                    <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
+                </div>
+            </div>
+        </div>
+        <!-- End Top Search -->
+
+        <div class="container">
+            <!-- Start Atribute Navigation -->
+            <div class="attr-nav">
+                <ul>
+
+                    <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
+                    <li class="side-menu"><a href="#"><i class="fa fa-bars"></i></a></li>
+                </ul>
+            </div>
+            <!-- End Atribute Navigation -->
+            <!-- Start Header Navigation -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
+                    <li>
+                        <a href="#brand">SweetMovie</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- End Header Navigation -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+                    <li><a href='@Url.Action("Index")'>首页</a></li>
+                    <li><a href='@Url.Action("MovieList")'>电影列表</a></li>
+                    <li><a href='@Url.Action("MovieArticle")'>电影文章</a></li>
+                    <li><a href='@Url.Action("MovieHistory")'>电影历史</a></li>
+                    <li><a href='@Url.Action("MovieRanking")'>电影排行</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+
+        <!-- Start Side Menu -->
+        <div class="side">
+            <a href="#" class="close-side"><i class="fa fa-times"></i></a>
+            <div class="widget">
+                <h6 class="title">个人中心</h6>
+                @if (Session["UserID"] == null)
+                {
+                    <div class="row text-center"><img src="~/DefaultImg/NoLogin.jpg" alt="" class="img-circle" style="width:144px;height:144px;"></div>
+                    <div class="row">
+                        <a href="@Url.Action("Login","Home")" style="padding:8px">登陆</a><a href="@Url.Action("Register","Home")" style="padding:8px">注册</a>
+                    </div>
+                }
+                else
+                {
+                    var imgurl = Path.Combine(Request.MapPath("~/UserImg"), Session["UserID"].ToString() + ".jpg");
+                    var userimg = "/UserImg/" + Session["UserID"] + ".jpg";
+                    if (System.IO.File.Exists(imgurl))
+                    {
+                        <div class="row text-center"><img src="@userimg" alt="" class="img-circle" style="width:144px;height:144px;"></div>
+
+                    }
+                    else
+                    {
+                        <div class="row text-center"><img src="~/DefaultImg/Default.jpg" alt="" class="img-circle" style="width:144px;height:144px;"></div>
+                    }
+                }
+            </div>
+            <hr>
+            <div class="widget">
+                <ul class="link text-center">
+                    <li><a href="#"><h6 class="title">个人信息</h6></a></li>
+                    <li><a href="#"><h6 class="title">我的关注</h6></a></li>
+                    <li><a href="#"><h6 class="title">我的收藏</h6></a></li>
+                    <li><a href="#"><h6 class="title">我的文章</h6></a></li>
+                    <li><a href="#"><h6 class="title">浏览历史</h6></a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- End Side Menu -->
+    </nav>
+    <div class="clearfix"></div>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

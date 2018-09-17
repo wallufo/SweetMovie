@@ -54,6 +54,7 @@
                 url: "@Url.Action("PageListJson")",
                 queryParams: queryParams,
                 columns: [
+                { title: "state", checkbox: true },
                 { title: "ID", field: "ID" },
                 { title: "电影名称", field: "MovieName" },
                 { title: "上映日期", field: "ReleaseDate" ,formatter: function (value) { return moment(value).format("YYYY-MM-DD") }},

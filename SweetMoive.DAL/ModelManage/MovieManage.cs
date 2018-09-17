@@ -21,13 +21,13 @@ namespace SweetMoive.DAL.ModelManage
             switch (order)
             {
                 case 0:
-                    _order = new OrderParamcs() { PropertyName = "ID", Method = OrderParamcs.OrderMethod.ASC };
+                    _order = new OrderParamcs() { PropertyName = "Score", Method = OrderParamcs.OrderMethod.ASC };
                     break;
                 case 1:
-                    _order = new OrderParamcs() { PropertyName = "ID", Method = OrderParamcs.OrderMethod.DESC };
+                    _order = new OrderParamcs() { PropertyName = "Score", Method = OrderParamcs.OrderMethod.DESC };
                     break;
                 default:
-                    _order = new OrderParamcs() { PropertyName = "ID", Method = OrderParamcs.OrderMethod.ASC };
+                    _order = new OrderParamcs() { PropertyName = "Score", Method = OrderParamcs.OrderMethod.ASC };
                     break;
             }
             pagingMovie.Items = Repository.FindPageList(pagingMovie.PageSize, pagingMovie.PageIndex, out pagingMovie.TotalNumber, _order).ToList();
@@ -91,6 +91,9 @@ namespace SweetMoive.DAL.ModelManage
             }
             return _resp;
         }
+        #endregion
+        #region 电影排行榜
+
         #endregion
     }
 }

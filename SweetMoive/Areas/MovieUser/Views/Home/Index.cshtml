@@ -1,0 +1,62 @@
+﻿@model IEnumerable<SweetMoive.DAL.Models.Movie>
+@{
+    ViewBag.Title = "首页";
+}
+@section style{
+    @Styles.Render("~/Content/index")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/index")
+}
+<div class="main">
+    <div class="page_container">
+        <div id="immersive_slider">
+            @{ var randnum = new Random(Guid.NewGuid().GetHashCode()).Next(1, 70); }
+            @foreach (var item in Model.Skip(randnum).Take(5))
+            {
+                var imgUrl = "/Images/" + item.ID + "-1-2.jpg";
+                <div class="slide" data-blurred="@imgUrl">
+                    <div class="content">
+                        <h4 class="text-center" style="color:white;">@item.MovieName</h4>
+                       
+                            @if (item.Synopsis.Length > 100)
+                            {
+                                <p>
+                                    @item.Synopsis.Substring(0, 100) .....
+                                </p>
+                            }
+                            else
+                            {
+                                <p>
+                                    @item.Synopsis
+                                </p>
+                            }
+                    </div>
+                    <div class="image">
+                        <img src="@imgUrl" alt="@item.MovieName">
+                    </div>
+                </div>
+            }       
+            <div class="is-nav">
+                <a href="#" class="is-prev">&laquo;</a>
+                <a href="#" class="is-next">&raquo;</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="clearfix"></div>
+<div>
+   
+</div>   
+<script>
+    $(document).ready(function () {
+        $("#immersive_slider").immersive_slider({
+            container: ".main",
+            animation: "fade",
+            autoStart: false,
+            autoPlay: false
+        });
+    });
+</script>
+

@@ -34,6 +34,11 @@ namespace SweetMoive.DAL
                 new Administrator { Accounts="Adminer",Password= "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=",CreateTime=DateTime.Now }
                 };
                 Administrators.ForEach(s => context.Admministrators.Add(s));
+                var Users = new List<User>
+                {
+                    new User { Username="guester",Password= "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=",EmailAdress="877546504@qq.com",Role=DAL.Models.User.Roles.评论专家,SweetScore=60,Userstatus=DAL.Models.User.UserStatus.启用}
+                };
+                Users.ForEach(s => context.Users.Add(s));
                 context.SaveChanges();
                 base.Seed(context);
             }

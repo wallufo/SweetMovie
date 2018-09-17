@@ -110,7 +110,7 @@ namespace SweetMoive.DAL
         }
         #endregion
         #region 查找数据
-        public T Find(int ID)
+        public T Find(int? ID)
         {
             return Repository.Find(ID);
         }

@@ -23,6 +23,35 @@ namespace SweetMoive
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
+            bundles.Add(new ScriptBundle("~/bundles/LoginJs").Include(
+                    "~/Scripts/parallax.js",
+                    "~/Scripts/stopExecutionOnTimeout.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/Layout").Include(
+                    "~/Scripts/bootsnav.js",
+                    "~/Scripts/bootstrap.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/star").Include(
+                    "~/Scripts/jquery.star-rating-svg.min.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/Index").Include(
+                    "~/Scripts/jquery.immersive-slider.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/moviedetail").Include(
+                    "~/Scripts/bootstrap-dialog.js",
+                    "~/Scripts/video.js",
+                    "~/Scripts/lightgallery-all.min.js",
+                    "~/Scripts/bubbly-bg.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/userinfo").Include(
+                    "~/Scripts/coreNavigation.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/avatar").Include(
+                    "~/Scripts/hammer.js",
+                    "~/Scripts/iscroll-zoom.js",
+                    "~/Scripts/lrz.all.bundle.js",
+                    "~/Scripts/jquery.photoClip.min.js"
+                ));
             bundles.Add(new ScriptBundle("~/bundles/bootstrapplugin").Include(
                "~/Scripts/moment-with-locales.js",
                "~/Scripts/bootstrap-datetimepicker.js",
@@ -42,8 +71,15 @@ namespace SweetMoive
                     "~/Scripts/metisMenu.js",
                     "~/Scripts/sb-admin-2.js"
                 ));
+            bundles.Add(new ScriptBundle("~/bundles/boot-dialog").Include(
+                    "~/Scripts/bootstrap.js",
+                    "~/Scripts/bootstrap-dialog.js"
+                ));
             bundles.Add(new ScriptBundle("~/bundles/chart").Include(
                     "~/Scripts/Chart*"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/sortable").Include(
+                    "~/Scripts/sortable.js"
                 ));
             bundles.Add(new ScriptBundle("~/bundles/fileinput").Include(
                     "~/Scripts/fileinput*",
@@ -63,7 +99,9 @@ namespace SweetMoive
                     "~/Content/fileinput*",
                     "~/Content/themes/explorer-fa/theme*"
                 ));
-            
+            bundles.Add(new StyleBundle("~/Content/star").Include(
+                    "~/Content/star-rating-svg.css"
+                ));
             bundles.Add(new StyleBundle("~/Content/B-Admin").Include(
                    "~/Content/bootstrap.css",
                    "~/Content/sb-admin-2.css",
@@ -80,13 +118,45 @@ namespace SweetMoive
                "~/Content/bootstrap-select.css",
                "~/Content/bootstrap-table.css"
                ));
+            bundles.Add(new StyleBundle("~/Content/Layout").Include(
+                "~/Content/bootstrap.css",
+                "~/Content/font-awesome.css",
+                "~/Content/animate.css",
+                "~/Content/bootsnav.css",
+                "~/Content/overwrite.css"
+                ));
+            bundles.Add(new StyleBundle("~/Content/boot-dialog").Include(
+                "~/Content/bootstrap.css",
+                "~/Content/font-awesome.css",
+               "~/Content/bootstrap-dialog.css"
+                ));
+            bundles.Add(new StyleBundle("~/Content/moviedetail").Include(
+               "~/Content/bootstrap-dialog.css",
+               "~/Content/lightgallery.css",
+                "~/Content/moviedetail.css"
+                ));
+            bundles.Add(new StyleBundle("~/Content/Index").Include(
+                "~/Content/immersive-slider.css",
+                "~/Content/elusive-webfont.css",
+                "~/Content/indexstyle.css"
+                ));
+            bundles.Add(new StyleBundle("~/Content/sortable").Include(
+                "~/Content/sortable.css"
+                ));
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Content/userinfo").Include(
+                    "~/Content/coreNavigation.css",
+                    "~/Content/custom.css",
+                    "~/Content/typography.css"
+                ));
+            bundles.Add(new StyleBundle("~/Content/Logincss").Include(
                     "~/Content/normalize.min.css",
                     "~/Content/bootstrap.min.4.0.css",
-                    "~/Content/Login-register-style.css"
+                    "~/Content/Login-register-style.css",
+                    "~/Content/Login-register-background-css/css/default.css",
+                    "~/Content/Login-register-background-css/css/styles.css"
                 ));
         }
     }

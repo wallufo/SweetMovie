@@ -1,0 +1,94 @@
+/* Custom Stylesheet */
+body, html {
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+      background:#4f4f4f;
+      text-align: center;
+}
+body, .main, html {
+  padding: 0;
+  width: 100%;
+  float: left;
+  font-family: 'Roboto',Arial,sans-serif;
+}
+
+
+body .header{
+  color: #ecf0f1;
+}
+body .header p{color: #666;}
+body .header p a{color: #6699cc;}
+.main p {
+  color: #ecf0f1;
+  font-size: 16px;
+  font-weight: 100;
+}
+.nav-top {
+  background: black;
+}
+.nav-top a {
+  color: #ecf0f1;
+}
+
+/* ALL DEMO */
+h1 {
+  color: #000;
+  font-family: 'Roboto',Arial,sans-serif;
+  font-size: 64px;
+}
+
+h1 span {
+  font-size: 44px;
+  display: block;
+}
+
+
+.menu, .header, .nav-top {
+  margin-bottom: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.page_container {
+  max-width: 960px;
+  margin: 150px auto;
+}
+
+.header {
+  background: white;
+  padding-top: 10px;
+  margin-bottom: 0;
+}
+.header h1{
+  margin-bottom: 0;
+  font-size: 45px;
+}
+
+.header .menu {
+  padding-bottom: 10px;
+}
+
+.benefits {
+  color: black;
+  height: 100px;
+  background: #FFF;
+  position: relative;
+  width: 100%;
+  padding: 25px;
+  font-size: 40px;
+  font-weight: 100;
+  float: left;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.benefits .page_container{
+  margin-bottom: 50px;
+  margin-top: 0;
+}
+
+.demo5  .header h2{
+  margin-bottom: 0;
+  color: #666;;
+}

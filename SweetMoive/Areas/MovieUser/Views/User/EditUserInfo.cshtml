@@ -1,0 +1,67 @@
+﻿@model SweetMoive.Areas.MovieUser.Models.EditUserViewModel
+
+
+@using (Html.BeginForm("EditUserInfo", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.DefalutImgUrl)
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label for="" class="control-label col-md-2">头像</label>
+            <div class="col-md-10">
+                <img  src="@Model.DefalutImgUrl" style="width:144px;height:144px;"/>
+                <input type="file" name="UploadFile" id="txtUploadFile" class="makethispretty"/>
+            </div>
+            <script>
+                $('#txtUploadFile').on('change', function (e) {
+                    var files = e.target.files;
+                    var myID = @Model.ID; //uncomment this to make sure the ajax URL works
+                    if (files.length > 0) {
+                        if (window.FormData !== undefined) {
+                            var data = new FormData();
+                            for (var x = 0; x < files.length; x++) {
+                                data.append(myID, files[x]);
+                            }
+
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("UploadImg")/'+myID,
+                                contentType: false,
+                                processData: false,
+                                data: data,
+                                success: function (result) {
+                                    console.log(result);
+                                }
+                            })
+                        }
+                    }
+                });
+            </script>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mottoy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Mottoy, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Mottoy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Sex, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+}
+@Scripts.Render("~/bundles/jqueryval")
