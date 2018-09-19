@@ -6,17 +6,19 @@
 @section style{
     @Styles.Render("~/Content/moviedetail")
     @Styles.Render("~/Content/star")
+    @Styles.Render("~/Content/bootstrap-markdown")
 }
 @section scripts{
     @Scripts.Render("~/bundles/moviedetail")   
-    @Scripts.Render("~/bundles/star") 
+    @Scripts.Render("~/bundles/star")
+    @Scripts.Render("~/bundles/bootstrap-markdown") 
 }
 @{ var rating = Model.Score / 2;
-    var imgusrl= "/Images/" + Model.ID + "-1-1.jpg";
+    var imgusrl = "/Images/" + Model.ID + "-1-1.jpg";
     }
 <div class="movie">
     <div class="title">
-        <h1>@Model.MovieName<span>(@Model.ReleaseDate.Year)</span></h1>
+        <h1 style="line-height:1.2;color:#fff;">@Model.MovieName<span>(@Model.ReleaseDate.Year)</span></h1>
         <div class="rating"><div class="star-rating" data-rating="@rating"></div>         
         </div>
     </div>
@@ -33,12 +35,12 @@
                 }
                 else
                 {
-                    <button class="btn btn-warning" id="Favorite"><i class="glyphicon glyphicon-heart" id="heart">收藏</i></button>
+                    <button class="btn btn-default" id="Favorite"><i class="glyphicon glyphicon-heart" id="heart">收藏</i></button>
                 }
             }
             else
             {
-                <a class="btn btn-warning" id="Favorite" href='@Url.Action("Login","Home")'><i class="glyphicon glyphicon-heart" id="heart">收藏</i></a>
+                <a class="btn btn-default" id="Favorite" href='@Url.Action("Login", "Home")'><i class="glyphicon glyphicon-heart" id="heart">收藏</i></a>
             }
 
         </div>
@@ -105,14 +107,88 @@
         </div>
     </div>
 </div>
+<div class="movie">
+    <div class="title">
+        <h1 class="white">用户评论</h1>
+        @{ var strscore = Model.Score.ToString();
+           string aa= strscore.Substring(2, 1);
+            int sub = Convert.ToInt32(aa);
+            int b = Convert.ToInt32(strscore.Substring(0, 1));
+            }
+        <div class="rating">
+            <div class="gradebox">
+                <b>@b<sub>.@sub</sub></b>
+                <p>总分：10分</p>
+            </div>
+        </div>
+    </div>
+    <div class="details">
+        @if (Session["UserID"] != null)
+            {
+            var UserID = Convert.ToInt32(Session["UserID"]);
+            using (Ajax.BeginForm("CommentSubmit", "Comment", null, new AjaxOptions { UpdateTargetId = "CommentList" }, new { id = "user_say_comment" }))
+            {
+                @Html.AntiForgeryToken()
+                <textarea id="Content" rows="5" name="Content"></textarea>
+                <div class="form-horizontal">
+                <div class="user-rating" style="width:240px;float:left;line-height:2.5;"><span class="live-rating" style="float:right;display:block;line-height:2.7;"></span></div>
+                    <input type="hidden" name="score" id="score" />
+                    <input type="hidden" name="UserID" value="@UserID" id="UserID" />
+                    <input type="hidden" name="MovieID" value="@Model.ID" id="MovieID"/>
+                    <input type="submit" name="submit" id="commentsub" class="btn btn-success" style="float:right;" value="提交" />
+                </div>
+            }
+        }
+        else
+        {
+            <fieldset disabled>
+                <textarea id="Content" rows="5"></textarea>
+                <label for="Content">评论需要先<a href="@Url.Action("Login","Home")">登陆</a>或<a href="@Url.Action("Register","Home")">注册</a></label>
+                <div class="form-horizontal">
+                    <div class="user-rating" style="width:240px;float:left;line-height:2.5;"><span class="live-rating" style="float:right;display:block;line-height:2.7;"></span></div>
+                    <input type="hidden" name="score" id="score" />
+                    <input type="submit" name="submit" id="commentsub" class="btn btn-success" style="float:right;" value="提交" />
+                </div>
+            </fieldset>
+        }   
+    </div>
+    <div class="details" id="CommentList">
+       @Html.Action("CommentList", "Comment", new { id = Model.ID })
+    </div>
+    
+</div>
+  
+
 <script>
-            bubbly({
-                blur:10,
-                colorStart: "#111",
-                colorStop: "#422",
-                bubbleFunc: () => `hsla(0, 60%, 50%, ${Math.random() * 0.15})`
-            });
-            $(function () {
+           
+    $(function () {
+        $("#Content").markdown({
+            savable:false
+        });
+        bubbly({
+            blur: 10,
+            colorStart: "#111",
+            colorStop: "#422",
+            bubbleFunc: () => `hsla(0, 60%, 50%, ${Math.random() * 0.15})`
+        });
+        $(".user-rating").starRating({
+            totalStars:10,
+            starShape: 'rounded',
+            starSize: 20,
+            emptyColor: 'lightgray',
+            hoverColor: 'salmon',
+            activeColor: 'crimson',
+            onHover: function(currentIndex, currentRating, $el){
+                $('.live-rating').text(currentIndex);
+            },
+            onLeave: function(currentIndex, currentRating, $el){
+                $('.live-rating').text(currentRating);
+            },
+            callback: function(currentRating, $el){
+                console.log(currentRating);
+                $("#score").val(currentRating);
+        }
+        });
                 $('#lightgallery').lightGallery();
                 $(".star-rating").starRating({
                     totalStars: 5,
@@ -146,6 +222,7 @@
                         message: '<div class="row"><video style="width:560px;height:280px;" id="my-player" class="video-js" controls preload="auto" data-setup="{}"><source src=" @Model.PreviewUrl " type="video/mp4"></source><p>播放此视频需要允许脚本运行点击查看<a href="http://videojs.com/html5-video-support/" target="_blank">Support HTML5 Video</a></p></video></div>'
                     });
                 })
+
             });
 </script>
 

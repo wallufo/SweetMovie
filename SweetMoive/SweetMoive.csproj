@@ -86,6 +86,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -171,6 +179,7 @@
     <Compile Include="Areas\AdminPerson\Models\AddMovieViewModel.cs" />
     <Compile Include="Areas\AdminPerson\Models\AddUserViewModel.cs" />
     <Compile Include="Areas\AdminPerson\Models\LoginViewModel.cs" />
+    <Compile Include="Areas\MovieUser\Controllers\CommentController.cs" />
     <Compile Include="Areas\MovieUser\Controllers\HomeController.cs" />
     <Compile Include="Areas\MovieUser\Controllers\UserController.cs" />
     <Compile Include="Areas\MovieUser\Models\EditUserViewModel.cs" />
@@ -216,6 +225,7 @@
     <Content Include="Content\main.css" />
     <Content Include="Content\moviedetail.css" />
     <Content Include="Content\overwrite.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\sortable.css" />
     <Content Include="Content\star-rating-svg.css" />
     <Content Include="Content\typography.css" />
@@ -224,6 +234,8 @@
     <Content Include="Content\Login-register-background-css\Images\dust2_zps9on59cjb.jpg" />
     <Content Include="Content\Login-register-background-css\Images\dust3_zps9hjmkyei.jpg" />
     <Content Include="Content\Login-register-background-css\Images\speck_zpsu9xym9zl.png" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\parallax.js" />
     <Content Include="Scripts\stopExecutionOnTimeout.js" />
     <Content Include="Content\Login-register-style.css" />
@@ -336,6 +348,9 @@
     <Content Include="Areas\MovieUser\Views\User\EditUserInfo.cshtml" />
     <Content Include="Areas\MovieUser\Views\Home\MovieList.cshtml" />
     <Content Include="Areas\MovieUser\Views\Home\MovieDetail.cshtml" />
+    <Content Include="Areas\MovieUser\Views\Comment\CommentList.cshtml" />
+    <Content Include="Areas\MovieUser\Views\User\MyFavorite.cshtml" />
+    <Content Include="Areas\MovieUser\Views\User\MyHistory.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />

@@ -1,0 +1,39 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<SweetMoive.DAL.Models.Favorite>
+
+@{
+    ViewBag.Title = "MyFavorite";
+    Layout = null;
+}
+
+<div class="row">
+    @foreach(var item in Model){
+        var Favrating = item.Movie.Score / 2;
+        var imgurl = "/Images/" + item.MovieID+"-1-1.jpg";
+        <div class="col-lg-2">
+            <a href="@Url.Action("MovieDetail","Home")/@item.MovieID" class="thumbnail">
+                <img src="@imgurl" alt="Alternate Text" style="width:auto;height:300px;" />
+                <div class="caption">
+                    <h4 class="text-center">@item.Movie.MovieName</h4>
+                        <div class="rating-fav" data-rating="@Favrating"></div>
+                </div>
+            </a>
+        </div>
+    }
+</div>
+<p>
+    @Html.PagedListPager(Model, page => Url.Action("MyFavorite", "User", new { id = Model.First().MovieID, page = page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "Myfavorite" }))
+</p>
+<script>
+    $(".rating-fav").starRating({
+        totalStars: 5,
+        starShape: 'rounded',
+        starSize: 16,
+        emptyColor: 'lightgray',
+        hoverColor: 'salmon',
+        activeColor: 'crimson',
+        useGradient: false,
+        readOnly: true,
+        forceRoundUp: true
+    });
+</script>

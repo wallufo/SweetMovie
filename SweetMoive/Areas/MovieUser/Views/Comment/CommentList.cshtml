@@ -1,0 +1,51 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<SweetMoive.DAL.Models.MovieComment>
+
+@{ 
+    ViewBag.Title = "CommentList";
+    Layout = null;
+}
+
+<ul class="uk-comment-list">
+    @foreach (var item in Model)
+    {
+        var score = item.Score / 2;
+        <li>
+            <article class="uk-comment">
+                <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+                    <div class="uk-width-auto">
+                        <img class="uk-comment-avatar" src="@item.User.DefaultImgUrl" width="80" height="80" alt="">
+                    </div>
+                    <div class="uk-width-expand">
+                        <h4 class="uk-comment-title uk-margin-remove" style="color:#fff;" ><a class="uk-link-reset" href="#">@item.User.Username</a></h4>
+                        <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                            <li><a href="#">@item.CommentTime</a></li>
+                            <li>对&nbsp;<a href="#">@item.Movie.MovieName</a>&nbsp;评分：<div class="comment-rating" data-rating="@score"></div></li>
+                        </ul>
+                    </div>
+                </header>
+                <div class="uk-comment-body">
+                    <p>@item.Content</p>
+                </div>
+            </article>
+        </li>
+        <hr class="uk-divider-icon">
+    }
+    
+</ul>
+<p>
+    @Html.PagedListPager(Model,page=>Url.Action("CommentList","Comment",new { id=Model.First().MovieID,page=page}),PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod="GET",UpdateTargetId="CommentList"}))
+</p>
+<script>
+    $(".comment-rating").starRating({
+        totalStars: 5,
+        starShape: 'rounded',
+        starSize: 16,
+        emptyColor: 'lightgray',
+        hoverColor: 'salmon',
+        activeColor: 'crimson',
+        useGradient: false,
+        readOnly: true,
+        forceRoundUp: true
+    });
+</script>

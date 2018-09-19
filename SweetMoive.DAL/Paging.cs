@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SweetMoive.DAL
 {
-    public class Paging<T>
+    public class Paging<T> where T:class 
     {
         public int PageSize { get; set; }
         public int PageIndex { get; set; }

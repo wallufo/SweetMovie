@@ -140,5 +140,11 @@ namespace SweetMoive.DAL
             return paging;
         }
         #endregion
+        #region 条件查询数据实体
+        public IQueryable<T> FindList(Expression<Func<T,bool>> where)
+        {
+            return Repository.FindList(where);
+        }
+        #endregion
     }
 }

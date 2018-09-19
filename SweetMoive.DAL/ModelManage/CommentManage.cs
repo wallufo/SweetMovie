@@ -74,5 +74,8 @@ namespace SweetMoive.DAL.ModelManage
             return _resp;
         }
         #endregion
+        #region 查找电影下的评论
+        
+        #endregion
     }
 }

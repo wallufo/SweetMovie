@@ -11,9 +11,11 @@
     <title>Index</title>
     @Styles.Render("~/Content/boot-dialog")
     @Styles.Render("~/Content/userinfo")
+    @Styles.Render("~/Content/star")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/userinfo")
     @Scripts.Render("~/bundles/boot-dialog")
+    @Scripts.Render("~/bundles/star")
 </head>
 <body>
     <div class="wrap">
@@ -64,17 +66,31 @@
             <div class="nav-header">
                 <button class="toggle-bar"><span class="fa fa-bars"></span></button>
             </div>
-            <ul class="menu">
-                <li><a href="#">我的关注</a></li>
-                <li><a href="#">我的收藏</a></li>
-                <li><a href="#">浏览历史</a></li>
+            <ul class="menu" id="myTabs" role="tablist">
+                <li role="presentation"><a href="#Myfork">我的关注</a></li>
+                <li role="presentation" class="active"><a href="#Myfavorite">我的收藏</a></li>
+                <li role="presentation"><a href="#Myhistory">浏览历史</a></li>
                 @if (Model.Role == "评论专家")
                 {
-                    <li><a href="#">我的文章</a></li>
+                    <li role="presentation"><a href="#MyArticle">我的文章</a></li>
                 }
             </ul>
         </nav>
         <!-- End Navigation -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane" id="Myfork">
+                @Html.Action("Myfork",new { id=Model.ID})
+            </div>
+            <div role="tabpanel" class="tab-pane active" id="Myfavorite">
+                @Html.Action("MyFavorite",new { id=Model.ID})
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Myhistory">
+                @Html.Action("MyHistory",new { id=Model.ID})
+            </div>
+            <div role="tabpanel" class="tab-pane" id="MyArticle">
+                @Html.Action("MyArticle",new { id=Model.ID})
+            </div>
+        </div>
     </div>
     <script>
 		$('nav').coreNavigation({
@@ -90,6 +106,10 @@
 		});
 	
 		$(function () {
+		    $("#myTabs li a").click(function (e) {
+		        e.preventDefault();
+		        $(this).tab('show');
+		    });
 		    $("button[data-method='Edit']").click(function () {
 		        var id = $(this).attr("data-value");
 		        var modifyDialog = new BootstrapDialog({

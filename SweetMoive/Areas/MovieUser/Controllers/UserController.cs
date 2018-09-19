@@ -1,4 +1,5 @@
-﻿using SweetMoive.Areas.MovieUser.Models;
+﻿using PagedList;
+using SweetMoive.Areas.MovieUser.Models;
 using SweetMoive.DAL;
 using SweetMoive.DAL.ModelManage;
 using SweetMoive.DAL.Models;
@@ -18,6 +19,7 @@ namespace SweetMoive.Areas.MovieUser.Controllers
         MovieManage movieManage = new MovieManage();      
         UserManage userManage = new UserManage();
         FavoriteManage favoriteManage = new FavoriteManage();
+        HistoryManage historyManage = new HistoryManage();
         [UserAuthorize]
         public ActionResult Index()
         {
@@ -29,6 +31,20 @@ namespace SweetMoive.Areas.MovieUser.Controllers
                 Mymottoy=_user.MyMotto,
                 Role=Session["AuthUser"].ToString()
             });
+        }
+        [UserAuthorize]
+        [HttpGet]
+        public ActionResult MyFavorite(int? id,int? page)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var _fav = favoriteManage.FindList(p => p.UserID == id);
+            _fav = _fav.OrderBy(p => p.ID);
+            const int pageSize = 6;
+            int pageNumber = (page ?? 1);
+            return View(_fav.ToPagedList(pageNumber, pageSize));
         }
         [HttpGet]
         public ActionResult EditUserInfo(int id)
@@ -103,33 +119,20 @@ namespace SweetMoive.Areas.MovieUser.Controllers
                 return Json(new { StatusCode = 1 });
             }
         }
-        //[UserAuthorize]
-        //[HttpPost]
-        //public ActionResult RemoveFavorite(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    var _movie = movieManage.Find(id);
-        //    if (_movie == null || _movie.Hidden == Movie.Hiddens.隐藏)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    var movieID = _movie.ID;
-        //    var userID = Convert.ToInt32(Session["UserID"]);
-        //    var _favor = favoriteManage.Find(movieID, userID);
-        //    //Status【0:取消收藏成功1:未收藏】
-        //    if (_favor != null)
-        //    {
-        //        var _resp = favoriteManage.Delete(_favor.ID);
-        //        return Json(new { StatusCode = 0 });
-        //    }
-        //    else
-        //    {
-        //        return Json(new { StatusCode = 1 });
-        //    }
-        //}
+        [UserAuthorize]
+        [HttpGet]
+        public ActionResult MyHistory(int? id,int? page)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var _his = historyManage.FindList(p => p.UserID == id);
+            _his = _his.OrderByDescending(p => p.ViewTime);
+            const int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(_his.ToPagedList(pageNumber,pageSize));
+        }
         [HttpPost]
         public async Task<JsonResult> UploadImg(int id)
         {

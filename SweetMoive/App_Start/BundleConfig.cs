@@ -41,7 +41,10 @@ namespace SweetMoive
                     "~/Scripts/bootstrap-dialog.js",
                     "~/Scripts/video.js",
                     "~/Scripts/lightgallery-all.min.js",
-                    "~/Scripts/bubbly-bg.js"
+                    "~/Scripts/bubbly-bg.js",
+                    "~/Scripts/uikit.js",
+                    "~/Scripts/uikit-icons.js",
+                    "~/Scripts/jquery.unobtrusive-ajax.js"
                 ));
             bundles.Add(new ScriptBundle("~/bundles/userinfo").Include(
                     "~/Scripts/coreNavigation.js"
@@ -51,6 +54,9 @@ namespace SweetMoive
                     "~/Scripts/iscroll-zoom.js",
                     "~/Scripts/lrz.all.bundle.js",
                     "~/Scripts/jquery.photoClip.min.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap-markdown").Include(
+                    "~/Scripts/bootstrap-markdown.js"
                 ));
             bundles.Add(new ScriptBundle("~/bundles/bootstrapplugin").Include(
                "~/Scripts/moment-with-locales.js",
@@ -133,12 +139,16 @@ namespace SweetMoive
             bundles.Add(new StyleBundle("~/Content/moviedetail").Include(
                "~/Content/bootstrap-dialog.css",
                "~/Content/lightgallery.css",
-                "~/Content/moviedetail.css"
+                "~/Content/moviedetail.css",
+                "~/Content/uikit.css"
                 ));
             bundles.Add(new StyleBundle("~/Content/Index").Include(
                 "~/Content/immersive-slider.css",
                 "~/Content/elusive-webfont.css",
                 "~/Content/indexstyle.css"
+                ));
+            bundles.Add(new StyleBundle("~/Content/bootstrap-markdown").Include(
+                "~/Content/bootstrap-markdown.min.css"
                 ));
             bundles.Add(new StyleBundle("~/Content/sortable").Include(
                 "~/Content/sortable.css"

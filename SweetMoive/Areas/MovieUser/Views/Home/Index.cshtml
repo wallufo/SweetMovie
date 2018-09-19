@@ -11,7 +11,10 @@
 <div class="main">
     <div class="page_container">
         <div id="immersive_slider">
-            @{ var randnum = new Random(Guid.NewGuid().GetHashCode()).Next(1, 70); }
+            @{  
+                var moviecount = Model.Count();
+                var randnum = new Random(Guid.NewGuid().GetHashCode()).Next(1, moviecount);
+                 }
             @foreach (var item in Model.Skip(randnum).Take(5))
             {
                 var imgUrl = "/Images/" + item.ID + "-1-2.jpg";
@@ -33,7 +36,9 @@
                             }
                     </div>
                     <div class="image">
-                        <img src="@imgUrl" alt="@item.MovieName">
+                        <a href="@Url.Action("MovieDetail")/@item.ID">
+                            <img src="@imgUrl" alt="@item.MovieName">
+                        </a>
                     </div>
                 </div>
             }       

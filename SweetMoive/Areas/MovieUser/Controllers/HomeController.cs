@@ -126,10 +126,10 @@ namespace SweetMoive.Areas.MovieUser.Controllers
             try
             {
                 Session["EmailCode"] = randomnumber(4);
-                MailMessage _msg = new MailMessage("SweetMovieCompany@163.com", EmailAdress, "SweetMovie网站注册验证码", "欢迎来到SweetMovie网站，您的验证码是:" + Session["EmailCode"]);//由第一个邮箱向第二个邮箱发送邮件
+                MailMessage _msg = new MailMessage("sweetmoviesite@163.com", EmailAdress, "SweetMovie网站注册验证码", "欢迎来到SweetMovie网站，您的验证码是:" + Session["EmailCode"]);//由第一个邮箱向第二个邮箱发送邮件
                 SmtpClient _client = new SmtpClient("smtp.163.com", 25);//163邮箱的服务器和端口 
                 _client.DeliveryMethod = SmtpDeliveryMethod.Network;//通过网络发送
-                _client.Credentials = new System.Net.NetworkCredential("SweetMovieCompany@163.com", "sweetmovie123");//发件人的邮箱和密码
+                _client.Credentials = new System.Net.NetworkCredential("sweetmoviesite@163.com", "sweetmovie1");//发件人的邮箱和密码
                 _client.Send(_msg);
                 return Content("发送成功");
             }
