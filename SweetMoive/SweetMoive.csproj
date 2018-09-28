@@ -369,6 +369,7 @@
     <Content Include="Areas\MovieUser\Views\User\MyArticle.cshtml" />
     <Content Include="Areas\MovieUser\Views\Article\ArticleSubmit.cshtml" />
     <Content Include="Areas\MovieUser\Views\Home\MovieHistory.cshtml" />
+    <Content Include="Areas\MovieUser\Views\Home\MovieLeaderboard.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />

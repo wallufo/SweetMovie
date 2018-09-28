@@ -26,7 +26,7 @@ namespace SweetMoive.DAL
         public DbSet<Article> Articles { get; set; }
         public DbSet<Follower> Followers { get; set; }
         public DbSet<Like> Likes { get; set; }
-        private class SweetMovieDbInitializer<T> : DropCreateDatabaseIfModelChanges<SweetMovieContext>
+        private class SweetMovieDbInitializer<T> : CreateDatabaseIfNotExists<SweetMovieContext>
         {
             protected override void Seed(SweetMovieContext context)
             {

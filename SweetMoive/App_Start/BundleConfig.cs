@@ -24,6 +24,11 @@ namespace SweetMoive
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
+            bundles.Add(new ScriptBundle("~/bundles/ma5slider").Include(
+                    "~/Scripts/jquery-ui.min.js",
+                    "~/Scripts/jquery.ui.touch-punch.min.js",
+                    "~/Scripts/ma5slider.min.js"
+                ));
             bundles.Add(new ScriptBundle("~/bundles/slider").Include(
                       "~/Scripts/imagesloaded.pkgd.min.js",
                       "~/Scripts/anime.min.js",
@@ -32,6 +37,9 @@ namespace SweetMoive
             bundles.Add(new ScriptBundle("~/bundles/MovieHistory").Include(
                     "~/Scripts/granim.min.js",
                     "~/Scripts/createjs.min.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/carousel_slider").Include(
+                    "~/Scripts/flexible-bootstrap-carousel.js"
                 ));
             bundles.Add(new ScriptBundle("~/bundles/searchableSelect").Include(
                     "~/Scripts/jquery.searchableSelect.js"
@@ -126,8 +134,15 @@ namespace SweetMoive
                     "~/Content/fileinput*",
                     "~/Content/themes/explorer-fa/theme*"
                 ));
+            bundles.Add(new StyleBundle("~/Content/carousel_slider").Include(
+                    "~/Content/flexible-bootstrap-carousel.css",
+                    "~/Content/styles.css"
+                ));
             bundles.Add(new StyleBundle("~/Content/star").Include(
                     "~/Content/star-rating-svg.css"
+                ));
+            bundles.Add(new StyleBundle("~/Content/ma5slider").Include(
+                    "~/Content/ma5slider.css"
                 ));
             bundles.Add(new StyleBundle("~/Content/B-Admin").Include(
                    "~/Content/bootstrap.css",

@@ -73,6 +73,11 @@ namespace SweetMoive.Areas.MovieUser.Controllers
             return View();
         }
         [HttpGet]
+        public ActionResult MovieLeaderboard()
+        {
+            return View();
+        }
+        [HttpGet]
         public ActionResult MovieList()
         {
             return View(movieManage.FindList().ToList());

@@ -1,0 +1,182 @@
+* 
+{
+	padding: 0;
+	margin: 0;
+	font-family: Open Sans, Microsoft JhengHei, Arial, serif;
+}
+
+html, body
+{
+	height: 100%;
+	width: 100%;
+	background-color: #E6E6E6;
+}
+
+.box
+{
+	background:#f6f7f8;
+	margin:auto;
+	margin-top:5%;
+
+	overflow: hidden; 
+	min-height:350px; /* No matter how the window squeeze vertically , box's height stay at min-height*/
+
+
+	border: 1px solid #d3d6db;
+	border-radius: 2px 2px 0 0;
+	box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.box h3
+{
+	width:0px;
+	padding: 20px 30px 15px;   /* using padding to adjust title's postion */
+	font-size: 24px;
+	cursor: pointer;
+
+}
+.box h3:hover
+{
+	text-decoration:underline;
+}
+
+.tri
+{
+	z-index:1;   
+	position: relative;
+	margin-bottom: -2px;
+	left: 50px;
+	background-image: url(/JsonImg/zqfSZk8C8h7.png);
+	background-repeat: no-repeat;
+	background-size: auto;
+	background-position: 0 -8px;
+	height: 8px;
+}
+
+.slide-wrap
+{
+	position: relative;
+	background:#d3d7dc;
+/*	height: 230px;*/
+	border: 1px solid #bdc1c9;
+	width: 100%;
+}
+.border
+{
+	position: relative;	
+	top: 50%;
+	transform:translateY(-50%);
+	height:80%;
+	border-top: 1px solid #c1c6cd;
+}
+.slide
+{
+	position: relative;	
+	top: 50%;
+	transform:translateY(-50%);
+	
+	-webkit-transition:left .5s;
+	left: 0px;
+	width:100%;
+}
+
+.slide-active-r
+{
+	left:-30px;
+}
+.slide-active-l
+{
+	left:30px;
+}
+.shift
+{
+	position: absolute;
+	z-index: 1;
+	background-color: #d3d7dc;
+	height: 100%;
+	-webkit-transition: opacity .5s, width .1s ,margin .5s;
+	width:0px;
+	opacity: 0;
+}
+.shift-active
+{
+	width:66px;
+	opacity: .65;
+}
+.left
+{
+	left:-33px;
+}
+.right
+{
+	right:-33px;
+}
+
+i.shift
+{
+	top:50%;
+	transform:translateY(-50%); 
+	background-color: transparent;
+	background-image:url(/JsonImg/angle.png);
+	background-size: auto;
+	background-repeat: no-repeat;
+	height: 45px;
+}
+i.left
+{
+	background-position: 0 0px;
+}
+i.right
+{
+	background-position: -28px 0px;
+}
+
+.i-active
+{
+	width: 28px;
+	opacity: 1;
+	margin:0 36px;	/* 33-28=5  5/2=2.xx  33(covered part)+3=36  push out angle button under covered part */
+}
+
+.i-active-move
+{
+	margin:0 18px;  /*  shift , 33+30=63 ,63-28=35,35/2=17.xx adjust the angle button to the middle  */
+}
+
+ul
+{ 
+	position: relative; /*for initial postion -> left -112*/
+	white-space:nowrap;
+	font-size: 0;
+	transition: transform 0.5s ease-out;
+}
+
+li
+{
+	display: inline-block;
+	background-color:#bdc1c9;
+	/*margin-right: 9px;
+	min-height:145px;width: 145px;  for empty li at both tails , manipulated by jquery*/
+}
+img
+{
+	box-shadow: 0 1px 3px rgba(0,0,0,.25);
+	/*width: 145px;height:145px;*/ /* manipulated by jquery */
+}
+.title
+{
+	padding-top: 5px;
+	font-family:'lucida grande';
+	position: absolute;
+	font-weight: bold;
+	line-height: 16px;
+	color: #6a7180 !important;
+	font-size: 12px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+span
+{
+	color: #89919c;
+}

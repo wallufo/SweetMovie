@@ -1,0 +1,181 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排行榜</title>
+    @Styles.Render("~/Content/carousel_slider")
+    @Styles.Render("~/Content/Layout")
+    @Styles.Render("~/Content/ma5slider")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/Layout")
+    @Scripts.Render("~/bundles/carousel_slider")
+    @Scripts.Render("~/bundles/ma5slider")
+</head>
+<body style="background:#808080">
+    <!-- Start Navigation -->
+    <nav class="navbar navbar-inverse navbar-default bootsnav">
+        <div class="container">
+            <!-- Start Atribute Navigation -->
+            <div class="attr-nav">
+                <ul>
+                    <li style="background:none;">
+                        @if (Session["UserID"] == null)
+                        {
+                            <a href='@Url.Action("Login","Home")' style="padding: 20px;">
+                                <img src="~/DefaultImg/NoLogin.jpg" alt="Alternate Text" style="width:45px;height:45px;border-radius:50%;" />
+                            </a>
+                        }
+                        else
+                        {
+                            var imgurl = Path.Combine(Request.MapPath("~/UserImg"), Session["UserID"].ToString() + ".jpg");
+                            var userimg = "/UserImg/" + Session["UserID"] + ".jpg";
+                            if (System.IO.File.Exists(imgurl))
+                            {
+                                <a href='@Url.Action("Index", "User")' style="padding: 20px;">
+                                    <img src="@imgurl" alt="Alternate Text" style="width:45px;height:45px;border-radius:50%;" />
+                                </a>
+                            }
+                            else
+                            {
+                                <a href='@Url.Action("Index", "User")' style="padding: 20px;">
+                                    <img src="~/DefaultImg/Default.jpg" alt="Alternate Text" style="width:45px;height:45px;border-radius:50%;" />
+                                </a>
+                            }
+                        }
+                    </li>
+                </ul>
+            </div>
+            <!-- End Atribute Navigation -->
+            <!-- Start Header Navigation -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            <!-- End Header Navigation -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="nav navbar-nav navbar-center">
+                    <li style="background:none;font-size:14px;"><a href='@Url.Action("Index","Home")'>首页</a></li>
+                    <li style="background:none;font-size:14px;"><a href='@Url.Action("MovieList","Home")'>电影列表</a></li>
+                    <li style="background:none;font-size:14px;"><a href='@Url.Action("Index","Article")'>电影文章</a></li>
+                    <li style="background:none;font-size:14px;"><a href='@Url.Action("MovieHistory","Home")'>电影历史</a></li>
+                    <li style="background:none;font-size:14px;"><a href='@Url.Action("MovieLeaderboard","Home")'>电影排行</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+    <!-- End Navigation -->
+    <div class="clearfix"></div>
+    <div style="width:1150px;margin:0 auto">
+        <div class="ma5slider inside-navs inside-dots anim-horizontal loop-mode">
+            <div class="slides">
+                <a href="#slide-1"><img src="/Banner/1.jpg" alt=""></a>
+                <a href="#slide-2"><img src="/Banner/2.jpg" alt=""></a>
+                <a href="#slide-3"><img src="/Banner/3.jpg" alt=""></a>
+                <a href="#slide-4"><img src="/Banner/4.jpg" alt=""></a>
+                <a href="#slide-4"><img src="/Banner/5.jpg" alt=""></a>
+
+            </div>
+        </div>
+    </div>
+    <div class="carousel-example">
+        <h2>热门电影排行</h2>
+        <div id="complicated-content-carousel" class="carousel flexible slide" data-ride="carousel" data-interval="false" data-wrap="false">
+            <div class="items">
+                <div class="flex-item">
+                    <div class="good-image">
+                        <img src="/MovieImgBanner/1.jpg">
+                    </div>
+                    <div class="good-bottom">
+                        <div class="good-bottom-left">
+                            <a href="#"><h4>沉默的羔羊</h4></a>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="flex-item">
+                    <div class="good-image">
+                        <img src="/MovieImgBanner/2.jpg">
+                    </div>
+                    <div class="good-bottom">
+                        <div class="good-bottom-left">
+                            <a href="#"><h4>初恋这件小事</h4></a>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="flex-item">
+                    <div class="good-image">
+                        <img src="/MovieImgBanner/3.jpg">
+                    </div>
+                    <div class="good-bottom">
+                        <div class="good-bottom-left">
+                            <a href="#"><h4>春光乍现</h4></a>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="flex-item">
+                    <div class="good-image">
+                        <img src="/MovieImgBanner/4.jpg">
+                    </div>
+                    <div class="good-bottom">
+                        <div class="good-bottom-left">
+                            <a href="#"><h4>大象席地而坐</h4></a>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="flex-item">
+                    <div class="good-image">
+                        <img src="/MovieImgBanner/5.jpg">
+                    </div>
+                    <div class="good-bottom">
+                        <div class="good-bottom-left">
+                            <a href="#"><h4>当幸福来敲门</h4></a>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="flex-item">
+                    <div class="good-image">
+                        <img src="/MovieImgBanner/6.jpg">
+                    </div>
+                    <div class="good-bottom">
+                        <div class="good-bottom-left">
+                            <a href="#"><h4>返老还童</h4></a>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-inner" role="listbox">
+            </div>
+            <div class="index"></div>
+            <a class="left carousel-control" href="#complicated-content-carousel" role="button" data-slide="prev">
+                <span class="fa fa-angle-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#complicated-content-carousel" role="button" data-slide="next">
+                <span class="fa fa-angle-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+   
+    <script>
+        $(window).on('load', function () {
+            $('.ma5slider').ma5slider();
+        });
+    </script>
+</body>
+</html>
