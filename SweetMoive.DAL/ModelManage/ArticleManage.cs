@@ -4,6 +4,7 @@ using SweetMoive.DataLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -108,6 +109,12 @@ namespace SweetMoive.DAL.ModelManage
                 _resp.Message = "删除失败";
             }
             return _resp;
+        }
+        #endregion
+        #region 查找当前的最大的电影ID
+        public int ArticleId(Expression<Func<Article, int>> where)
+        {
+            return base.Repository.FindMaxId(where);
         }
         #endregion
     }

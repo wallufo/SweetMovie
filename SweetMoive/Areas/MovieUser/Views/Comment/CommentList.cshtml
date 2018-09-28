@@ -5,7 +5,31 @@
     ViewBag.Title = "CommentList";
     Layout = null;
 }
+@{int UserID; }
+@if (Session["UserID"] == null)
+            {
+   UserID= 0;
+}
+else
+{
+    UserID= Convert.ToInt32(Session["UserID"]);
+            }
 
+<style>
+    span.like-count {
+        display:block;
+        width:20px;
+        height:20px;
+    background: url("/Images/like.png") no-repeat 4px 6px;
+}
+span.like-count:hover {
+     display:block;
+        width:20px;
+        height:20px;
+    background: url("/Images/like.png") no-repeat 4px -24px;
+    color: #395996;
+}
+</style>
 <ul class="uk-comment-list">
     @foreach (var item in Model)
     {
@@ -14,13 +38,18 @@
             <article class="uk-comment">
                 <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
                     <div class="uk-width-auto">
-                        <img class="uk-comment-avatar" src="@item.User.DefaultImgUrl" width="80" height="80" alt="">
+                        <img class="uk-comment-avatar" src="@item.User.DefaultImgUrl" width="80" height="80" alt="@item.UserID">
                     </div>
                     <div class="uk-width-expand">
                         <h4 class="uk-comment-title uk-margin-remove" style="color:#fff;" ><a class="uk-link-reset" href="#">@item.User.Username</a></h4>
                         <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                             <li><a href="#">@item.CommentTime</a></li>
-                            <li>对&nbsp;<a href="#">@item.Movie.MovieName</a>&nbsp;评分：<div class="comment-rating" data-rating="@score"></div></li>
+                            <li>
+                                对&nbsp;<a href="#">@item.Movie.MovieName</a>
+                                &nbsp;评分：<div class="comment-rating" data-rating="@score"></div>
+                              
+                                <span class="like-count" data-id="@item.ID"></span>
+                            </li>
                         </ul>
                     </div>
                 </header>
@@ -30,6 +59,28 @@
             </article>
         </li>
         <hr class="uk-divider-icon">
+        <script>
+          
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("isLike","User")',
+                dataType: "json",
+                data:{id:@item.ID,userID:@UserID},
+                success: function (result) {
+                    if (result.status==2) {
+                        return;
+                    }
+                    else if(result.status==1){
+                        $('.like-count').css({"background":"url('/Images/like.png') no-repeat 4px -24px","color":"#395996"});
+                    }else{
+                        $('.like-count').css("background","url('/Images/like.png') no-repeat 4px 6px");
+                    }
+                },
+                error:function(){
+                    console.log("未知错误");
+                }
+            });
+        </script>
     }
     
 </ul>
@@ -47,5 +98,29 @@
         useGradient: false,
         readOnly: true,
         forceRoundUp: true
+    });
+    $(function(){
+        $(".like-count").on('click',function(){
+            var id = $(this).attr("data-id");
+            var userID=@UserID;
+            if(userID==0){
+                alert("未登录无法点赞！");
+                return;
+            }else{
+                $.ajax({
+                    type:"POST",
+                    url:'@Url.Action("Likes","User")',
+                    data:{userID:@UserID,commentID:id},
+                    success:function(result){
+                        if(result.StatusCode==0){
+                            $(this).css("background","url('Images/like.png') no-repeat 4px 6px");
+                        }else{
+                            $(this).css({"background":"url('Images/like.png') no-repeat 4px -24px","color":"#395996"});
+
+                        }
+                    }
+                });
+            }
+        });
     });
 </script>

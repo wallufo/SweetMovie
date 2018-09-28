@@ -67,6 +67,10 @@ nav button {
 .user .user-name h4{
 	color: #fff;
 }
+.user .user-score{
+    text-align:center;
+    color:white;
+}
 .user .user-mottoy{
 	text-align: center;
 }

@@ -1,0 +1,28 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<SweetMoive.DAL.Models.Article>
+
+@{
+    ViewBag.Title = "MyArticle";
+    Layout = null;
+}
+<div style="margin:0 auto;width:1000px;">
+    @foreach (var item in Model)
+    {
+        var imgUrl = "/Images/" + item.MovieID + "-1-1.jpg";
+        <div class="media" style="width:1000px;" id="His-@item.ID">
+            <div class="media-left">
+                <a href="@Url.Action("ArticleDetail","Article")/@item.ID">
+                    <img src="@imgUrl" class="media-object" alt="@item.Movie.MovieName" style="width:auto;height:100px;" />
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">@item.Title<span class="badge">发布时间：@item.Releasetime.ToLongDateString()</span></h4>
+                <p>For电影：@item.Movie.MovieName</p>
+                <h6>审核状态：@item.Auditstatus</h6>
+            </div>
+        </div>
+    }
+    <p>
+        @Html.PagedListPager(Model, page => Url.Action("MyArticle", "User", new { id = Model.First().UserID, page = page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "Myhistory" }))
+    </p>
+</div>

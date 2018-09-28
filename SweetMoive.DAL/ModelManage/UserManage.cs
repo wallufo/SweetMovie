@@ -4,6 +4,7 @@ using SweetMoive.DataLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -109,6 +110,12 @@ namespace SweetMoive.DAL.ModelManage
         public User Find(string username)
         {
             return base.Repository.Find(x => x.Username.ToUpper() == username.ToUpper());
+        }
+        #endregion
+        #region 按条件查找实体
+        public User Find(Expression<Func<User,bool>> where)
+        {
+            return base.Repository.Find(where);
         }
         #endregion
         #region 验证账号密码

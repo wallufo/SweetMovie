@@ -45,6 +45,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="banner" class="control-label col-md-2">文章图片</label>
+                    <div class="col-md-10">
+                        <input type="file" name="banner" id="banner" value="" class="form-control" data-value="true" />
+                    </div>
+                </div>
+                <div class="form-group">
                     @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入内容" } })
@@ -70,6 +76,19 @@
        .catch(error => {
            console.error(error);
        });
+        $("#banner").fileinput({
+            theme: 'explorer-fa',
+            maxFileCount: 1,
+            showUpload: false,
+            browseClass: "btn btn-success btn-sm btn-file",
+            browseLabel: "选择图片",
+            browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+            removeClass: "btn btn-danger btn-sm",
+            removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+            removeLabel: "删除",
+            fileType: "image",
+            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+        });
     })
 
     </script>

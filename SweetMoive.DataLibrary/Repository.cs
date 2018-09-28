@@ -293,5 +293,40 @@ namespace SweetMoive.DataLibrary
             return _list.Skip(pageSize * (pageIndex - 1)).Take(pageSize);
         }
         #endregion
+        #region 查找
+        public IQueryable<T> FindWhere(OrderParamcs _order)
+        {
+            return FindWhere((T) => true, _order);
+        }
+        public IQueryable<T> FindWhere(Expression<Func<T, bool>> where)
+        {
+            OrderParamcs _param = null;
+            return FindWhere(where, _param);
+        }
+        public IQueryable<T> FindWhere(Expression<Func<T, bool>> where,OrderParamcs _param)
+        {
+            OrderParamcs[] _order = null;
+            if (_param != null) _order = new OrderParamcs[] { _param };
+            return FindWhere(where, _order);
+        }
+        public IQueryable<T> FindWhere(Expression<Func<T, bool>> where, OrderParamcs[] order)
+        {
+            IQueryable<T> _list = DbContext.Set<T>().Where(where);
+            var _order = Expression.Parameter(typeof(T), "0");
+            if (order != null && order.Length > 0)
+            {
+                for (var i = 0; i < order.Length; i++)
+                {
+                    var _property = typeof(T).GetProperty(order[i].PropertyName);
+                    var _propertAccess = Expression.MakeMemberAccess(_order, _property);
+                    var _orderByExp = Expression.Lambda(_propertAccess, _order);
+                    string _orderName = order[i].Method == OrderParamcs.OrderMethod.ASC ? "OrderBy" : "OrderByDescending";
+                    MethodCallExpression resultExp = Expression.Call(typeof(Queryable), _orderName, new Type[] { typeof(T), _property.PropertyType }, _list.Expression, Expression.Quote(_orderByExp));
+                    _list = _list.Provider.CreateQuery<T>(resultExp);
+                }
+            }
+            return _list;
+        }
+        #endregion
     }
 }

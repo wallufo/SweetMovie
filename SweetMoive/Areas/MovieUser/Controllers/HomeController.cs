@@ -1,4 +1,5 @@
 ﻿using SweetMoive.Areas.MovieUser.Models;
+using SweetMoive.DAL;
 using SweetMoive.DAL.General;
 using SweetMoive.DAL.ModelManage;
 using SweetMoive.DAL.Models;
@@ -67,9 +68,30 @@ namespace SweetMoive.Areas.MovieUser.Controllers
             return View();
         }
         [HttpGet]
+        public ActionResult MovieHistory()
+        {
+            return View();
+        }
+        [HttpGet]
         public ActionResult MovieList()
         {
             return View(movieManage.FindList().ToList());
+        }
+        [HttpPost]
+        public ActionResult MovieList(string keyword)
+        {
+            Search<Movie> _searchMovie = new Search<Movie>();
+            if (!String.IsNullOrEmpty(keyword))
+            {
+                var _movie = movieManage.Search(_searchMovie, keyword, 0);
+                return View(_movie.Items);
+            }
+            else
+            {
+                var _Allmovie = movieManage.FindList().ToList();
+                return View(_Allmovie);
+            }
+            
         }
         [HttpPost]
         public ActionResult Register(RegisterViewModel registerViewModel)

@@ -95,5 +95,28 @@ namespace SweetMoive.DAL.ModelManage
         #region 电影排行榜
 
         #endregion
+        #region 电影，演员，导演关键词搜索
+        public Search<Movie> Search(Search<Movie> searchMovie,string keyword,int? order)
+        {
+            var _where = PredicateBuilder.True<Movie>();
+            _where = _where.And(m => m.MovieName.Contains(keyword)||m.Actors.Contains(keyword)||m.Director.Contains(keyword));
+            _where = _where.And(m => m.Hidden == Movie.Hiddens.显示);
+            OrderParamcs _order;
+            switch (order)
+            {
+                case 0:
+                    _order = new OrderParamcs() { PropertyName = "Score", Method = OrderParamcs.OrderMethod.ASC };
+                    break;
+                case 1:
+                    _order = new OrderParamcs() { PropertyName = "Score", Method = OrderParamcs.OrderMethod.DESC };
+                    break;
+                default:
+                    _order = new OrderParamcs() { PropertyName = "Score", Method = OrderParamcs.OrderMethod.ASC };
+                    break;
+            }
+            searchMovie.Items = Repository.FindWhere(_where.Expand(), _order).ToList();
+            return searchMovie;
+        }
+        #endregion
     }
 }

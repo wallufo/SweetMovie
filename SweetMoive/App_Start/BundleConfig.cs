@@ -19,10 +19,27 @@ namespace SweetMoive
             
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
-
+            bundles.Add(new ScriptBundle("~/bundles/modernizr-custom").Include(
+                        "~/Scripts/modernizr.custom.js"));
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
+            bundles.Add(new ScriptBundle("~/bundles/slider").Include(
+                      "~/Scripts/imagesloaded.pkgd.min.js",
+                      "~/Scripts/anime.min.js",
+                      "~/Scripts/sliderArticle.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/MovieHistory").Include(
+                    "~/Scripts/granim.min.js",
+                    "~/Scripts/createjs.min.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/searchableSelect").Include(
+                    "~/Scripts/jquery.searchableSelect.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/articleList").Include(
+                    "~/Scripts/classie.js",
+                   "~/Scripts/main.js"
+                ));
             bundles.Add(new ScriptBundle("~/bundles/LoginJs").Include(
                     "~/Scripts/parallax.js",
                     "~/Scripts/stopExecutionOnTimeout.js"
@@ -46,8 +63,12 @@ namespace SweetMoive
                     "~/Scripts/uikit-icons.js",
                     "~/Scripts/jquery.unobtrusive-ajax.js"
                 ));
+            bundles.Add(new ScriptBundle("~/bundles/form-search").Include(
+                    "~/Scripts/SearchInput.js"
+                ));
             bundles.Add(new ScriptBundle("~/bundles/userinfo").Include(
-                    "~/Scripts/coreNavigation.js"
+                    "~/Scripts/coreNavigation.js",
+                    "~/Scripts/jquery.unobtrusive-ajax.js"
                 ));
             bundles.Add(new ScriptBundle("~/bundles/avatar").Include(
                     "~/Scripts/hammer.js",
@@ -131,6 +152,9 @@ namespace SweetMoive
                 "~/Content/bootsnav.css",
                 "~/Content/overwrite.css"
                 ));
+            bundles.Add(new StyleBundle("~/Content/slider").Include(
+                "~/Content/base.css"
+                ));
             bundles.Add(new StyleBundle("~/Content/boot-dialog").Include(
                 "~/Content/bootstrap.css",
                 "~/Content/font-awesome.css",
@@ -147,11 +171,20 @@ namespace SweetMoive
                 "~/Content/elusive-webfont.css",
                 "~/Content/indexstyle.css"
                 ));
+            bundles.Add(new StyleBundle("~/Content/searchableSelect").Include(
+                "~/Content/jquery.searchableSelect.css"
+                ));
             bundles.Add(new StyleBundle("~/Content/bootstrap-markdown").Include(
                 "~/Content/bootstrap-markdown.min.css"
                 ));
+            bundles.Add(new StyleBundle("~/Content/form-search").Include(
+                "~/Content/SearchInput.css"
+                ));
             bundles.Add(new StyleBundle("~/Content/sortable").Include(
                 "~/Content/sortable.css"
+                ));
+            bundles.Add(new StyleBundle("~/Content/articleList").Include(
+                "~/Content/style1.css"
                 ));
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
@@ -167,6 +200,9 @@ namespace SweetMoive
                     "~/Content/Login-register-style.css",
                     "~/Content/Login-register-background-css/css/default.css",
                     "~/Content/Login-register-background-css/css/styles.css"
+                ));
+            bundles.Add(new StyleBundle("~/Content/MovieHistory").Include(
+                    "~/Content/MovieHistory.css"
                 ));
         }
     }

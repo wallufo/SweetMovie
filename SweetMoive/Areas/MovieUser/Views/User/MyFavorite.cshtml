@@ -22,7 +22,7 @@
     }
 </div>
 <p>
-    @Html.PagedListPager(Model, page => Url.Action("MyFavorite", "User", new { id = Model.First().MovieID, page = page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "Myfavorite" }))
+    @Html.PagedListPager(Model, page => Url.Action("MyFavorite", "User", new { id = Model.First().UserID, page = page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "Myfavorite" }))
 </p>
 <script>
     $(".rating-fav").starRating({

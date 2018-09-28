@@ -1,0 +1,29 @@
+@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700);
+
+input {
+  box-sizing: border-box;
+  font-size: 13px;
+  vertical-align: top;
+}
+
+.search-1 {
+  padding: 0 30px;
+  font-size: 18px;
+  width: 60%;
+  max-width: 400px;
+  height: 60px;
+  border: 1px solid #b3b3b3;
+  border-radius: 20px 0 0 20px;
+}
+
+.submit {
+  cursor: pointer;
+  border: none;
+  background: url(/Images/Search_Icon.png) no-repeat center center, #1E1E20;
+  background-size: 35px 35px;
+  border-radius: 0 20px 20px 0;
+  padding: 15px 25px;
+  display: inline-block;
+  width: 150px;
+  height: 60px;
+}

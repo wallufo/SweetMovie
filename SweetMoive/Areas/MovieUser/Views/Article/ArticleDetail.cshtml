@@ -1,0 +1,148 @@
+﻿@model SweetMoive.DAL.Models.Article
+
+@{
+    Layout = null;
+}
+@{ 
+    var imgUrl = "/ArticleImg/" + Model.ID + ".jpg";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>文章详情</title>
+    <style>
+        *{
+	margin:0;
+	padding: 0;
+}
+.banner{
+	width: 100%;
+	height: 500px;
+	position: relative;
+	z-index: 1;
+	background-color: #f1f0f0;
+}
+.article-page{
+	width: 80%;
+	height: auto;
+	position: relative;
+	z-index: 2;
+	text-align: center;
+	margin:-390px auto 0 auto;
+}
+.article-page .article-userinfo{
+	margin-bottom: 20px;
+}
+.article-page .article-userinfo a img{
+	width: 80px;
+	height: 80px;
+	margin: 25px 0;
+	border-radius: 50%;
+}
+.article-page .article-img{
+	width: 70%;
+	height: 450px;
+	margin: 0 auto;
+}
+.article-page .article-img img{
+	width: 100%;
+	height: 100%;
+}
+.article-page .article-content{
+	width: 62%;
+	margin-top: 20px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 50px;
+	text-align: left;
+}
+.article-page .article-time .time{
+    text-align:left;
+}
+    </style>
+    @Styles.Render("~/Content/Layout")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/Layout")
+</head>
+<body>
+    <!-- Start Navigation -->
+    <nav class="navbar navbar-inverse navbar-default bootsnav">
+        <div class="container">
+            <!-- Start Atribute Navigation -->
+            <div class="attr-nav">
+                <ul>
+                    <li>
+                        @if (Session["UserID"] == null)
+                        {
+                            <a href='@Url.Action("Login","Home")' style="padding: 20px;">
+                                <img src="~/DefaultImg/NoLogin.jpg" alt="Alternate Text" style="width:45px;height:45px;border-radius:50%;" />
+                            </a>
+                        }
+                        else
+                        {
+                            var imgurl = Path.Combine(Request.MapPath("~/UserImg"), Session["UserID"].ToString() + ".jpg");
+                            var userimg = "/UserImg/" + Session["UserID"] + ".jpg";
+                            if (System.IO.File.Exists(imgurl))
+                            {
+                                <a href='@Url.Action("Index", "User")' style="padding: 20px;">
+                                    <img src="@imgurl" alt="Alternate Text" style="width:45px;height:45px;border-radius:50%;" />
+                                </a>
+                            }
+                            else
+                            {
+                                <a href='@Url.Action("Index", "User")' style="padding: 20px;">
+                                    <img src="~/DefaultImg/Default.jpg" alt="Alternate Text" style="width:45px;height:45px;border-radius:50%;" />
+                                </a>
+                            }
+                        }
+                    </li>
+                </ul>
+            </div>
+            <!-- End Atribute Navigation -->
+            <!-- Start Header Navigation -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            <!-- End Header Navigation -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="nav navbar-nav navbar-center">
+                    <li><a href='@Url.Action("Index","Home")'>首页</a></li>
+                    <li><a href='@Url.Action("MovieList","Home")'>电影列表</a></li>
+                    <li><a href='@Url.Action("Index","Article")'>电影观后感</a></li>
+                    <li><a href='@Url.Action("Index","Home")'>电影历史</a></li>
+                    <li><a href='@Url.Action("Index","Home")'>电影排行</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+    <!-- End Navigation -->
+    <div class="banner"></div>
+    <div class="article-page">
+        <div class="article-title">
+            <h1>@Model.Title</h1>
+            <h4>For(@Model.Movie.MovieName)</h4>
+        </div>
+        <div class="article-userinfo">
+            <a href='@Url.Action("OtherUser","User")/@Model.UserID'>
+                <img src="@Model.User.DefaultImgUrl" alt="">
+            </a>
+            <div class="username">@Model.User.Username&nbsp;&nbsp;<span>@Model.User.Role</span></div>
+        </div>
+        <div class="article-img">
+            <img src="@imgUrl" alt="">
+        </div>
+        <div class="article-content">
+            @Html.Raw(Model.Content)
+        </div>
+        <div class="article-time">
+            <span class="time">发布于：@Model.Releasetime.ToLongDateString()</span>
+            <a class="backTo">返回文章列表</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -10,9 +10,9 @@ namespace SweetMoive.DAL.Models
     public class Like
     {
         [Key]
-        public int ID { get; set; }
-        public int FromUserID { get; set; }
+        public int? ID { get; set; }
+        public int UserID { get; set; }
+        public virtual User User { get; set; }
         public int MovieCommentID { get; set; }
-        public virtual MovieComment MovieComment { get; set; }
     }
 }

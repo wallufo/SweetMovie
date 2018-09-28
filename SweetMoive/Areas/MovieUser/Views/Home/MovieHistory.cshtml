@@ -1,0 +1,254 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>电影历史</title>
+    @Styles.Render("~/Content/MovieHistory")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/MovieHistory")
+    <style>
+        #bgcolor {
+            position: relative;
+            z-index: 2;
+        }
+
+        #boy {
+            position: relative;
+            z-index: 3;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen_wrapper">
+        <div class="wr">
+            <div class="main" style="width:1536px;height:754px;">
+                <div class="stage show" style="display:block">
+                    <div class="layer" style="transform:translateX(-100px)">
+                        <div class="scene sc1 show" style="left:0px;">
+                            <div class="text left" style="top:150px;">
+                                <img src="/MovieHistoryImg/1825.png" alt="" style="width:350px;height:250px;">
+                                <p>费东和派里斯博士发明的“盘”是一个两面画着图画的硬纸盘，当硬纸盘很快地旋转起来时，我们就看到这两个画片仿佛结合在一起了。</p>
+                            </div>
+                            <div class="text right" style="top:330px;">
+                                <img src="/MovieHistoryImg/1830.png" alt="" style="width:350px;height:250px;">
+                                <p>一位英国著名的物理学家根据他的研究，制成了“法拉第轮”，同时约翰·赫歇尔在做成了第一个利用画片制成的视觉玩具。</p>
+                            </div>
+                        </div>
+                        <div class="scene sc2 show" style="left:1750px;">
+                            <div class="text left" style="top:370px;">
+                                <img src="/MovieHistoryImg/1832.png" alt="" style="width:350px;height:250px;">
+                                <p>年比利时年轻的物理学家约瑟夫·普拉托和奥地利大学教授斯丹普弗尔在发明了“诡盘”（即是利用“法拉第轮”的原理和“幻盘”的图画制成的）</p>
+                            </div>
+                            <div class="text right" style="top:205px;">
+                                <img src="/MovieHistoryImg/1868.png" alt="" style="width:350px;height:250px;">
+                                <p>亨利·达尔梅达就曾用红绿两种光线把画面重复投射到银幕上，观众可以透过一种红绿双色的镜片把两个画面混合成黑白立体形象。</p>
+                            </div>
+                        </div>
+                        <div class="scene sc3 show" style="left:3500px;">
+                            <div class="text left" style="top:365px;">
+                                <img src="/MovieHistoryImg/1888.png" alt="" style="width:350px;height:250px;">
+                                <p>法国人雷诺试制了 “光学影戏机”，用此机拍摄了世界上第一部动画片<strong>《一杯可口的啤酒》</strong></p>
+                            </div>
+                            <div class="text right" style="top:220px;">
+                                <img src="/MovieHistoryImg/1889.png" alt="" style="width:350px;height:250px;">
+                                <p>美国发明大王爱迪生在发明了电影留影机后，又经过5年的实验后，发明了电影视镜。</p>
+                            </div>
+                        </div>
+                        <div class="scene sc4 show" style="left:5250px;">
+                            <div class="text left" style="top:350px;">
+                                <img src="/MovieHistoryImg/1895.png" alt="" style="width:350px;height:250px;">
+                                <p>法国的奥古斯特卢米埃尔和路易卢米埃尔兄弟研制成功了“活动电影机”。</p>
+                            </div>
+                            <div class="text right" style="top:155px;">
+                                <img src="/MovieHistoryImg/1906.png" alt="" style="width:350px;height:250px;">
+                                <p>在爱迪生实验室工作的布雷克顿制作了《滑稽脸的幽默相》，这也是世界上第一部动画影片。</p>
+                            </div>
+                        </div>
+                        <div class="scene sc5 show" style="left:7000px;">
+                            <div class="text left" style="top:307px;">
+                                <img src="/MovieHistoryImg/1908.png" alt="" style="width:350px;height:250px;">
+                                <p>世界上第二座影城—好莱坞初具雏形，直到1913年才形成规模。</p>
+                            </div>
+                            <div class="text right" style="top:307px;">
+                                <img src="/MovieHistoryImg/1915.png" alt="" style="width:350px;height:250px;">
+                                <p>格里菲斯拍出了世界电影史上的经典无声片《一个国家的诞生》，并于1916年拍摄了《党同伐异》。这两部标志这电影成为艺术的起始。</p>
+                            </div>
+                        </div>
+                        <div class="scene sc6 show" style="left:8750px;">
+                            <div class="text left" style="top:160px;">
+                                <img src="/MovieHistoryImg/1927.png" alt="" style="width:350px;height:250px;">
+                                <p>电影史上最具划时代意义的一年。《爵士歌王》影片的诞生标志着有声电影时代的来临，同时也是电影走向成熟期的标志。</p>
+                            </div>
+                            <div class="text right" style="top:322px;">
+                                <img src="/MovieHistoryImg/1935.png" alt="" style="width:350px;height:250px;">
+                                <p>马摩里安摄制了世界上第一部彩色故事片《浮华世界》。彩色电影的问世，标志着电影从诞生发展达到了完善成熟的发展时代。</p>
+                            </div>
+                        </div>
+                        <div class="scene sc7 show" style="left:10500px;">
+                            <div class="text left" style="top:200px;">
+                                <img src="/MovieHistoryImg/1950.png" alt="" style="width:350px;height:250px;">
+                                <p>在黑泽明的《罗生门》以后，日本电影引起了世界的关注。</p>
+                            </div>
+                            <div class="text right" style="top:300px;">
+                                <img src="/MovieHistoryImg/1953.png" alt="" style="width:350px;height:250px;">
+                                <p>拉基卡普尔导演的《流浪者》和比麦尔洛埃的《两亩地》等影片标志着印度电影的新面貌。印度影片产量达285部，仅次于日本成为世界第二位。</p>
+                            </div>
+                        </div>
+                        <div class="scene sc7 show" style="left:12250px;">
+                            <div class="text left" style="top:365px;">
+                                <img src="/MovieHistoryImg/1959.png" alt="" style="width:350px;height:250px;">
+                                <p>新浪潮兴起，法国电影出现了一条全新的、有效的打破商业电影垄断制片的道路。</p>
+                            </div>
+                            <div class="text right" style="top:178px;">
+                                <img src="/MovieHistoryImg/1960.png" alt="" style="width:350px;height:250px;">
+                                <p>世界电影从突破创新中走向多样化发展，继意大利“新现实主义”之后，世界电影史上又出现了规模巨大的第三次革新。</p>
+                            </div>
+                        </div>
+                        <div class="scene sc8 show" style="left:14000px;">
+                            <div class="text left" style="top:350px;">
+                                <img src="/MovieHistoryImg/1971.png" alt="" style="width:350px;height:250px;">
+                                <p>社比试验室研制了声音降噪技术，在录音时来用新的形式对音频信号进行压缩和拓展编码，预示着数字立体非常时代的来临。</p>
+                            </div>
+                            <div class="text right" style="top:155px;">
+                                <img src="/MovieHistoryImg/1976.png" alt="" style="width:350px;height:250px;">
+                                <p>MAX公司为蒙特利尔展览会制造第一台15片孔70mm大格式放映机，于1970年制造了第二谷集影。</p>
+                            </div>
+                        </div>
+                        <div class="scene sc9 show" style="left:15750px;">
+                            <div class="text left" style="top:350px;">
+                                <img src="/MovieHistoryImg/1993.png" alt="" style="width:350px;height:250px;">
+                                <p>Yonkers中的迷关知在Avid Media Composer东统上编辑的，这是第一个上线性编样系统。</p>
+                            </div>
+                            <div class="text right" style="top:155px;">
+                                <img src="/MovieHistoryImg/2000.png" alt="" style="width:350px;height:250px;">
+                                <p>第一部改编自JK罗琳广受欢迎的年轻成人书籍的电影开始上映。</p>
+                            </div>
+                        </div>
+                        <div class="scene sc10 show" style="left:17500px;">
+                            <div class="text left" style="top:350px;">
+                                <img src="/MovieHistoryImg/2005.png" alt="" style="width:350px;height:250px;">
+                                <p>随着早球大战第三集西斯的复仇，恭治卢卡斯完成了他的六那电影密烈。</p>
+                            </div>
+                            <div class="text right" style="top:155px;">
+                                <img src="/MovieHistoryImg/2009.png" alt="" style="width:350px;height:250px;">
+                                <p>《阿凡达》3D +IMAX的观影效果，预示着3D特效时代的即将来临。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="person">
+                        <canvas id="boy"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ground">
+            <div class="wrap">
+                <div class="left">
+                    <div class="movie MovieIndex">
+                        <a href="@Url.Action("Index","Home")">首页</a>
+                    </div>
+                    <div class="movie MovieList">
+                        <a href="@Url.Action("MovieList","Home")">电影列表</a>
+                    </div>
+                    <div class="movie MovieArticle">
+                        <a href="@Url.Action("Index","Article")">电影文章</a>
+                    </div>
+                    <div class="movie MovieHistory">
+                        <a href="@Url.Action("MovieHistory","Home")">电影排行</a>
+                    </div>
+                    <div class="movie MovieHistory">
+                        <a href="@Url.Action("MovieHistory","Home")">电影历史</a>
+                    </div>
+                </div>
+                <div class="right">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <canvas id="bgcolor"></canvas>
+    <script>
+        $(function(){
+            document.getElementById("boy").width = window.innerWidth;
+            document.getElementById("boy").height = window.innerHeight;
+            var stage=new createjs.Stage("boy");
+            var data={
+                images:["/MovieHistoryImg/running3.png"],
+                frames:[[280,380,129,188],[0,181,142,175],[140,367,138,178],[288,190,132,188],[669,0,110,189],[646,563,105,189],[131,737,121,187],[0,0,141,179],[411,380,134,179],[422,0,129,185],[254,737,114,187],[547,376,124,185],[673,191,98,186],[138,547,129,188],[144,190,142,175],[0,358,138,180],[286,0,134,188],[534,563,110,189],[370,751,106,190],[411,561,121,188],[143,0,141,179],[0,540,136,179],[0,721,129,186],[553,0,114,187],[422,187,124,187],[478,754,98,186]],
+                animations:{
+                    standleft:12,
+                    runleft:[0,11],
+                    standright:25,
+                    runright:[13,24]
+                }
+            };
+            var spriteSheet=new createjs.SpriteSheet(data);
+            var animation=new createjs.Sprite(spriteSheet,"standright");
+            animation.x=window.innerWidth*0.45;
+            animation.y=window.innerHeight*0.67;
+            stage.addChild(animation);
+            createjs.Ticker.addEventListener("tick",stage);
+            var x=0;
+            var flag=false;
+            $(window).on('keydown',function(event){
+                if(event.keyCode==39){
+                    x-=15;
+                    console.log(x);
+                    if(x>0){
+                        return;
+                    }
+                    else{
+                         $(".layer").css("transform","translateX("+x+"px)")
+                    }
+                if(!flag){
+                    animation.gotoAndPlay("runright");
+                }
+                flag=true;
+            }if(event.keyCode==37){
+                x+=15;
+                $(".layer").css("transform","translateX("+x+"px)")
+                if(!flag){
+                    animation.gotoAndPlay("runleft");
+                }
+                flag=true;
+            }
+        })
+       $(window).on('keyup',function(e){
+        if(e.keyCode==39){
+            animation.gotoAndStop("standright");
+        }
+        if(e.keyCode==37){
+            animation.gotoAndStop("standleft");
+        }
+        flag=false;
+       })
+        })
+    </script>
+    <script>
+       document.getElementById("bgcolor").width = window.innerWidth;
+       document.getElementById("bgcolor").height = window.innerHeight;
+       var granimInstance = new Granim({
+               element: '#bgcolor',
+               name: 'basic-gradient',
+               direction: 'left-right', // 'diagonal', 'top-bottom', 'radial'
+               opacity: [1, 1],
+               isPausedWhenNotInView: true,
+               states : {
+                   "default-state": {
+                       gradients: [
+                           ['#59253A', '#78244C'],
+                           ['#895061', '#2d4159'],
+                           ['#5A5560', '#46344E']
+                       ]
+                   }
+               }
+           });
+    </script>   
+</body>
+</html>

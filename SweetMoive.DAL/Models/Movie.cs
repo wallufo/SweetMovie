@@ -39,7 +39,7 @@ namespace SweetMoive.DAL.Models
         [Display(Name ="国家")]
         public string Contry { get; set; }
         [Display(Name ="评分")]
-        [Range(1,10)]
+        [Range(1.0,10.0)]
         public float Score { get; set; }
         [Display(Name ="海报图片")]
         public int PostersNum { get; set; }

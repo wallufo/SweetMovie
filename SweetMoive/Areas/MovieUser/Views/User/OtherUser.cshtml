@@ -1,0 +1,151 @@
+﻿
+@model SweetMoive.Areas.MovieUser.Models.UserViewModel
+@{
+    Layout = null;
+}
+@{int UserID; }
+@if (Session["UserID"] == null)
+{
+    UserID = 0;
+}
+else
+{
+    UserID = Convert.ToInt32(Session["UserID"]);
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OtherUser</title>
+    @Styles.Render("~/Content/boot-dialog")
+    @Styles.Render("~/Content/userinfo")
+    @Styles.Render("~/Content/star")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/userinfo")
+    @Scripts.Render("~/bundles/boot-dialog")
+    @Scripts.Render("~/bundles/star")
+</head>
+<body>
+    <div class="wrap">
+        <div class="contain">
+            <div class="user">
+                <div class="user-img">
+                    <span class="img-position">
+                        @{
+                            var imgurl = "/DefaultImg/" + Model.ID + ".jpg";
+                        }
+                        @if (File.Exists(Path.Combine(Request.MapPath("~/DefaultImg"), Model.ID + ".jpg")))
+                        {
+                            <img src="@imgurl">
+                        }
+                        else
+                        {
+                            <img src="~/DefaultImg/Default.jpg">
+                        }
+                    </span>
+                </div>
+                <div class="user-name">
+                    @if (Model.Name == null)
+                    {
+                        <h4>@Model.UserName &nbsp; <em>@Model.Sex</em></h4>
+                    }
+                    else
+                    {
+                        <h4>@Model.Name &nbsp; <em>@Model.Sex</em></h4>
+                    }
+                </div>
+                <div class="user-mottoy">
+                    @if (Model.Mymottoy == null)
+                    {
+                        <h6>此人较为懒惰，没有签名..</h6>
+                    }
+                    else
+                    {
+                        <h6>@Model.Mymottoy</h6>
+                    }
+                </div>
+                <div class="user-button">
+                    @if (Session["UserID"] != null)
+                    {
+                        if (ViewBag.isFollower)
+                        {
+                            <button type="button" data-method="Edit" data-value="@Model.ID" id="follower">取消关注</button>
+                        }
+                        else
+                        {
+                            <button type="button" data-method="Edit" data-value="@Model.ID" id="follower">关注</button>
+                        }
+                    }
+                    else
+                    {
+                        <button type="button" data-method="Edit" data-value="@Model.ID" id="follower">关注</button>
+                    }
+                </div>
+            </div>
+        </div>
+        <!-- Start Navigation -->
+        <nav>
+            <div class="nav-header">
+                <button class="toggle-bar"><span class="fa fa-bars"></span></button>
+            </div>
+            <ul class="menu" id="myTabs" role="tablist">
+                <li role="presentation" class="active"><a href="#Myfavorite">他的收藏</a></li>
+                <li role="presentation"><a href="#Myhistory">他的浏览历史</a></li>
+            </ul>
+        </nav>
+        <!-- End Navigation -->
+        <div class="tab-content">  
+            <div role="tabpanel" class="tab-pane active" id="Myfavorite">
+                @Html.Action("MyFavorite", new { id = Model.ID })
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Myhistory">
+                @Html.Action("MyHistory", new { id = Model.ID })
+            </div>
+        </div>
+    </div>
+    <script>
+		$('nav').coreNavigation({
+			menuPosition: "center",
+			container: true,
+			mode: 'sticky',
+		    onStartSticky: function(){
+		        console.log('Start Sticky');
+		    },
+		    onEndSticky: function(){
+		        console.log('End Sticky');
+		    }
+		});
+		$(function () {
+		    $("#myTabs li a").click(function (e) {
+		        e.preventDefault();
+		        $(this).tab('show');
+		    });
+		    $("#follower").click(function (e) {
+		        var userID=@UserID;
+		        var FollowerID=$(this).attr("data-value");
+		        if(userID==0){
+		            alert("此操作需要登陆才能进行!");
+		        }
+		        else{
+		            $.ajax({
+		                type: "POST",
+		                url: '@Url.Action("Follower","User")',
+		                data: {userID:userID,FollowerID:FollowerID},
+		                success:function(result){
+		                    if(result.StatusCode==1){
+		                        $("#follower").text("取消关注");
+		                    }
+		                    else{
+		                        $("#follower").text("关注");
+		                    }
+		                }
+		            });
+		        }
+		       
+		    });
+		})
+		
+    </script>
+</body>
+</html>

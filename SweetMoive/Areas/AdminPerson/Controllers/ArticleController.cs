@@ -5,6 +5,7 @@ using SweetMoive.DAL.ModelManage;
 using SweetMoive.DAL.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -74,8 +75,17 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Modify(int ID,[Bind(Include ="ID,UserID,MovieID,Releasetime,Title,Content,Auditstatus")] Article article)
+        public ActionResult Modify(int ID,[Bind(Include ="ID,UserID,MovieID,Releasetime,Title,Content,Auditstatus")] Article article, HttpPostedFileBase banner)
         {
+            if (banner != null)
+            {
+                var bannerName = Path.Combine(Request.MapPath("/ArticleImg"), article.ID + ".jpg");
+                if (System.IO.File.Exists(bannerName))
+                {
+                    System.IO.File.Delete(bannerName);
+                }
+                banner.SaveAs(bannerName);
+            }
             if (ModelState.IsValid)
             {
                 var _resp = articleManage.Update(article);
@@ -112,8 +122,19 @@ namespace SweetMoive.Areas.AdminPerson.Controllers
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Add(AddArticelViewModel articleViewModel)
+        public ActionResult Add(AddArticelViewModel articleViewModel, HttpPostedFileBase banner)
         {
+            var MaxId = articleManage.ArticleId(p => p.ID);
+            var articleID = MaxId + 1;
+            if (banner != null)
+            {
+                var bannerName = Path.Combine(Request.MapPath("/ArticleImg"), articleID + ".jpg");
+                if (System.IO.File.Exists(bannerName))
+                {
+                    System.IO.File.Delete(bannerName);
+                }
+                banner.SaveAs(bannerName);
+            }
             if (ModelState.IsValid)
             {
                 Article _article = new Article();

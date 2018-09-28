@@ -109,6 +109,33 @@ namespace SweetMoive.DAL
             return _res;
         }
         #endregion
+        #region 删除数据
+        public virtual Response Delete(int? ID)
+        {
+            Response _res = new Response();
+            var entity = Find(ID);
+            if (entity == null)
+            {
+                _res.Code = 10;
+                _res.Message = "数据不存在";
+            }
+            else
+            {
+                if (Repository.Delete(entity) > 0)
+                {
+                    _res.Code = 1;
+                    _res.Message = "删除数据成功";
+                    _res.Data = entity;
+                }
+                else
+                {
+                    _res.Code = 0;
+                    _res.Message = "删除数据失败";
+                }
+            }
+            return _res;
+        }
+        #endregion
         #region 查找数据
         public T Find(int? ID)
         {
@@ -146,5 +173,11 @@ namespace SweetMoive.DAL
             return Repository.FindList(where);
         }
         #endregion
+        //#region 关键词模糊搜索
+        //public IQueryable<T> Contain(Expression<Func<T,bool>> where)
+        //{
+        //    return Repository.Where(where);
+        //}
+        //#endregion
     }
 }

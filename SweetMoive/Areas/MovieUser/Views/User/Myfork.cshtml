@@ -1,0 +1,30 @@
+﻿@model IEnumerable<SweetMoive.DAL.Models.User>
+@{
+    ViewBag.Title = "MyFork";
+    Layout = null;
+}
+<div style="margin:0 auto;width:1000px;">
+    @foreach (var item in Model)
+    {
+        var imgurl = "/DefaultImg/" + item.ID + ".jpg";
+        <div class="media" style="width:1000px;">
+            <div class="media-left">
+                <a href="@Url.Action("OtherUser","User")/@item.ID">
+                    @if (File.Exists(Path.Combine(Request.MapPath("~/DefaultImg"), item.ID + ".jpg")))
+                    {
+                        <img src="@imgurl" class="media-object" style="width:auto;height:100px;" alt="@item.Username">
+                    }
+                    else
+                    {
+                        <img src="~/DefaultImg/Default.jpg" class="media-object" style="width:auto;height:100px;" alt="@item.Username">
+                    }
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">@item.Username <span>@item.Sex</span></h4>
+                <p>个性签名：@item.MyMotto</p>
+                <p>甜值：@item.SweetScore</p>
+            </div>
+        </div>
+    }
+</div>

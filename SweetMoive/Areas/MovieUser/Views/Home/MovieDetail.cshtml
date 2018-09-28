@@ -78,14 +78,28 @@
                 </a>
             </div>
             <div class="line">
+                <a class="yuyin">
+                    <font style="vertical-align:inherit;">
+                        <font style="vertical-align:inherit">►语音介绍</font>
+                    </font>
+                </a>
+            </div>
+            <div class="line">
+                <a class="cancel">
+                    <font style="vertical-align:inherit;">
+                        <font style="vertical-align:inherit">取消语音</font>
+                    </font>
+                </a>
+            </div>
+            <div class="line">
                 <span>剧情简介：</span>
                 @if (Model.Synopsis.Length > 250)
                 {
-                    <a href="#">@Model.Synopsis.Substring(0, 250)....</a>
+                    <a href="#" id="jianjie">@Model.Synopsis.Substring(0, 250)....</a>
                 }
                 else
                 {
-                    <a href="#">@Model.Synopsis</a>
+                    <a href="#" id="jianjie">@Model.Synopsis</a>
 
                 }
             </div>
@@ -111,7 +125,15 @@
     <div class="title">
         <h1 class="white">用户评论</h1>
         @{ var strscore = Model.Score.ToString();
-           string aa= strscore.Substring(2, 1);
+            string aa;
+            if (strscore.Length > 1) {
+                aa = strscore.Substring(2, 1);
+            }
+            else
+            {
+                aa = strscore + ".0";
+                aa = aa.Substring(2, 1);
+            }
             int sub = Convert.ToInt32(aa);
             int b = Convert.ToInt32(strscore.Substring(0, 1));
             }
@@ -160,11 +182,31 @@
   
 
 <script>
-           
+    function readOutLoud(message) {
+        var speech = new SpeechSynthesisUtterance();
+        // 设置朗读内容和属性
+        speech.text = message;
+        speech.volume = 1;
+        speech.rate = 3;
+        speech.pitch = 1;
+        window.speechSynthesis.speak(speech);
+    }
     $(function () {
         $("#Content").markdown({
             savable:false
         });
+        $(".yuyin").on('click',function(){
+            var moivedetail="电影"+"@Model.MovieName"+$(".info").text();
+                readOutLoud(moivedetail);
+        });
+        $(".cancel").on("click",function(e){
+            var system=window.speechSynthesis;
+           
+            if(system.pending){
+                system.cancel();
+            }
+            console.log(system.pending);
+        })
         bubbly({
             blur: 10,
             colorStart: "#111",

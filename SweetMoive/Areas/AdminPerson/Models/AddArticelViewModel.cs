@@ -9,8 +9,10 @@ namespace SweetMoive.Areas.AdminPerson.Models
     public class AddArticelViewModel
     {
         [Required(ErrorMessage = "必须选择{0}")]
+        [Display(Name ="用户名称")]
         public int UserID { get; set; }
         [Required(ErrorMessage = "必须选择{0}")]
+        [Display(Name = "电影名称")]
         public int MovieID { get; set; }
         [Required(ErrorMessage ="必须选择{0}")]
         [Display(Name = "发布时间")]

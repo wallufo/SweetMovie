@@ -5,4 +5,46 @@
     ViewBag.Title = "MyHistory";
     Layout = null;
 }
+<div style="margin:0 auto;width:1000px;">
+    @foreach (var item in Model)
+    {
+        var imgUrl = "/Images/" + item.MovieID + "-1-1.jpg";
+        <div class="media" style="width:1000px;" id="His-@item.ID">
+            <div class="media-left">
+                <a href="@Url.Action("MovieDetail","Home")/@item.MovieID">
+                    <img src="@imgUrl" class="media-object" alt="@item.Movie.MovieName" style="width:auto;height:100px;" />
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">@item.Movie.MovieName<span class="badge">浏览时间：@item.ViewTime.Value.GetDateTimeFormats('f')[0].ToString()</span></h4>
+                <p>主演：@item.Movie.Actors</p>
+                <p>剧情：@item.Movie.Synopsis</p>
+            </div>
+            <div class="media-right">
+                <a class="btn btn-default btn-sm deleteHis" data-id="@item.ID">删除记录</a>
+            </div>
+        </div>
+    }
+    <p>
+        @Html.PagedListPager(Model, page => Url.Action("MyHistory", "User", new { id = Model.First().UserID, page = page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "Myhistory" }))
+    </p>
+</div>
+<script>
+    $(function () {
+        $(".deleteHis").click(function () {
+            var id = $(this).attr("data-id");
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DeleteHistory")/' + id,
+                success: function (result) {
+                    if (result.success == 1) {
+                        $("#His-" + id).remove();
+                        location.reload();
+                    }
+                }
+            });
+        });
+    });
+</script>
+
 

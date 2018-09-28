@@ -179,9 +179,11 @@
     <Compile Include="Areas\AdminPerson\Models\AddMovieViewModel.cs" />
     <Compile Include="Areas\AdminPerson\Models\AddUserViewModel.cs" />
     <Compile Include="Areas\AdminPerson\Models\LoginViewModel.cs" />
+    <Compile Include="Areas\MovieUser\Controllers\ArticleController.cs" />
     <Compile Include="Areas\MovieUser\Controllers\CommentController.cs" />
     <Compile Include="Areas\MovieUser\Controllers\HomeController.cs" />
     <Compile Include="Areas\MovieUser\Controllers\UserController.cs" />
+    <Compile Include="Areas\MovieUser\Models\AddArticleViewModel.cs" />
     <Compile Include="Areas\MovieUser\Models\EditUserViewModel.cs" />
     <Compile Include="Areas\MovieUser\Models\LoginViewModel.cs" />
     <Compile Include="Areas\MovieUser\Models\RegisterViewModel.cs" />
@@ -218,6 +220,7 @@
     <Content Include="Content\flat-ui.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Images\like.png" />
     <Content Include="Content\immersive-slider.css" />
     <Content Include="Content\indexstyle.css" />
     <Content Include="Content\Login-register-background-css\css\default.css" />
@@ -229,11 +232,14 @@
     <Content Include="Content\sortable.css" />
     <Content Include="Content\star-rating-svg.css" />
     <Content Include="Content\typography.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\icomoon.svg" />
     <Content Include="Content\Login-register-background-css\Images\dust1_zpst8inukke.jpg" />
     <Content Include="Content\Login-register-background-css\Images\dust2_zps9on59cjb.jpg" />
     <Content Include="Content\Login-register-background-css\Images\dust3_zps9hjmkyei.jpg" />
     <Content Include="Content\Login-register-background-css\Images\speck_zpsu9xym9zl.png" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\parallax.js" />
@@ -253,7 +259,6 @@
     <Content Include="DefaultImg\Default.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons\flat-ui-pro-icons-regular.svg" />
     <Content Include="fonts\lato\lato-black.svg" />
     <Content Include="fonts\lato\lato-bold.svg" />
@@ -275,8 +280,6 @@
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap-table-zh-CN.js" />
     <Content Include="Scripts\bootstrap-table.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -351,6 +354,21 @@
     <Content Include="Areas\MovieUser\Views\Comment\CommentList.cshtml" />
     <Content Include="Areas\MovieUser\Views\User\MyFavorite.cshtml" />
     <Content Include="Areas\MovieUser\Views\User\MyHistory.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Areas\MovieUser\Views\User\OtherUser.cshtml" />
+    <Content Include="Areas\MovieUser\Views\User\Myfork.cshtml" />
+    <Content Include="Areas\MovieUser\Views\Article\Index.cshtml" />
+    <Content Include="Areas\MovieUser\Views\Article\ArticleDetail.cshtml" />
+    <Content Include="Areas\MovieUser\Views\User\MyArticle.cshtml" />
+    <Content Include="Areas\MovieUser\Views\Article\ArticleSubmit.cshtml" />
+    <Content Include="Areas\MovieUser\Views\Home\MovieHistory.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
@@ -450,13 +468,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ArticleImg\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />

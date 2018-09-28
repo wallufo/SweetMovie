@@ -1,0 +1,161 @@
+﻿@model SweetMoive.Areas.MovieUser.Models.AddArticleViewModel
+
+@{
+    ViewBag.Title = "ArticleSubmit";
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Styles.Render("~/Content/searchableSelect")
+    @Styles.Render("~/Content/fileinput")
+    @Styles.Render("~/Content/Layout")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/Layout")
+</head>
+<body>
+    <!-- Start Navigation -->
+    <nav class="navbar navbar-inverse navbar-default bootsnav">
+        <div class="container">
+            <!-- Start Atribute Navigation -->
+            <div class="attr-nav">
+                <ul>
+                    <li>
+                        @if (Session["UserID"] == null)
+                        {
+                            <a href='@Url.Action("Login","Home")' style="padding: 20px;">
+                                <img src="~/DefaultImg/NoLogin.jpg" alt="Alternate Text" style="width:45px;height:45px;border-radius:50%;" />
+                            </a>
+                        }
+                        else
+                        {
+                            var imgurl = Path.Combine(Request.MapPath("~/UserImg"), Session["UserID"].ToString() + ".jpg");
+                            var userimg = "/UserImg/" + Session["UserID"] + ".jpg";
+                            if (System.IO.File.Exists(imgurl))
+                            {
+                                <a href='@Url.Action("Index", "User")' style="padding: 20px;">
+                                    <img src="@imgurl" alt="Alternate Text" style="width:45px;height:45px;border-radius:50%;" />
+                                </a>
+                            }
+                            else
+                            {
+                                <a href='@Url.Action("Index", "User")' style="padding: 20px;">
+                                    <img src="~/DefaultImg/Default.jpg" alt="Alternate Text" style="width:45px;height:45px;border-radius:50%;" />
+                                </a>
+                            }
+                        }
+                    </li>
+                </ul>
+            </div>
+            <!-- End Atribute Navigation -->
+            <!-- Start Header Navigation -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            <!-- End Header Navigation -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="nav navbar-nav navbar-center">
+                    <li><a href='@Url.Action("Index","Home")'>首页</a></li>
+                    <li><a href='@Url.Action("MovieList","Home")'>电影列表</a></li>
+                    <li><a href='@Url.Action("Index","Article")'>电影观后感</a></li>
+                    <li><a href='@Url.Action("Index","Home")'>电影历史</a></li>
+                    <li><a href='@Url.Action("Index","Home")'>电影排行</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+    <!-- End Navigation -->
+    <div class="clearfix"></div>
+    <div style="margin:50px 0;">
+        @using (Html.BeginForm("ArticleSubmit", "Article", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <input  type="hidden" value="@Session["UserID"]" id="UserID" name="UserID"/>
+            <div class="form-horizontal">
+                <div class="row">
+                    <div class="col-lg-7 col-md-offset-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MovieID, new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-7">
+                                @Html.DropDownListFor(model => model.MovieID, (IEnumerable<SelectListItem>)ViewBag.Movies, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.MovieID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Releasetime, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Releasetime, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Releasetime, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入标题" } })
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="banner" class="control-label col-md-2">文章图片</label>
+                            <div class="col-md-10">
+                                <input type="file" name="banner" id="banner" value="" class="form-control" data-value="true" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入内容", rows = "5" } })
+                                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-8 col-sm-4">
+                                <input type="submit" class="btn btn-large btn-block btn-primary" value="发布" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>
+    @Scripts.Render("~/bundles/fileinput")
+    @Scripts.Render("~/bundles/searchableSelect")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ckeditor")
+    <script>
+        $(document).on('ready', function () {
+            ClassicEditor
+           .create(document.querySelector('#Content'))
+           .catch(error => {
+               console.error(error);
+           });
+            $('#MovieID').searchableSelect();
+            $("#banner").fileinput({
+                theme: 'explorer-fa',
+                maxFileCount: 1,
+                showUpload: false,
+                browseClass: "btn btn-success btn-sm btn-file",
+                browseLabel: "选择图片",
+                browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                removeClass: "btn btn-danger btn-sm",
+                removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                removeLabel: "删除",
+                fileType: "image",
+                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+            });
+        })
+
+    </script>
+
+
+
+

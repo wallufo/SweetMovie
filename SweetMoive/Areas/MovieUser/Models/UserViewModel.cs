@@ -12,8 +12,10 @@ namespace SweetMoive.Areas.MovieUser.Models
         [Required(AllowEmptyStrings =false)]
         [Display(Name ="用户名")]
         public string UserName { get; set; }
-        [Required(AllowEmptyStrings =false)]
-        [Display(Name ="呢称")]
+        [Display(Name="甜值")]
+        public int SweetScore { get; set; }
+        [Required(AllowEmptyStrings = false)]
+        [Display(Name = "呢称")]
         public string Name { get; set; }
         [Display(Name ="性别")]
         public string Sex { get; set; }

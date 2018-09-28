@@ -1,0 +1,116 @@
+﻿@model IEnumerable<SweetMoive.DAL.Models.Article>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电影文章</title>
+    @Styles.Render("~/Content/Layout")
+    @Styles.Render("~/Content/slider")
+    @Styles.Render("~/Content/articleList")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/Layout")
+</head>
+<body>
+    <!-- Start Navigation -->
+    <nav class="navbar navbar-inverse navbar-default bootsnav">
+        <div class="container">
+            <!-- Start Atribute Navigation -->
+            <div class="attr-nav">
+                <ul>
+                    <li>
+                        @if (Session["UserID"] == null)
+                        {
+                            <a href='@Url.Action("Login","Home")' style="padding: 20px;">
+                                <img src="~/DefaultImg/NoLogin.jpg" alt="Alternate Text" style="width:45px;height:45px;border-radius:50%;" />
+                            </a>
+                        }
+                        else
+                        {
+                            var imgurl = Path.Combine(Request.MapPath("~/UserImg"), Session["UserID"].ToString() + ".jpg");
+                            var userimg = "/UserImg/" + Session["UserID"] + ".jpg";
+                            if (System.IO.File.Exists(imgurl))
+                            {
+                                <a href='@Url.Action("Index", "User")' style="padding: 20px;">
+                                    <img src="@imgurl" alt="Alternate Text" style="width:45px;height:45px;border-radius:50%;" />
+                                </a>
+                            }
+                            else
+                            {
+                                <a href='@Url.Action("Index", "User")' style="padding: 20px;">
+                                    <img src="~/DefaultImg/Default.jpg" alt="Alternate Text" style="width:45px;height:45px;border-radius:50%;" />
+                                </a>
+                            }
+                        }
+                    </li>
+                </ul>
+            </div>
+            <!-- End Atribute Navigation -->
+            <!-- Start Header Navigation -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            <!-- End Header Navigation -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="nav navbar-nav navbar-center">
+                    <li><a href='@Url.Action("Index","Home")'>首页</a></li>
+                    <li><a href='@Url.Action("MovieList","Home")'>电影列表</a></li>
+                    <li><a href='@Url.Action("Index","Article")'>电影观后感</a></li>
+                    <li><a href='@Url.Action("Index","Home")'>电影历史</a></li>
+                    <li><a href='@Url.Action("Index","Home")'>电影排行</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+    <!-- End Navigation -->
+    <div class="clearfix"></div>
+    <div class="slideshow demo-2">
+        <div class="slides">
+           @foreach (var item in Model)
+           {
+                var imgUrl = "/ArticleImg/" + item.ID + ".jpg";
+                <div class="slide slide--current">
+                    <div class="slide__img" style="background-image: url(@imgUrl);"></div>
+                    <h2 class="slide__title">@item.Title</h2>
+                    <p class="slide__desc">来自于：@item.User.Username 的文章</p>
+                    <a class="slide__link" href="#">阅读文章</a>
+                </div>
+           }
+        </div>
+        <nav class="slidenav">
+            <button class="slidenav__item slidenav__item--prev">上一个</button>
+            <span>/</span>
+            <button class="slidenav__item slidenav__item--next">下一个</button>
+        </nav>
+    </div>
+    <div id="theGrid" class="main">
+        <section class="grid">
+            @foreach (var item in Model)
+            {
+                if (item.Auditstatus.ToString() == "审核通过")
+                {
+                    <a class="grid__item" href='@Url.Action("ArticleDetail","Article")/@item.ID'>
+                        <h2 class="title title--preview">@item.Title</h2>
+                        <span class="category">@item.Movie.MovieName</span>
+                        <div class="meta meta--preview">
+                            <img class="meta__avatar" src="@item.User.DefaultImgUrl" alt="@item.User.Username" />
+                            <span class="meta__date"><i class="fa fa-calendar-o"></i>@item.Releasetime.ToShortDateString()</span>
+                        </div>
+                    </a>
+                }
+            }
+        </section>
+</div>
+@Scripts.Render("~/bundles/slider")
+</body>
+</html>

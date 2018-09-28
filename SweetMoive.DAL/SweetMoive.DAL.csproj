@@ -67,6 +67,7 @@
     <Compile Include="ModelManage\ArticleManage.cs" />
     <Compile Include="ModelManage\CommentManage.cs" />
     <Compile Include="ModelManage\FavoriteManage.cs" />
+    <Compile Include="ModelManage\FollowerManage.cs" />
     <Compile Include="ModelManage\HistoryManage.cs" />
     <Compile Include="ModelManage\LikeManage.cs" />
     <Compile Include="ModelManage\UserManage.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Paging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Response.cs" />
+    <Compile Include="Search.cs" />
     <Compile Include="SweetMovieContext.cs" />
   </ItemGroup>
   <ItemGroup>

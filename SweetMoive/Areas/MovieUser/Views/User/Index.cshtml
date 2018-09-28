@@ -16,6 +16,28 @@
     @Scripts.Render("~/bundles/userinfo")
     @Scripts.Render("~/bundles/boot-dialog")
     @Scripts.Render("~/bundles/star")
+    <style>
+        .Home{
+            position:absolute;
+            top:15px;
+            left:15px;
+            font-size:2em;
+            color:white;
+        }
+        .Home a{
+            color:white;
+        }
+        .Role{
+            position:absolute;
+            top:15px;
+            right:15px;
+            font-size:1em;
+            color:white;
+        }
+        .Role a{
+            color:white;
+        }
+    </style>
 </head>
 <body>
     <div class="wrap">
@@ -56,6 +78,9 @@
                         <h6>@Model.Mymottoy</h6>
                     }
                 </div>
+                <div class="user-score">
+                    甜值：@Model.SweetScore
+                </div>
                 <div class="user-button">
                     <button type="button" data-method="Edit" data-value="@Model.ID">编辑资料</button>
                 </div>
@@ -88,9 +113,22 @@
                 @Html.Action("MyHistory",new { id=Model.ID})
             </div>
             <div role="tabpanel" class="tab-pane" id="MyArticle">
+                <div style="margin:0 auto;width:1000px;text-align:right">
+                    <a href='@Url.Action("ArticleSubmit","Article")' class="btn btn-default" data-method="articleSub" data-value="">发布文章</a>
+                </div>
                 @Html.Action("MyArticle",new { id=Model.ID})
             </div>
         </div>
+        <div class="Home">
+            <a href='@Url.Action("Index","Home")'><i class="glyphicon glyphicon-home"></i></a>
+        </div>
+        @if (Model.Role == "普通用户")
+        {
+            <div class="Role">
+                <a><i class="glyphicon glyphicon-user"></i>申请评论专家</a>
+            </div>
+        }
+        
     </div>
     <script>
 		$('nav').coreNavigation({
@@ -106,6 +144,21 @@
 		});
 	
 		$(function () {
+		    $(".Role").on("click", function () {
+		        $.ajax({
+		            type: "POST",
+		            dataType: "json",
+		            url: '@Url.Action("Role","User")/@Model.ID',
+		            success: function (result) {
+		                if (result.success == 1) {
+		                    alert("恭喜您成为了评论专家，可以去自由的发表文章了！");
+		                    location.reload();
+		                } else {
+		                    alert("对不起，需要甜值大于等于60才可申请，您可以多多发表优秀的影评！");
+		                }
+		            }
+		        });
+		    });
 		    $("#myTabs li a").click(function (e) {
 		        e.preventDefault();
 		        $(this).tab('show');
@@ -157,7 +210,6 @@
 		        });
 		        modifyDialog.open();
 		    });
-		   
 		});
     </script>
 </body>
